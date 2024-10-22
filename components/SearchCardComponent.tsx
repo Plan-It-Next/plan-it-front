@@ -1,0 +1,126 @@
+import React from 'react';
+import { Card, CardBody, Button, Autocomplete, AutocompleteItem, Select, SelectItem } from "@nextui-org/react";
+import { Icon } from '@iconify/react';
+import { DatePicker } from "@nextui-org/react";
+import PassengerSelector from "@/components/TravelersSelectorComponent";
+import { Selection } from "@nextui-org/react";
+
+const airports = [
+    { code: 'LHR', name: 'London Heathrow Airport', city: 'London' },
+    { code: 'CDG', name: 'Charles de Gaulle Airport', city: 'Paris' },
+    { code: 'AMS', name: 'Amsterdam Airport Schiphol', city: 'Amsterdam' },
+    { code: 'FRA', name: 'Frankfurt Airport', city: 'Frankfurt' },
+    { code: 'MAD', name: 'Adolfo Suárez Madrid–Barajas Airport', city: 'Madrid' },
+    { code: 'FCO', name: 'Leonardo da Vinci International Airport', city: 'Rome' },
+    { code: 'MUC', name: 'Munich Airport', city: 'Munich' },
+    { code: 'BCN', name: 'Barcelona–El Prat Airport', city: 'Barcelona' },
+    { code: 'ZRH', name: 'Zurich Airport', city: 'Zurich' },
+    { code: 'CPH', name: 'Copenhagen Airport', city: 'Copenhagen' },
+];
+
+const transportModes = [
+    { value: 'plane', label: 'Plane' },
+    { value: 'train', label: 'Train' },
+    { value: 'bus', label: 'Bus' },
+    { value: 'ferry', label: 'Ferry' },
+];
+
+const SearchCard: React.FC = () => {
+    const [selectedModes, setSelectedModes] = React.useState<Selection>(new Set(["plane", "train"]));
+
+    // Ensure at least one mode is selected
+    const handleSelectionChange = (newSelection: Selection) => {
+        if (newSelection === "all") return;
+
+        // Convert to Set if it isn't already
+        const selectionSet = newSelection;
+
+        // Only update if at least one item is selected
+        if (selectionSet.size > 0) {
+            setSelectedModes(selectionSet);
+        }
+    };
+
+    return (
+        <Card
+            isBlurred
+            shadow="sm"
+            radius="lg"
+            className="w-full max-w-4xl mx-auto rounded-xl"
+        >
+            <CardBody>
+                <div className="flex flex-wrap gap-4 mb-4 w-full">
+                    <Button color="primary">
+                        <Icon icon="mdi:airplane" className="mr-1" />
+                        Book a Trip
+                    </Button>
+                    <Button color="default" variant="light">
+                        <Icon icon="material-symbols:map" className="mr-1" />
+                        Plan a trip!
+                    </Button>
+                    <Button color="default" variant="light">
+                        <Icon icon="solar:lightbulb-bold" className="mr-1" />
+                        Get inspired!
+                    </Button>
+                </div>
+                <div className="grid grid-cols-3 gap-6">
+                    <div className="grid grid-cols-2 gap-4 col-span-2">
+                        <Autocomplete
+                            label="Origin"
+                            placeholder="Origin airport"
+                            className="h-full mt-2"
+                        >
+                            {airports.map((airport) => (
+                                <AutocompleteItem key={`${airport.city} - ${airport.name}`} value={airport.code}>
+                                    {`${airport.city} - ${airport.name}`}
+                                </AutocompleteItem>
+                            ))}
+                        </Autocomplete>
+                        <Autocomplete
+                            label="Destiny"
+                            placeholder="Destiny airport"
+                            className="h-full mt-2"
+                        >
+                            {airports.map((airport) => (
+                                <AutocompleteItem key={`${airport.city} - ${airport.name}`} value={airport.code}>
+                                    {`${airport.city} - ${airport.name}`}
+                                </AutocompleteItem>
+                            ))}
+                        </Autocomplete>
+                        <DatePicker
+                            label="Departure"
+                            isRequired
+                            className="mt-2"
+                        />
+                        <DatePicker
+                            label="Return"
+                            isRequired
+                            className="mt-2"
+                        />
+                    </div>
+                    <Card>
+                        <CardBody className="flex flex-col gap-4">
+                            <PassengerSelector/>
+                            <Select
+                                label="Transport Modes"
+                                placeholder="Select transport modes"
+                                selectionMode="multiple"
+                                selectedKeys={selectedModes}
+                                onSelectionChange={handleSelectionChange}
+                                className="w-full"
+                            >
+                                {transportModes.map((mode) => (
+                                    <SelectItem key={mode.value} value={mode.value}>
+                                        {mode.label}
+                                    </SelectItem>
+                                ))}
+                            </Select>
+                        </CardBody>
+                    </Card>
+                </div>
+            </CardBody>
+        </Card>
+    );
+};
+
+export default SearchCard;
