@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { NextUIProvider } from '@nextui-org/react';
 import { Card, CardBody } from "@nextui-org/react";
 import { Icon } from '@iconify/react';

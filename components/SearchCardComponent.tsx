@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react';
 import { DatePicker } from "@nextui-org/react";
 import PassengerSelector from "@/components/TravelersSelectorComponent";
 import { Selection } from "@nextui-org/react";
+import {CardFooter} from "@nextui-org/card";
 
 const airports = [
     { code: 'LHR', name: 'London Heathrow Airport', city: 'London' },
@@ -50,7 +51,7 @@ const SearchCard: React.FC = () => {
         >
             <CardBody>
                 <div className="flex flex-wrap gap-4 mb-4 w-full">
-                    <Button color="primary">
+                    <Button color="secondary">
                         <Icon icon="mdi:airplane" className="mr-1" />
                         Book a Trip
                     </Button>
@@ -119,6 +120,15 @@ const SearchCard: React.FC = () => {
                     </Card>
                 </div>
             </CardBody>
+            <CardFooter className="flex justify-between items-center">
+                <Button color="primary" size="lg">
+                    <Icon icon="mdi:magnify" className="mr-1" />
+                    Search
+                </Button>
+                <p className="text-gray-500 text-xs max-w-md text-right">
+                    Thousands of travel partners across trains, buses, flights and ferries, for you to focus on your journey
+                </p>
+            </CardFooter>
         </Card>
     );
 };
