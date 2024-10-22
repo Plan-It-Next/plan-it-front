@@ -1,10 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
-import {Button, NextUIProvider} from '@nextui-org/react';
+import { NextUIProvider } from '@nextui-org/react';
 import { Card, CardBody } from "@nextui-org/react";
 import { Icon } from '@iconify/react';
 import Header from '../components/layout/HeaderComponent'
 import SearchCard from '../components/SearchCardComponent';
+import HomeBackgroundCarousel from "@/components/layout/HomeBackgroundCarrousel";
 
 export default function Home() {
   return (
@@ -13,13 +14,7 @@ export default function Home() {
           <Header />
           <main className="relative">
             <div className="relative h-screen">
-              <Image
-                  src="/images/home-travel-image.jpg"
-                  alt="Tropical resort"
-                  layout="fill"
-                  objectFit="cover"
-                  quality={100}
-              />
+              <HomeBackgroundCarousel />
               <div className="absolute inset-0 bg-black bg-opacity-40"></div>
               <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
                 <h1 className="text-5xl font-bold mb-4">Plan Your Dream Vacation</h1>
