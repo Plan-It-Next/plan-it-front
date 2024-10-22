@@ -13,7 +13,7 @@ const HomeBackgroundCarousel = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % images.length);
-        }, 6000); // Change slide every 6 seconds
+        }, 8000); // Show each image for 8 seconds total (including transition time)
 
         return () => clearInterval(timer);
     }, []);
@@ -23,9 +23,12 @@ const HomeBackgroundCarousel = () => {
             {images.map((img, index) => (
                 <div
                     key={img}
-                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                    className={`absolute inset-0 transition-opacity duration-2000 ease-in-out ${
                         index === currentIndex ? 'opacity-100' : 'opacity-0'
                     }`}
+                    style={{
+                        transitionDuration: '2000ms' // 2 second fade transition
+                    }}
                 >
                     <Image
                         src={img}
