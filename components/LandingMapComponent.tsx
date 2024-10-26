@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import mapboxgl, { LngLatLike } from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 interface City {
