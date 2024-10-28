@@ -2,9 +2,15 @@ import React from 'react';
 import { NextUIProvider } from '@nextui-org/react';
 import { Card, CardBody } from "@nextui-org/react";
 import { Icon } from '@iconify/react';
-import Header from '../components/layout/HeaderComponent'
-import SearchCard from '../components/SearchCardComponent';
-import HomeBackgroundCarousel from "@/components/layout/HomeBackgroundCarrousel";
+import Header from '@/components/commons/HeaderComponent'
+import SearchCard from '@/components/SearchCardComponent';
+import HomeBackgroundCarousel from "@/components/commons/HomeBackgroundCarrousel";
+import dynamic from 'next/dynamic';
+
+// Dynamically import the Map component with no SSR
+const LandingMapComponent = dynamic(() => import('../components/LandingMapComponent'), {
+  ssr: false
+});
 
 export default function Home() {
   return (
@@ -24,6 +30,15 @@ export default function Home() {
               </div>
             </div>
           </main>
+
+          {/* New Map Section */}
+          <section className="py-16 bg-white">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl font-bold mb-8 text-center">Explore Destinations</h2>
+              <LandingMapComponent />
+            </div>
+          </section>
+
           <section className="py-16 bg-white">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl font-bold mb-8 text-center">Enhance Your Travel Experience</h2>
