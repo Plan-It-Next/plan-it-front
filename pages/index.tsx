@@ -3,8 +3,8 @@ import { NextUIProvider } from '@nextui-org/react';
 import { Card, CardBody } from "@nextui-org/react";
 import { Icon } from '@iconify/react';
 import Header from '@/components/commons/HeaderComponent'
-import SearchCard from '../components/SearchCardComponent';
-import HomeBackgroundCarousel from "@/components/layout/HomeBackgroundCarrousel";
+import SearchCard from '@/components/SearchCardComponent';
+import HomeBackgroundCarousel from "@/components/commons/HomeBackgroundCarrousel";
 import dynamic from 'next/dynamic';
 
 // Dynamically import the Map component with no SSR
