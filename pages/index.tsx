@@ -42,7 +42,7 @@ export default function Home() {
           </section>
 
           <section className="bg-white">
-            <div className="container mx-auto">
+            <div className="container mx-auto px-4">
               <LandingDestinationInfoCarrousel />
             </div>
           </section>
