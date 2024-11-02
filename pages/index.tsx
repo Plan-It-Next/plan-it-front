@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import LandingDestinationInfoCarrousel from "@/components/landingComponents/LandingDestinationInfoCarrousel";
 
 // Dynamically import the Map component with no SSR
-const LandingMapComponent = dynamic(() => import('../components/LandingMapComponent'), {
+const LandingMapComponent = dynamic(() => import('../components/landingComponents/LandingMapComponent'), {
   ssr: false
 });
 
@@ -42,7 +42,7 @@ export default function Home() {
           </section>
 
           <section className="bg-white">
-            <div className="container mx-auto">
+            <div className="container mx-auto px-4">
               <LandingDestinationInfoCarrousel />
             </div>
           </section>
