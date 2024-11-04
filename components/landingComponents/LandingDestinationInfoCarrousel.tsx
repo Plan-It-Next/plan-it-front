@@ -29,7 +29,7 @@ const destinations = [
             },
             {
                 icon: "🌊",
-                title: "Relax at Pata cona and Malvarrosa Beach",
+                title: "Relax at Patacona and Malvarrosa Beach",
                 description: "Soak up the sun or enjoy a beachside café with stunning sea views."
             }
         ],
