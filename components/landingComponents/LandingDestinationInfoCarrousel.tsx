@@ -59,7 +59,7 @@ const destinations = [
         },
         title: "Dubai",
         location: "UAE",
-        description: "Tokyo, Japan’s vibrant capital, is a city where futuristic innovation meets deep-rooted tradition. Wander through neon-lit streets, explore ancient temples, and immerse yourself in cutting-edge technology in a single day. Discover serene gardens and historic shrines alongside towering skyscrapers and bustling districts filled with fashion, food, and entertainment. Whether you’re drawn by Tokyo’s culinary delights, cherry blossoms, or lively neighborhoods, the city offers an unforgettable blend of old and new.",
+        description: "Dubai, a dazzling oasis on the Arabian Peninsula, is renowned for its blend of ultramodern innovation and rich cultural heritage. Known for its record-breaking skyscrapers, luxury shopping, and dynamic nightlife, Dubai offers something for everyone. Stroll through traditional souks, marvel at the futuristic skyline dominated by the iconic Burj Khalifa, or experience the thrill of the desert with exciting dune adventures. Whether you're interested in world-class dining, pristine beaches, or immersive cultural experiences, Dubai provides an unforgettable escape into luxury and adventure.",
         highlights: [
             {
                 icon: "🏙",
