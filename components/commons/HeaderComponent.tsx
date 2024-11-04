@@ -6,7 +6,7 @@ import {
     NavbarItem,
     Link,
 } from "@nextui-org/react";
-import HeaderSigninComponent from "@/components/layout/HeaderSigninComponent";
+import HeaderSigninComponent from "./HeaderSigninComponent";
 
 const Header: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -77,7 +77,7 @@ const Header: React.FC = () => {
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem>
-                    <HeaderSigninComponent />
+                    <HeaderSigninComponent isScrolled={isScrolled} />
                 </NavbarItem>
             </NavbarContent>
         </Navbar>

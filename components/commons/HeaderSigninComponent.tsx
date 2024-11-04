@@ -14,14 +14,30 @@ import {
 } from "@nextui-org/react";
 import { EyeFilledIcon } from "@nextui-org/shared-icons";
 import { EyeSlashFilledIcon } from "@nextui-org/shared-icons";
-import HeaderAvatarComponent from "@/components/layout/HeaderAvatarComponent";
+import HeaderAvatarComponent from "./HeaderAvatarComponent";
 
-const HeaderSigninComponent = () => {
+interface User {
+    name: string;
+    email: string;
+    avatar: string;
+}
+
+interface ErrorState {
+    email: string;
+    password: string;
+    general: string;
+}
+
+interface HeaderSigninComponentProps {
+    isScrolled?: boolean;
+}
+
+const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolled = false }) => {
     // User signed in state
     const [isSignedIn, setIsSignedIn] = useState(false);
 
     // User setter
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<User | null>(null);
 
     // Email setter
     const [email, setEmail] = useState("");
@@ -30,7 +46,7 @@ const HeaderSigninComponent = () => {
     const [password, setPassword] = useState("");
 
     // Inputs error setter
-    const [errors, setErrors] = useState({
+    const [errors, setErrors] = useState<ErrorState>({
         email: "",
         password: "",
         general: ""
@@ -84,14 +100,14 @@ const HeaderSigninComponent = () => {
             if (email === "test@example.com" && password === "password123") {
                 setIsSignedIn(true);
                 setUser({
-                    name: "Test Name",
+                    name: "Sofia PS",
                     email: email,
-                    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                    avatar: "https://static.wikia.nocookie.net/546b011b-c00e-45aa-8281-8b9c01d2f9d9/scale-to-width/755"
                 });
             } else {
-                setErrors(prev => ({ ...prev, general: "login failed" }));
+                setErrors(prev => ({ ...prev, general: "Incorrect email or password, please try again." }));
             }
-        } catch (error) {
+        } catch {
             setErrors(prev => ({ ...prev, general: "login failed" }));
         } finally {
             setIsLoading(false);
@@ -114,9 +130,9 @@ const HeaderSigninComponent = () => {
         <Popover placement="bottom-end">
             <PopoverTrigger>
                 <Button
-                    color="primary"
                     variant="flat"
-                    className="font-bold"
+                    color="primary"
+                    className={`font-bold ${isScrolled ? 'text-black' : 'text-sky-200'}`}
                 >
                     Sign In
                 </Button>
@@ -183,7 +199,7 @@ const HeaderSigninComponent = () => {
                     <Divider/>
                     <CardFooter className="justify-center">
                         <p className="text-small text-default-500">
-                            Don't have an account?{" "}
+                            Don&apos;t have an account?{" "}
                             <Link href="/signup" color="primary">
                                 Sign Up
                             </Link>
