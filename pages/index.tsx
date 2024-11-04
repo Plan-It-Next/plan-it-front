@@ -6,18 +6,20 @@ import Header from '@/components/commons/HeaderComponent'
 import SearchCard from '@/components/SearchCardComponent';
 import HomeBackgroundCarousel from "@/components/commons/HomeBackgroundCarrousel";
 import dynamic from 'next/dynamic';
+import LandingDestinationInfoCarrousel from "@/components/landingComponents/LandingDestinationInfoCarrousel";
 
 // Dynamically import the Map component with no SSR
-const LandingMapComponent = dynamic(() => import('../components/LandingMapComponent'), {
+const LandingMapComponent = dynamic(() => import('../components/landingComponents/LandingMapComponent'), {
   ssr: false
 });
+
 
 export default function Home() {
   return (
       <NextUIProvider>
         <div className="min-h-screen bg-gray-100">
           <Header />
-          <main className="relative">
+          <section className="relative">
             <div className="relative h-screen">
               <HomeBackgroundCarousel />
               <div className="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -29,13 +31,19 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </main>
+          </section>
 
           {/* New Map Section */}
-          <section className="py-16 bg-white">
+          <section className="py-8 bg-white">
             <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold mb-8 text-center">Explore Destinations</h2>
+              <h2 className="text-3xl font-bold text-center">Explore Destinations</h2>
               <LandingMapComponent />
+            </div>
+          </section>
+
+          <section className="bg-white">
+            <div className="container mx-auto px-4">
+              <LandingDestinationInfoCarrousel />
             </div>
           </section>
 

@@ -19,11 +19,9 @@ const LandingMapComponent = () => {
         // Cities to fly to with proper typing
         const cities: City[] = [
             { name: "Valencia", center: [-0.3763, 39.4699], zoom: 11 },
-            { name: "Paris", center: [2.3522, 48.8566], zoom: 9 },
             { name: "Dubai", center: [55.2708, 25.2048], zoom: 9 },
             { name: "Tokyo", center: [139.6503, 35.6762], zoom: 8 },
             { name: "Los Angeles", center: [-118.2436, 34.0522], zoom: 8},
-            { name: "Chicago", center: [-87.6231, 41.8818], zoom: 9 },
         ];
 
         // Initialize map
@@ -50,13 +48,13 @@ const LandingMapComponent = () => {
                 mapInstance.flyTo({
                     center: nextCity.center,
                     zoom: nextCity.zoom,
-                    duration: 14000,
+                    duration: 20000,
                     essential: true
                 });
 
                 currentIndex = (currentIndex + 1) % cities.length;
 
-                animationRef.current = setTimeout(flyToNextCity, 18000);
+                animationRef.current = setTimeout(flyToNextCity, 25000);
             };
 
             // Interaction management functions
