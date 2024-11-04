@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
-import { Icon } from '@iconify/react';
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    Link,
+} from "@nextui-org/react";
+import HeaderSigninComponent from "@/components/layout/HeaderSigninComponent";
 
 const Header: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -19,13 +25,15 @@ const Header: React.FC = () => {
     }, []);
 
     return (
-        <Navbar isBordered={false} className="bg-transparent w-full fixed top-0 left-0 right-0 z-50">
+        <Navbar
+            isBordered={false}
+            className="bg-transparent w-full fixed top-0 left-0 right-0 z-50"
+        >
             <NavbarBrand>
                 <Link
                     href="/"
                     className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
                 >
-                    <Icon icon="mdi:airplane" className="mr-2" />
                     PlanIt
                 </Link>
             </NavbarBrand>
@@ -34,9 +42,8 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/discover"
-                        className={`font - bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
+                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
                     >
-                        <Icon icon="mdi:compass" className="mr-1" />
                         Discover
                     </Link>
                 </NavbarItem>
@@ -44,9 +51,8 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/book"
-                        className={`font - bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
+                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
                     >
-                        <Icon icon="mdi:book-open" className="mr-1" />
                         Book
                     </Link>
                 </NavbarItem>
@@ -54,9 +60,8 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/travel"
-                        className={`font - bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
+                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
                     >
-                        <Icon icon="mdi:airplane-takeoff" className="mr-1" />
                         Travel
                     </Link>
                 </NavbarItem>
@@ -64,23 +69,15 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/privilege-club"
-                        className={`font - bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
+                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
                     >
-                        <Icon icon="mdi:star" className="mr-1" />
                         Privilege Club
                     </Link>
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem>
-                    <Button
-                        color="primary"
-                        href="#" variant="flat"
-                        className={`font - bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
-                    >
-                        <Icon icon="mdi:login" className="mr-1" />
-                        Sign In
-                    </Button>
+                    <HeaderSigninComponent />
                 </NavbarItem>
             </NavbarContent>
         </Navbar>
