@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import DestinationInfoCardComponent from '../commons/DestinationInfoCardComponent';
 
+// Import or define the destinations data
 const destinations = [
     {
         mainImage: {
@@ -207,31 +208,23 @@ const destinations = [
             {
                 url: "https://static1.squarespace.com/static/5eb1e180d1aaaa079bb58596/t/604aa10800aa8e4b534fc34e/1615503626770/STUDIOpractice-the-getty-center-1.jpg",
                 alt: "Getty Center"
-            },
+            }
         ]
     }
 ];
 
-const DestinationCarousel = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+interface Props {
+    currentIndex: number;
+    setCurrentIndex: (index: number) => void;
+}
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentIndex((prevIndex) =>
-                prevIndex === destinations.length - 1 ? 0 : prevIndex + 1
-            );
-        }, 20000);
-
-        return () => clearInterval(timer);
-    }, []);
-
+const DestinationCarousel: React.FC<Props> = ({ currentIndex, setCurrentIndex }) => {
     return (
         <div className="flex flex-col items-center">
             <div className="w-full transition-opacity duration-500">
                 <DestinationInfoCardComponent {...destinations[currentIndex]} />
             </div>
 
-            {/* Dots indicator with more spacing */}
             <div className="flex gap-4 mt-4">
                 {destinations.map((_, index) => (
                     <button

@@ -6,18 +6,17 @@ import Header from '@/components/commons/HeaderComponent'
 import SearchCard from '@/components/SearchCardComponent';
 import HomeBackgroundCarousel from "@/components/commons/HomeBackgroundCarrousel";
 import dynamic from 'next/dynamic';
-import LandingDestinationInfoCarrousel from "@/components/landingComponents/LandingDestinationInfoCarrousel";
+import SynchronizedDestinationsComponent from "@/components/landingComponents/SynchronizedDestinationsComponent";
 
 // Dynamically import the Map component with no SSR
-const LandingMapComponent = dynamic(() => import('../components/landingComponents/LandingMapComponent'), {
+dynamic(() => import('../components/landingComponents/LandingMapComponent'), {
   ssr: false
 });
-
 
 export default function Home() {
   return (
       <NextUIProvider>
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen">
           <Header />
           <section className="relative">
             <div className="relative h-screen">
@@ -33,19 +32,10 @@ export default function Home() {
             </div>
           </section>
 
-          {/* New Map Section */}
-          <section className="py-8 bg-white">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-center">Explore Destinations</h2>
-              <LandingMapComponent />
-            </div>
-          </section>
-
-          <section className="bg-white">
-            <div className="container mx-auto px-4">
-              <LandingDestinationInfoCarrousel />
-            </div>
-          </section>
+          <div className="container w-full py-8 px-4 bg-white mx-auto">
+            <h2 className="text-3xl font-bold text-center my-8">Explore Destinations</h2>
+            <SynchronizedDestinationsComponent/>
+          </div>
 
           <section className="py-16 bg-white">
             <div className="container mx-auto px-4">
