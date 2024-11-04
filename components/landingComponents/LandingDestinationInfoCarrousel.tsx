@@ -83,24 +83,24 @@ const destinations = [
         ],
         galleryImages: [
             {
-                url: "https://cloudfront-eu-central-1.images.arcpublishing.com/thenational/ELYFWMTVPFBGZI425A3JOSJY2E.jpg",
-                alt: "Dubai Restaurant"
+                url: "https://www.travelandleisure.com/thmb/k53-FUyx7Uyg1CzpuTuMSZXvY64=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/TAL-dubai-DUBAITG1123-17390625954c4be3902a440d8fffde67.jpg",
+                alt: "Dubai generic"
             },
             {
                 url: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/50/57/2d/caption.jpg?w=1200&h=700&s=1&cx=1728&cy=1152&chk=v1_c3b95e04b02f1c246e25",
                 alt: "Desert safari"
             },
             {
+                url: "https://www.civitatis.com/blog/wp-content/uploads/2022/12/panoramica-burj-al-arab-dubai.jpg",
+                alt: "Dubai Burj Al Arab"
+            },
+            {
                 url: "https://www.traveltrendstoday.in/wp-content/uploads/2022/10/b3328d966ed7b695cd313f2a847f2407.jpg",
                 alt: "Dubai Parks"
             },
             {
-                url: "https://www.travelandleisure.com/thmb/k53-FUyx7Uyg1CzpuTuMSZXvY64=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/TAL-dubai-DUBAITG1123-17390625954c4be3902a440d8fffde67.jpg",
-                alt: "Dubai generic"
-            },
-            {
-                url: "https://www.civitatis.com/blog/wp-content/uploads/2022/12/panoramica-burj-al-arab-dubai.jpg",
-                alt: "Dubai Burj Al Arab"
+                url: "https://cloudfront-eu-central-1.images.arcpublishing.com/thenational/ELYFWMTVPFBGZI425A3JOSJY2E.jpg",
+                alt: "Dubai Restaurant"
             }
         ]
     },
