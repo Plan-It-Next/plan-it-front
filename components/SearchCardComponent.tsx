@@ -125,7 +125,7 @@ const SearchCard: React.FC = () => {
                     <Icon icon="mdi:magnify" className="mr-1" />
                     Search
                 </Button>
-                <p className="text-gray-500 text-xs max-w-md text-right">
+                <p className="hidden md:flex text-gray-500 text-xs max-w-md text-right">
                     Thousands of travel partners across trains, buses, flights and ferries, for you to focus on your journey
                 </p>
             </CardFooter>
