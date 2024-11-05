@@ -30,17 +30,17 @@ const DestinationInfoCardComponent: React.FC<DestinationInfoProps> = ({
       galleryImages
   }) => {
     return (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Image
                 alt={mainImage.alt}
-                className="object-cover col-span-1 h-full"
+                className="object-cover w-full h-64 md:h-full md:col-span-1"
                 src={mainImage.url}
             />
-            <div className="flex flex-col col-span-3">
+            <div className="flex flex-col col-span-1 md:col-span-3">
                 <Card>
                     <CardBody>
                         <div>
-                            <h1 className="font-bold text-4xl">{title} - {location}</h1>
+                            <h1 className="font-bold text-2xl md:text-4xl">{title} - {location}</h1>
                             <div className="p-4">
                                 <p>{description}</p>
                                 <ul className="pt-4 pl-4">
@@ -54,15 +54,31 @@ const DestinationInfoCardComponent: React.FC<DestinationInfoProps> = ({
                         </div>
                     </CardBody>
                 </Card>
-                <div className="flex flex-row mt-4 gap-4">
-                    {galleryImages.map((image, index) => (
-                        <Image
-                            key={index}
-                            alt={image.alt}
-                            className="h-40"
-                            src={image.url}
-                        />
-                    ))}
+                <div className="mt-4">
+                    {/* Mobile gallery - horizontally scrollable */}
+                    <div className="flex md:hidden overflow-x-auto gap-4 pb-4 snap-x snap-mandatory">
+                        {galleryImages.map((image, index) => (
+                            <div key={index} className="snap-center flex-shrink-0 first:pl-0">
+                                <Image
+                                    alt={image.alt}
+                                    className="h-40 w-auto object-contain"
+                                    src={image.url}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    {/* Desktop gallery - grid layout */}
+                    <div className="hidden md:flex flex-row gap-4">
+                        {galleryImages.map((image, index) => (
+                            <div key={index} className="flex-1">
+                                <Image
+                                    alt={image.alt}
+                                    className="h-40 w-full object-cover"
+                                    src={image.url}
+                                />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
