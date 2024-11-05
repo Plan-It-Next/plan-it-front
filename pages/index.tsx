@@ -7,11 +7,28 @@ import SearchCard from '@/components/SearchCardComponent';
 import HomeBackgroundCarousel from "@/components/commons/HomeBackgroundCarrousel";
 import dynamic from 'next/dynamic';
 import SynchronizedDestinationsComponent from "@/components/landingComponents/SynchronizedDestinationsComponent";
+import SuggestedDestinationsCardsComponent from "@/components/SuggestedDestinationsCardsComponent";
 
 // Dynamically import the Map component with no SSR
 dynamic(() => import('../components/landingComponents/LandingMapComponent'), {
   ssr: false
 });
+
+const destinationSuggestions = [
+  {
+    location: 'Hokkaido - Japan',
+    description: 'Hokkaido in winter is enchanting, with snowy landscapes, hot springs, top skiing, and vibrant festivals—Japan\'s ultimate winter getaway.',
+    recommendation: {
+      icon: '❄️',
+      reason: 'Best in winter'
+    },
+    coverImage: {
+      url: 'https://tourjapan.jp/wp-content/uploads/2023/07/Niseko-Snowboard.jpg',
+      alt: 'Hokkaido winter image'
+    },
+    price: 346
+  }
+]
 
 export default function Home() {
   return (
@@ -35,6 +52,22 @@ export default function Home() {
           <div className="container w-full py-8 px-4 bg-white mx-auto">
             <h2 className="text-3xl font-bold text-center my-8">Explore Destinations</h2>
             <SynchronizedDestinationsComponent/>
+          </div>
+
+          <div className="container w-full py-8 px-4 bg-white mx-auto">
+            <Card
+                className="p-8"
+                style={{
+                  backgroundImage: 'url("https://static.vecteezy.com/system/resources/previews/008/975/566/non_2x/white-snowflakes-on-blue-background-seamless-pattern-falling-snowflakes-on-blue-backdrop-concept-of-winter-holiday-vector.jpg")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                  backgroundBlendMode: 'overlay'
+                }}
+            >
+              <h2 className="text-2xl font-bold text-center mb-8">❄️ Winter recommendations</h2>
+              <SuggestedDestinationsCardsComponent destinations={destinationSuggestions}/>
+            </Card>
           </div>
 
           <section className="py-16 bg-white">
