@@ -19,7 +19,7 @@ export default function Home() {
         <div className="min-h-screen">
           <Header />
           <section className="relative">
-            <div className="relative h-screen">
+            <div className="relative min-h-screen">
               <HomeBackgroundCarousel />
               <div className="absolute inset-0 bg-black bg-opacity-40"></div>
               <div className="absolute inset-0 flex flex-col justify-center items-center text-white">

@@ -50,21 +50,21 @@ const SearchCard: React.FC = () => {
             className="w-full max-w-4xl mx-auto rounded-xl"
         >
             <CardBody>
-                <div className="flex flex-wrap gap-4 mb-4 w-full">
+                <div className="flex md:flex-wrap md:gap-4 gap-1 mb-4 w-full">
                     <Button color="secondary">
-                        <Icon icon="mdi:airplane" className="mr-1" />
+                        <Icon icon="mdi:airplane" />
                         Book a Trip
                     </Button>
                     <Button color="default" variant="light">
-                        <Icon icon="material-symbols:map" className="mr-1" />
+                        <Icon icon="material-symbols:map" />
                         Plan a trip!
                     </Button>
                     <Button color="default" variant="light">
-                        <Icon icon="solar:lightbulb-bold" className="mr-1" />
+                        <Icon icon="solar:lightbulb-bold" />
                         Get inspired!
                     </Button>
                 </div>
-                <div className="grid grid-cols-3 gap-6">
+                <div className="md:grid md:grid-cols-3 md:gap-6 flex flex-col gap-4">
                     <div className="grid grid-cols-2 gap-4 col-span-2">
                         <Autocomplete
                             label="Origin"
