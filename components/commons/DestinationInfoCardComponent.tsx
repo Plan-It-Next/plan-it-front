@@ -22,13 +22,13 @@ interface DestinationInfoProps {
 }
 
 const DestinationInfoCardComponent: React.FC<DestinationInfoProps> = ({
-      mainImage,
-      title,
-      location,
-      description,
-      highlights,
-      galleryImages
-  }) => {
+          mainImage,
+          title,
+          location,
+          description,
+          highlights,
+          galleryImages
+      }) => {
     return (
         <div className="grid grid-cols-4 gap-4">
             <Image
