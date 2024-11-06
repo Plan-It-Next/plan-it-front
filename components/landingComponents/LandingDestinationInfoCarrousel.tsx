@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import DestinationInfoCardComponent from '../commons/DestinationInfoCardComponent';
 
 // Import or define the destinations data
@@ -221,8 +222,21 @@ interface Props {
 const DestinationCarousel: React.FC<Props> = ({ currentIndex, setCurrentIndex }) => {
     return (
         <div className="flex flex-col items-center">
-            <div className="w-full transition-opacity duration-500">
-                <DestinationInfoCardComponent {...destinations[currentIndex]} />
+            <div className="w-full relative">
+                <AnimatePresence mode="sync">
+                    <motion.div
+                        key={currentIndex}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                            duration: 2,
+                            ease: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]
+                        }}
+                    >
+                        <DestinationInfoCardComponent {...destinations[currentIndex]} />
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
             <div className="flex gap-4 mt-4">
