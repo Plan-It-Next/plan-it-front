@@ -219,19 +219,34 @@ interface Props {
     setCurrentIndex: (index: number) => void;
 }
 
+const fadeInTransition = {
+    duration: 2,
+    ease: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]
+};
+
+const fadeOutTransition = {
+    duration: 1,
+    ease: [1, 0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15, 0.1, 0.05, 0]
+};
+
+const DestinationCarousel = () => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
 const DestinationCarousel: React.FC<Props> = ({ currentIndex, setCurrentIndex }) => {
     return (
         <div className="flex flex-col items-center">
             <div className="w-full relative">
-                <AnimatePresence mode="sync">
+                <AnimatePresence mode="wait">
                     <motion.div
                         key={currentIndex}
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{
-                            duration: 2,
-                            ease: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]
+                        animate={{
+                            opacity: 1,
+                            transition: fadeInTransition
+                        }}
+                        exit={{
+                            opacity: 0,
+                            transition: fadeOutTransition
                         }}
                     >
                         <DestinationInfoCardComponent {...destinations[currentIndex]} />
