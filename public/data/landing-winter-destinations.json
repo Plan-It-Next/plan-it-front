@@ -1,0 +1,108 @@
+{
+  "destinations": [
+    {
+      "location": "Hokkaido - Japan",
+      "description": "Hokkaido in winter is enchanting, with snowy landscapes, hot springs, top skiing, and vibrant festivals—Japan's ultimate winter getaway.",
+      "recommendation": {
+        "icon": "❄️",
+        "reason": "Best in winter"
+      },
+      "coverImage": {
+        "url": "https://tourjapan.jp/wp-content/uploads/2023/07/Niseko-Snowboard.jpg",
+        "alt": "Hokkaido winter image"
+      },
+      "price": 687
+    },
+    {
+      "location": "Nagano - Japan",
+      "description": "Known for its stunning snow-covered landscapes, hot springs, and excellent skiing, a perfect blend of relaxation and adventure.",
+      "recommendation": {
+        "icon": "♨\uFE0F",
+        "reason": "Hot Springs!"
+      },
+      "coverImage": {
+        "url": "https://gaijinpot.scdn3.secure.raxcdn.com/app/uploads/sites/6/2018/12/Shirahone-Onsen-Nagano@2x-1024x641.jpg",
+        "alt": "Nagano onsen in winter"
+      },
+      "price": 621
+    },
+    {
+      "location": "Harbin - China",
+      "description": "A wonderland, known for its Ice and Snow Festival, impressive ice sculptures, and vibrant winter activities in China’s “Ice City.”",
+      "recommendation": {
+        "icon": "\uD83C\uDF86",
+        "reason": "Winter festival!"
+      },
+      "coverImage": {
+        "url": "https://www.icefestivalharbin.com/public/upload/photo/harbin-ice-and-snow-world-2023/img_409_d20230105150825.jpg",
+        "alt": "Harbin Ice and Snow festival"
+      },
+      "price": 743
+    },
+    {
+      "location": "Tromsø - Norway",
+      "description": "Tromsø, Norway offers stunning Arctic landscapes, Northern Lights, winter adventures, and rich culture, the perfect polar destination.",
+      "recommendation": {
+        "icon": "\uD83C\uDF0C",
+        "reason": "Northern lights!"
+      },
+      "coverImage": {
+        "url": "https://www.auroracourses.eu/content-assets/public/eyJhbGciOiJIUzI1NiJ9.eyJvYmplY3Rfa2V5Ijoidnp1YWZmNTAzdjl6dWtmYmE0bXU5NGlqdHowdCIsImRvbWFpbiI6Ind3dy5hdXJvcmFjb3Vyc2VzLmV1In0.mV4_xhUR9cMEvr9XXunnUQ86DGE6hJT86cVWkCFtMXM",
+        "alt": "Tromsø night sky with from the town"
+      },
+      "price": 283
+    },
+    {
+      "location": "Zermatt - Switzerland",
+      "description": "Zermatt, a picturesque swiss alpine paradise, renowned for skiing, stunning views, and charming mountain village vibes.",
+      "recommendation": {
+        "icon": "⛷\uFE0F",
+        "reason": "Renown ski resorts"
+      },
+      "coverImage": {
+        "url": "https://www.goworldtravel.com/wp-content/uploads/2021/11/Zermatt-Switzerland-feature-canva.jpg",
+        "alt": "Zermatt town in winter"
+      },
+      "price": 316
+    },
+    {
+      "location": "Nuremberg - Germany",
+      "description": "Featuring Germany’s famous Christmas market, medieval landmarks, festive lights, and cozy atmosphere in the historic old town.",
+      "recommendation": {
+        "icon": "\uD83C\uDF84",
+        "reason": "Christmas market"
+      },
+      "coverImage": {
+        "url": "https://i.natgeofe.com/n/07a4602b-e2e6-45f6-941e-694822f931ba/GettyImages-1245595423.jpg?w=1440&h=959",
+        "alt": "Christmas market in Nuremberg"
+      },
+      "price": 198
+    },
+    {
+      "location": "Tenerife - Spain",
+      "description": "Offering year-round sunshine, mild temperatures, stunning beaches, and scenic hikes, perfect for a refreshing winter getaway.",
+      "recommendation": {
+        "icon": "❄️",
+        "reason": "Best in winter"
+      },
+      "coverImage": {
+        "url": "https://volare.volotea.com/wp-content/uploads/2022/11/teide-playa-1-854x1024.jpg",
+        "alt": "Tenerife in winter from a beach"
+      },
+      "price": 198
+    },
+    {
+      "location": "Banff - Canada",
+      "description": "A breathtaking destination, snow-capped peaks, frozen lakes, and world-class skiing, a perfect winter adventure in Canada's Rocky Mountains.",
+      "recommendation": {
+        "icon": "❄️",
+        "reason": "Best in winter"
+      },
+      "coverImage": {
+        "url": "https://www.banff-springs-hotel.com/content/uploads/2024/10/BanffSprings_2021_WinterSummer_Selects.00_21_54_01.Still032-4-scaled.jpg",
+        "alt": "Banff Springs hotel"
+      },
+      "price": 734
+    }
+  ]
+}
