@@ -74,7 +74,7 @@ export default function Home({ destinations }: HomeProps) {
 
           <div className="container w-full py-8 px-4 bg-white mx-auto">
             <Card
-                className="p-8"
+                className="p-8 pb-12"
                 style={{
                   backgroundImage: 'url("https://static.vecteezy.com/system/resources/previews/008/975/566/non_2x/white-snowflakes-on-blue-background-seamless-pattern-falling-snowflakes-on-blue-backdrop-concept-of-winter-holiday-vector.jpg")',
                   backgroundSize: 'cover',
@@ -83,7 +83,7 @@ export default function Home({ destinations }: HomeProps) {
                   backgroundBlendMode: 'overlay'
                 }}
             >
-              <h2 className="text-2xl font-bold text-center mb-8">❄️ Winter recommendations</h2>
+              <h2 className="text-3xl font-bold text-center mb-12">❄️ Winter recommendations</h2>
               <SuggestedDestinationsCardsComponent destinations={destinations}/>
             </Card>
           </div>
