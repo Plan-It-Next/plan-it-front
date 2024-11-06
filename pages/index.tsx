@@ -2,6 +2,7 @@ import React from 'react';
 import { NextUIProvider } from '@nextui-org/react';
 import { Card, CardBody } from "@nextui-org/react";
 import { Icon } from '@iconify/react';
+import { GetStaticProps } from 'next';
 import Header from '@/components/commons/HeaderComponent'
 import SearchCard from '@/components/SearchCardComponent';
 import HomeBackgroundCarousel from "@/components/commons/HomeBackgroundCarrousel";
@@ -9,28 +10,45 @@ import dynamic from 'next/dynamic';
 import SynchronizedDestinationsComponent from "@/components/landingComponents/SynchronizedDestinationsComponent";
 import SuggestedDestinationsCardsComponent from "@/components/SuggestedDestinationsCardsComponent";
 
+// Types
+interface CoverImage {
+  url: string;
+  alt: string;
+}
+
+interface Recommendation {
+  icon: string;
+  reason: string;
+}
+
+interface DestinationInfo {
+  location: string;
+  description: string;
+  recommendation: Recommendation;
+  coverImage: CoverImage;
+  price: number;
+}
+
+interface HomeProps {
+  destinations: DestinationInfo[];
+}
+
 // Dynamically import the Map component with no SSR
 dynamic(() => import('../components/landingComponents/LandingMapComponent'), {
   ssr: false
 });
 
-const destinationSuggestions = [
-  {
-    location: 'Hokkaido - Japan',
-    description: 'Hokkaido in winter is enchanting, with snowy landscapes, hot springs, top skiing, and vibrant festivals—Japan\'s ultimate winter getaway.',
-    recommendation: {
-      icon: '❄️',
-      reason: 'Best in winter'
-    },
-    coverImage: {
-      url: 'https://tourjapan.jp/wp-content/uploads/2023/07/Niseko-Snowboard.jpg',
-      alt: 'Hokkaido winter image'
-    },
-    price: 346
-  }
-]
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const data = await import('../public/data/landing-winter-destinations.json');
+  console.log(data);
+  return {
+    props: {
+      destinations: data.destinations
+    }
+  };
+};
 
-export default function Home() {
+export default function Home({ destinations }: HomeProps) {
   return (
       <NextUIProvider>
         <div className="min-h-screen">
@@ -66,7 +84,7 @@ export default function Home() {
                 }}
             >
               <h2 className="text-2xl font-bold text-center mb-8">❄️ Winter recommendations</h2>
-              <SuggestedDestinationsCardsComponent destinations={destinationSuggestions}/>
+              <SuggestedDestinationsCardsComponent destinations={destinations}/>
             </Card>
           </div>
 
