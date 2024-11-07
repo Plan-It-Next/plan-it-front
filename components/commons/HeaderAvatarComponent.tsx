@@ -12,9 +12,18 @@ import {
     Divider,
 } from "@nextui-org/react";
 
+interface User {
+    name: string;
+    email: string;
+    avatar: string;
+}
 
+interface UserAvatarMenuProps {
+    user: User;
+    onSignOut: () => void;
+}
 
-const UserAvatarMenu = ({ user, onSignOut }) => {
+const UserAvatarMenu: React.FC<UserAvatarMenuProps> = ({ user, onSignOut }) => {
     return (
         <Popover placement="bottom-end">
             <PopoverTrigger>
