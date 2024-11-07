@@ -9,6 +9,7 @@ import HomeBackgroundCarousel from "@/components/commons/HomeBackgroundCarrousel
 import dynamic from 'next/dynamic';
 import SynchronizedDestinationsComponent from "@/components/landingComponents/SynchronizedDestinationsComponent";
 import SuggestedDestinationsCardsComponent from "@/components/SuggestedDestinationsCardsComponent";
+import PersonalizedTripCardComponent from "@/components/PersonalizedTripCardComponent";
 
 // Types
 interface CoverImage {
@@ -86,6 +87,10 @@ export default function Home({ destinations }: HomeProps) {
               <h2 className="text-3xl font-bold text-center mb-12">❄️ Winter recommendations</h2>
               <SuggestedDestinationsCardsComponent destinations={destinations}/>
             </Card>
+          </div>
+
+          <div className="container w-full h-2/3 py-8 px-4 mt-12 bg-white mx-auto">
+            <PersonalizedTripCardComponent />
           </div>
 
           <section className="py-16 bg-white">
