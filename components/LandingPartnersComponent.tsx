@@ -29,9 +29,9 @@ const LandingPartnersComponent = () => {
         'vietnam-arilines-logo.png'
     ];
 
-    // Duplicate arrays for seamless infinite scroll
-    const duplicatedFirstLogos = [...firstCarouselLogos, ...firstCarouselLogos];
-    const duplicatedSecondLogos = [...secondCarouselLogos, ...secondCarouselLogos];
+    // Create content that's exactly twice the width of the viewport
+    const firstLogos = [...firstCarouselLogos, ...firstCarouselLogos];
+    const secondLogos = [...secondCarouselLogos, ...secondCarouselLogos];
 
     const handleStarAllianceClick = () => {
         window.open('https://www.staralliance.com/es/', '_blank');
@@ -59,12 +59,12 @@ const LandingPartnersComponent = () => {
             <div className="col-span-3 flex flex-col-reverse mb-8">
                 <div className="w-full py-2 overflow-hidden bg-white/30 backdrop-blur-md border-y-3 border-indigo-700">
                     {/* First carousel - moving right */}
-                    <div className="relative mb-8">
-                        <div className="flex animate-scroll-right">
-                            {duplicatedFirstLogos.map((logo, index) => (
+                    <div className="relative mb-8 carousel-container">
+                        <div className="carousel-track animate-scroll-right">
+                            {firstLogos.map((logo, index) => (
                                 <div
                                     key={`right-${index}`}
-                                    className="mx-8 flex items-center justify-center min-w-[150px] h-20"
+                                    className="carousel-item mx-8 flex items-center justify-center min-w-[150px] h-20"
                                 >
                                     <Image
                                         src={`/images/partners-logos-images/${logo}`}
@@ -80,12 +80,12 @@ const LandingPartnersComponent = () => {
                     </div>
 
                     {/* Second carousel - moving left */}
-                    <div className="relative">
-                        <div className="flex animate-scroll-left">
-                            {duplicatedSecondLogos.map((logo, index) => (
+                    <div className="relative carousel-container">
+                        <div className="carousel-track animate-scroll-left">
+                            {secondLogos.map((logo, index) => (
                                 <div
                                     key={`left-${index}`}
-                                    className="mx-8 flex items-center justify-center min-w-[150px] h-20"
+                                    className="carousel-item mx-8 flex items-center justify-center min-w-[150px] h-20"
                                 >
                                     <Image
                                         src={`/images/partners-logos-images/${logo}`}
@@ -101,30 +101,43 @@ const LandingPartnersComponent = () => {
                     </div>
 
                     <style jsx global>{`
+                        .carousel-container {
+                            overflow: hidden;
+                            position: relative;
+                            width: 100%;
+                        }
+
+                        .carousel-track {
+                            display: flex;
+                            width: fit-content;
+                        }
+
                         @keyframes scroll-left {
-                            0% {
+                            from {
                                 transform: translateX(0);
                             }
-                            100% {
-                                transform: translateX(-50%);
+                            to {
+                                transform: translateX(calc(-50%));
                             }
                         }
 
                         @keyframes scroll-right {
-                            0% {
-                                transform: translateX(-50%);
+                            from {
+                                transform: translateX(calc(-50%));
                             }
-                            100% {
+                            to {
                                 transform: translateX(0);
                             }
                         }
 
                         .animate-scroll-left {
-                            animation: scroll-left 30s linear infinite;
+                            animation: scroll-left 90s linear infinite;
+                            position: relative;
                         }
 
                         .animate-scroll-right {
-                            animation: scroll-right 30s linear infinite;
+                            animation: scroll-right 90s linear infinite;
+                            position: relative;
                         }
 
                         /* Prevent any user interaction */
@@ -132,6 +145,7 @@ const LandingPartnersComponent = () => {
                         .animate-scroll-right {
                             pointer-events: none;
                             user-select: none;
+                            will-change: transform;
                         }
                     `}</style>
                 </div>
@@ -182,7 +196,7 @@ const LandingPartnersComponent = () => {
                         />
                     </Button>
                 </div>
-                <p className="text-black text-2xl mx-8">With our trusted partners—including top airlines, train lines, and bus companies—you can easily earn, track, and redeem points all in one place. Enjoy exclusive benefits every time you travel, whether by air, rail, or road.</p>
+                <p className="text-black text-2xl mx-8">With our trusted partners—including top airlines, train lines, and bus companies—you can easily earn, track, and redeem points all in one place. Enjoy exclusive benefits every time you travel, whether by air, rail, road, or sea.</p>
             </Card>
         </Card>
     );
