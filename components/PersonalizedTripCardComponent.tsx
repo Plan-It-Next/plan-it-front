@@ -34,19 +34,19 @@ const PersonalizedTripCardComponent: React.FC = () => {
 
     const imageData: ImageData[] = [
         {
-            src: '/images/landing-personalized-trips-pictures/couple-travel-picture.png',
+            src: '/images/landing-personalized-trips-images/couple-travel-picture.png',
             keyword: 'with your couple'
         },
         {
-            src: '/images/landing-personalized-trips-pictures/family-travel-picture.png',
+            src: '/images/landing-personalized-trips-images/family-travel-picture.png',
             keyword: 'with your family'
         },
         {
-            src: '/images/landing-personalized-trips-pictures/group-travel-picture.png',
+            src: '/images/landing-personalized-trips-images/group-travel-picture.png',
             keyword: 'with your friends'
         },
         {
-            src: '/images/landing-personalized-trips-pictures/individual-travel-picture.png',
+            src: '/images/landing-personalized-trips-images/individual-travel-picture.png',
             keyword: 'all by yourself'
         }
     ];
