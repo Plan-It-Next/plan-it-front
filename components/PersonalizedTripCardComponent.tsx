@@ -114,7 +114,11 @@ const PersonalizedTripCardComponent: React.FC = () => {
                     >
                         Plan your own adventures
                     </Link>
-                    <p className="text-2xl px-8">Design a trip that is uniquely yours, tailored to your interests and pace. Manage and book travel and hotel options with ease. Craft your perfect weekend getaway, an exotic winter escape, or an unforgettable summer adventure.</p>
+                    <p className="text-2xl px-8">
+                        Design a trip that is uniquely yours, tailored to your interests and pace.
+                        Manage and book travel and hotel options with ease. Craft your perfect weekend getaway,
+                        an exotic winter escape, or an unforgettable summer adventure.
+                    </p>
                 </Card>
 
                 <Card
@@ -126,7 +130,11 @@ const PersonalizedTripCardComponent: React.FC = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.5, ease: "easeInOut" }}
+                            transition={{
+                                duration: 0.5,
+                                type: "tween",
+                                ease: "easeInOut"
+                            }}
                             className="md:flex md:flex-row items-center justify-center w-full gap-4"
                         >
                             <NextUIImage
