@@ -55,8 +55,7 @@ const PersonalizedTripCardComponent: React.FC = () => {
         const preloadImages = async () => {
             const imagePromises = imageData.map((img) => {
                 return new Promise<void>((resolve, reject) => {
-                    // @ts-ignore
-                    const image = new Image();
+                    const image = new window.Image();
                     image.onload = () => resolve();
                     image.onerror = reject;
                     image.src = img.src;
