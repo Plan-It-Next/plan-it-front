@@ -121,6 +121,7 @@ const PersonalizedTripCardComponent: React.FC = () => {
                     </p>
                 </Card>
 
+
                 <Card
                     className="absolute right-8 -bottom-16 w-1/5 bg-gray-200/30 backdrop-blur-sm justify-center items-center rounded-xl border-teal-200 p-4"
                 >
@@ -128,12 +129,21 @@ const PersonalizedTripCardComponent: React.FC = () => {
                         <motion.div
                             key={currentIndex}
                             initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{
-                                duration: 0.5,
-                                type: "tween",
-                                ease: "easeInOut"
+                            animate={{
+                                opacity: 1,
+                                y: 0,
+                                transition: {
+                                    duration: 0.5,
+                                    ease: "easeIn"
+                                }
+                            }}
+                            exit={{
+                                opacity: 0,
+                                y: -20,
+                                transition: {
+                                    duration: 0.5,
+                                    ease: "easeOut"
+                                }
                             }}
                             className="md:flex md:flex-row items-center justify-center w-full gap-4"
                         >
@@ -145,9 +155,29 @@ const PersonalizedTripCardComponent: React.FC = () => {
                                 width={128}
                                 height={128}
                             />
-                            <p className="text-xl font-bold">
+                            <motion.p
+                                className="text-xl font-bold"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{
+                                    opacity: 1,
+                                    x: 0,
+                                    transition: {
+                                        duration: 0.5,
+                                        ease: "easeIn",
+                                        delay: 0.4
+                                    }
+                                }}
+                                exit={{
+                                    opacity: 0,
+                                    x: -20,
+                                    transition: {
+                                        duration: 0.5,
+                                        ease: "easeOut"
+                                    }
+                                }}
+                            >
                                 Plan it {imageData[currentIndex].keyword}!
-                            </p>
+                            </motion.p>
                         </motion.div>
                     </AnimatePresence>
                 </Card>
