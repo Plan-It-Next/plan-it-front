@@ -128,7 +128,7 @@ const PersonalizedTripCardComponent: React.FC = () => {
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={currentIndex}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{opacity: 0, y: 20}}
                             animate={{
                                 opacity: 1,
                                 y: 0,
@@ -139,7 +139,7 @@ const PersonalizedTripCardComponent: React.FC = () => {
                             }}
                             exit={{
                                 opacity: 0,
-                                y: -20,
+                                y: 0,
                                 transition: {
                                     duration: 0.5,
                                     ease: "easeOut"
@@ -147,43 +147,65 @@ const PersonalizedTripCardComponent: React.FC = () => {
                             }}
                             className="md:flex md:flex-row items-center justify-center w-full gap-4"
                         >
-                            <NextUIImage
-                                as={Image}
-                                src={imageData[currentIndex].src}
-                                alt="travel image"
-                                className="object-contain m-0"
-                                width={128}
-                                height={128}
-                            />
-                            <motion.p
-                                className="text-xl font-bold"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{
-                                    opacity: 1,
-                                    x: 0,
-                                    transition: {
-                                        duration: 0.5,
-                                        ease: "easeIn",
-                                        delay: 0.4
-                                    }
-                                }}
-                                exit={{
-                                    opacity: 0,
-                                    x: -20,
-                                    transition: {
-                                        duration: 0.5,
-                                        ease: "easeOut"
-                                    }
-                                }}
-                            >
-                                Plan it {imageData[currentIndex].keyword}!
-                            </motion.p>
+                                <motion.div
+                                    className="text-xl font-bold"
+                                    initial={{opacity: 0, y: 20}}
+                                    animate={{
+                                        opacity: 1,
+                                        y: 0,
+                                        transition: {
+                                            duration: 0.5,
+                                            ease: "easeIn",
+                                            delay: 0.4
+                                        }
+                                    }}
+                                    exit={{
+                                        opacity: 0,
+                                        y: -20,
+                                        transition: {
+                                            duration: 0.5,
+                                            ease: "easeOut"
+                                        }
+                                    }}
+                                >
+                                    <NextUIImage
+                                        as={Image}
+                                        src={imageData[currentIndex].src}
+                                        alt="travel image"
+                                        className="object-contain m-0"
+                                        width={128}
+                                        height={128}
+                                    />
+                                </motion.div>
+                                <motion.p
+                                    className="text-xl font-bold"
+                                    initial={{opacity: 0, x: 20}}
+                                    animate={{
+                                        opacity: 1,
+                                        x: 0,
+                                        transition: {
+                                            duration: 0.5,
+                                            ease: "easeIn",
+                                            delay: 0.4
+                                        }
+                                    }}
+                                    exit={{
+                                        opacity: 0,
+                                        x: -20,
+                                        transition: {
+                                            duration: 0.5,
+                                            ease: "easeOut"
+                                        }
+                                    }}
+                                >
+                                    Plan it {imageData[currentIndex].keyword}!
+                                </motion.p>
                         </motion.div>
                     </AnimatePresence>
                 </Card>
             </Card>
         </div>
-    );
+);
 }
 
 export default PersonalizedTripCardComponent;

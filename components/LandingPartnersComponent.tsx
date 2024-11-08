@@ -57,7 +57,7 @@ const LandingPartnersComponent = () => {
             radius="none"
         >
             <div className="col-span-3 flex flex-col-reverse mb-8">
-                <div className="w-full py-2 overflow-hidden bg-white/30 backdrop-blur-md border-y-3 border-indigo-700">
+                <div className="w-full py-2 overflow-hidden bg-white/30 backdrop-blur-md border-y-2 border-indigo-700">
                     {/* First carousel - moving right */}
                     <div className="relative mb-8 carousel-container">
                         <div className="carousel-track animate-scroll-right">
