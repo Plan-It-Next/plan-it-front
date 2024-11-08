@@ -34,7 +34,6 @@ const HomeBackgroundCarousel = () => {
                         src={img}
                         alt="Background"
                         layout="fill"
-                        objectFit="cover"
                         priority={index === 0}
                     />
                 </div>
