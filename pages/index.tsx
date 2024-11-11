@@ -1,7 +1,6 @@
 import React from 'react';
 import { NextUIProvider } from '@nextui-org/react';
-import { Card, CardBody } from "@nextui-org/react";
-import { Icon } from '@iconify/react';
+import { Card } from "@nextui-org/react";
 import { GetStaticProps } from 'next';
 import Header from '@/components/commons/HeaderComponent'
 import SearchCard from '@/components/SearchCardComponent';
@@ -11,6 +10,7 @@ import SynchronizedDestinationsComponent from "@/components/landingComponents/Sy
 import SuggestedDestinationsCardsComponent from "@/components/SuggestedDestinationsCardsComponent";
 import PersonalizedTripCardComponent from "@/components/PersonalizedTripCardComponent";
 import LandingPartnersComponent from "@/components/LandingPartnersComponent";
+import FooterComponent from "@/components/commons/FooterComponent";
 
 // Types
 interface CoverImage {
@@ -98,41 +98,9 @@ export default function Home({ destinations }: HomeProps) {
             <LandingPartnersComponent />
           </div>
 
-          <section className="py-16 bg-white">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold mb-8 text-center">Enhance Your Travel Experience</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <Card>
-                  <CardBody>
-                    <Icon icon="mdi:tag-multiple" className="text-4xl mb-2 text-primary" />
-                    <h3 className="text-xl font-semibold mb-2">Exclusive Deals</h3>
-                    <p>Find the best offers for your next adventure</p>
-                  </CardBody>
-                </Card>
-                <Card>
-                  <CardBody>
-                    <Icon icon="mdi:map-marker" className="text-4xl mb-2 text-primary" />
-                    <h3 className="text-xl font-semibold mb-2">Top Destinations</h3>
-                    <p>Explore popular locations around the world</p>
-                  </CardBody>
-                </Card>
-                <Card>
-                  <CardBody>
-                    <Icon icon="mdi:shield-check" className="text-4xl mb-2 text-primary" />
-                    <h3 className="text-xl font-semibold mb-2">Travel Insurance</h3>
-                    <p>Protect your journey with comprehensive coverage</p>
-                  </CardBody>
-                </Card>
-                <Card>
-                  <CardBody>
-                    <Icon icon="mdi:gift" className="text-4xl mb-2 text-primary" />
-                    <h3 className="text-xl font-semibold mb-2">Loyalty Program</h3>
-                    <p>Earn points and enjoy exclusive benefits</p>
-                  </CardBody>
-                </Card>
-              </div>
-            </div>
-          </section>
+          <div className="mt-24">
+            <FooterComponent />
+          </div>
         </div>
       </NextUIProvider>
   );
