@@ -5,9 +5,9 @@ const HomeBackgroundCarousel = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const images = [
-        '/images/ferry-home-image.jpg',
-        '/images/home-travel-image.jpg',
-        '/images/red-train-home-image.jpg'
+        '/images/landing-background-carousel-images/ferry-home-image.jpg',
+        '/images/landing-background-carousel-images/home-travel-image.jpg',
+        '/images/landing-background-carousel-images/red-train-home-image.jpg'
     ];
 
     useEffect(() => {
@@ -34,7 +34,6 @@ const HomeBackgroundCarousel = () => {
                         src={img}
                         alt="Background"
                         layout="fill"
-                        objectFit="cover"
                         priority={index === 0}
                     />
                 </div>
