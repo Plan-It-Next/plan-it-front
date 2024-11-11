@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardBody, Button, Autocomplete, AutocompleteItem, Select, SelectItem } from "@nextui-org/react";
 import { Icon } from '@iconify/react';
 import { DatePicker } from "@nextui-org/react";
-import PassengerSelector from "@/components/TravelersSelectorComponent";
+import PassengerSelector from "@/components/commons/TravelersSelectorComponent";
 import { Selection } from "@nextui-org/react";
 import {CardFooter} from "@nextui-org/card";
 

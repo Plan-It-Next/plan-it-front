@@ -7,9 +7,9 @@ import SearchCard from '@/components/SearchCardComponent';
 import HomeBackgroundCarousel from "@/components/commons/HomeBackgroundCarrousel";
 import dynamic from 'next/dynamic';
 import SynchronizedDestinationsComponent from "@/components/landingComponents/SynchronizedDestinationsComponent";
-import SuggestedDestinationsCardsComponent from "@/components/SuggestedDestinationsCardsComponent";
-import PersonalizedTripCardComponent from "@/components/PersonalizedTripCardComponent";
-import LandingPartnersComponent from "@/components/LandingPartnersComponent";
+import SuggestedDestinationsCardsComponent from "@/components/landingComponents/SuggestedDestinationsCardsComponent";
+import PersonalizedTripCardComponent from "@/components/landingComponents/PersonalizedTripCardComponent";
+import LandingPartnersComponent from "@/components/landingComponents/LandingPartnersComponent";
 import FooterComponent from "@/components/commons/FooterComponent";
 
 // Types
