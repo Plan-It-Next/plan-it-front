@@ -196,7 +196,7 @@ const LandingPartnersComponent = () => {
                         />
                     </Button>
                 </div>
-                <p className="text-black text-2xl mx-8">With our trusted partners—including top airlines, train lines, and bus companies—you can easily earn, track, and redeem points all in one place. Enjoy exclusive benefits every time you travel, whether by air, rail, road, or sea.</p>
+                <p className="text-black text-xl mx-12 mt-8">With our trusted partners—including top airlines, train lines, and bus companies—you can easily earn, track, and redeem points all in one place. Enjoy exclusive benefits every time you travel, whether by air, rail, road, or sea.</p>
             </Card>
         </Card>
     );
