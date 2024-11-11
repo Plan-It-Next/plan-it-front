@@ -1,4 +1,5 @@
 import React from 'react';
+import { Icon } from '@iconify/react';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -14,7 +15,7 @@ const Footer = () => {
 
             <div className="max-w-6xl mx-auto px-4">
                 {/* Main content */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
                     {/* Brand section */}
                     <div className="space-y-4">
                         <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
@@ -46,36 +47,42 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    {/* Quick links */}
+                    {/* About section */}
                     <div className="space-y-4">
-                        <h3 className="text-xl font-semibold">Quick Links</h3>
-                        <div className="grid grid-cols-2 gap-2">
-                            {['About', 'Services', 'Careers', 'Contact', 'Support'].map((link) => (
-                                <a
-                                    key={link}
-                                    href="#"
-                                    className="text-blue-100 hover:text-white transition-colors duration-200 flex items-center space-x-1"
-                                >
-                                    <span className="h-1 w-1 bg-blue-300 rounded-full"></span>
-                                    <span>{link}</span>
-                                </a>
-                            ))}
+                        <h3 className="text-xl font-semibold flex items-center">
+                            <Icon icon="mdi:about-circle-outline" width="20" height="20" className="w-5 h-5" />
+                            About
+                        </h3>
+                        <div className="grid gap-4">
+                            <a href="/about" className="text-blue-100 hover:text-white transition-colors duration-200 flex items-center space-x-1">About</a>
+                            <a href="/press" className="text-blue-100 hover:text-white transition-colors duration-200 flex items-center space-x-1">Press</a>
+                            <a href="/careers" className="text-blue-100 hover:text-white transition-colors duration-200 flex items-center space-x-1">Careers</a>
                         </div>
                     </div>
 
-                    {/* Newsletter */}
+                    {/* Useful links section */}
                     <div className="space-y-4">
-                        <h3 className="text-xl font-semibold">Stay Updated</h3>
-                        <p className="text-blue-100">Subscribe to our newsletter for updates and insights.</p>
-                        <div className="flex">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="px-4 py-2 rounded-l-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-blue-200 flex-grow focus:outline-none focus:ring-2 focus:ring-white/50"
-                            />
-                            <button className="px-4 py-2 bg-white text-purple-600 rounded-r-lg font-medium hover:bg-blue-100 transition-colors duration-200">
-                                Subscribe
-                            </button>
+                        <h3 className="text-xl font-semibold flex items-center">
+                            <Icon icon="line-md:link" width="20" height="20" className="w-5 h-5" />
+                            Useful links
+                        </h3>
+                        <div className="grid gap-4">
+                            <a href="/faq" className="text-blue-100 hover:text-white transition-colors duration-200 flex items-center space-x-1">FAQ</a>
+                            <a href="/customer-support" className="text-blue-100 hover:text-white transition-colors duration-200 flex items-center space-x-1">Customer support</a>
+                            <a href="/transparency" className="text-blue-100 hover:text-white transition-colors duration-200 flex items-center space-x-1">Transparency</a>
+                        </div>
+                    </div>
+
+                    {/* Corporate links section */}
+                    <div className="space-y-4">
+                        <h3 className="text-xl font-semibold flex items-center">
+                            <Icon icon="hugeicons:tie" width="20" height="20" className="w-5 h-5" />
+                            Corporate
+                        </h3>
+                        <div className="grid gap-4">
+                            <a href="/corporate" className="text-blue-100 hover:text-white transition-colors duration-200 flex items-center space-x-1">Corporate</a>
+                            <a href="/bussiness-solutions" className="text-blue-100 hover:text-white transition-colors duration-200 flex items-center space-x-1">Bussiness solutions</a>
+                            <a href="/api" className="text-blue-100 hover:text-white transition-colors duration-200 flex items-center space-x-1">API</a>
                         </div>
                     </div>
                 </div>
