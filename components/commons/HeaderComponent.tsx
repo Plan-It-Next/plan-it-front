@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {Icon} from "@iconify/react";
 import {
     Navbar,
     NavbarBrand,
@@ -42,8 +43,9 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/discover"
-                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
+                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'} items-center`}
                     >
+                        <Icon icon="mdi:compass-outline" className="mr-1"/>
                         Discover
                     </Link>
                 </NavbarItem>
@@ -51,8 +53,9 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/book"
-                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
+                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'} items-center`}
                     >
+                        <Icon icon="mingcute:ticket-fill" className="mr-1"/>
                         Book
                     </Link>
                 </NavbarItem>
@@ -60,17 +63,19 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/travel"
-                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
+                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'} items-center`}
                     >
-                        Travel
+                        <Icon icon="gis:map-edit" className="mr-1"/>
+                        Plan
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
                     <Link
                         color="foreground"
                         href="/privilege-club"
-                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
+                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'} items-center`}
                     >
+                        <Icon icon="mdi:star-four-points-circle-outline" className="mr-1"/>
                         Privilege Club
                     </Link>
                 </NavbarItem>
