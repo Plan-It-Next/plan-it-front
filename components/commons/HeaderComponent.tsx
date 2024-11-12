@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Icon} from "@iconify/react";
+import { Icon } from "@iconify/react";
 import {
     Navbar,
     NavbarBrand,
@@ -7,13 +7,21 @@ import {
     NavbarItem,
     Link,
 } from "@nextui-org/react";
+import { useRouter } from 'next/router';
 import HeaderSigninComponent from "./HeaderSigninComponent";
 
 const Header: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const router = useRouter();
+    const isLandingPage = router.pathname === '/';
 
     useEffect(() => {
         const handleScroll = () => {
+            if (!isLandingPage) {
+                setIsScrolled(true);
+                return;
+            }
+
             if (window.scrollY > window.innerHeight * 0.95) {
                 setIsScrolled(true);
             } else {
@@ -21,9 +29,20 @@ const Header: React.FC = () => {
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+        // Initial check
+        handleScroll();
+
+        // Only add scroll listener on landing page
+        if (isLandingPage) {
+            window.addEventListener('scroll', handleScroll);
+            return () => window.removeEventListener('scroll', handleScroll);
+        }
+    }, [isLandingPage]);
+
+    const getTextColor = () => {
+        if (!isLandingPage) return 'text-black';
+        return isScrolled ? 'text-black' : 'text-white';
+    };
 
     return (
         <Navbar
@@ -33,7 +52,7 @@ const Header: React.FC = () => {
             <NavbarBrand>
                 <Link
                     href="/"
-                    className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'}`}
+                    className={`font-bold text-inherit ${getTextColor()}`}
                 >
                     PlanIt
                 </Link>
@@ -43,7 +62,7 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/discover"
-                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'} items-center`}
+                        className={`font-bold text-inherit ${getTextColor()} items-center`}
                     >
                         <Icon icon="mdi:compass-outline" className="mr-1"/>
                         Discover
@@ -53,7 +72,7 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/book"
-                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'} items-center`}
+                        className={`font-bold text-inherit ${getTextColor()} items-center`}
                     >
                         <Icon icon="mingcute:ticket-fill" className="mr-1"/>
                         Book
@@ -63,7 +82,7 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/travel"
-                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'} items-center`}
+                        className={`font-bold text-inherit ${getTextColor()} items-center`}
                     >
                         <Icon icon="gis:map-edit" className="mr-1"/>
                         Plan
@@ -73,7 +92,7 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/privilege-club"
-                        className={`font-bold text-inherit ${isScrolled ? 'text-black' : 'text-white'} items-center`}
+                        className={`font-bold text-inherit ${getTextColor()} items-center`}
                     >
                         <Icon icon="mdi:star-four-points-circle-outline" className="mr-1"/>
                         Privilege Club
