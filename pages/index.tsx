@@ -2,9 +2,9 @@ import React from 'react';
 import { NextUIProvider } from '@nextui-org/react';
 import { Card } from "@nextui-org/react";
 import { GetStaticProps } from 'next';
-import Header from '@/components/commons/HeaderComponent'
+import Header from '@/components/commons/header/HeaderComponent'
 import SearchCard from '@/components/commons/search/SearchCardComponent';
-import HomeBackgroundCarousel from "@/components/commons/HomeBackgroundCarrousel";
+import HomeBackgroundCarousel from "@/components/landingComponents/HomeBackgroundCarrousel";
 import dynamic from 'next/dynamic';
 import SynchronizedDestinationsComponent from "@/components/landingComponents/SynchronizedDestinationsComponent";
 import SuggestedDestinationsCardsComponent from "@/components/landingComponents/SuggestedDestinationsCardsComponent";
