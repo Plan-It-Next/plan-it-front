@@ -17,13 +17,6 @@ interface AmadeusResponse {
     data: Location[];
 }
 
-interface ValidationErrors {
-    origin?: string;
-    destiny?: string;
-    dates?: string;
-    transport?: string;
-}
-
 const transportModes = [
     { value: 'plane', label: 'Plane' },
     { value: 'train', label: 'Train' },
@@ -39,47 +32,6 @@ const BookingSection: React.FC = () => {
     const [destResults, setDestResults] = useState<Location[]>([]);
     const [isLoadingOrigin, setIsLoadingOrigin] = useState(false);
     const [isLoadingDest, setIsLoadingDest] = useState(false);
-    const [selectedOrigin, setSelectedOrigin] = useState("");
-    const [selectedDestiny, setSelectedDestiny] = useState("");
-    const [departureDate, setDepartureDate] = useState<Date | null>(null);
-    const [returnDate, setReturnDate] = useState<Date | null>(null);
-    const [errors, setErrors] = useState<ValidationErrors>({});
-
-    const validateForm = () => {
-        const newErrors: ValidationErrors = {};
-
-        // Check if origin is selected
-        if (!selectedOrigin) {
-            newErrors.origin = "Origin city is required";
-        }
-
-        // Check if destiny is selected
-        if (!selectedDestiny) {
-            newErrors.destiny = "Destination city is required";
-        }
-
-        // Check if origin and destiny are different
-        if (selectedOrigin && selectedDestiny && selectedOrigin === selectedDestiny) {
-            newErrors.destiny = "Origin and destination cannot be the same";
-        }
-
-        // Check if dates are selected and valid
-        if (!departureDate || !returnDate) {
-            newErrors.dates = "Both dates are required";
-        } else {
-            if (departureDate > returnDate) {
-                newErrors.dates = "Return date must be after departure date";
-            }
-        }
-
-        // Check if at least one transport mode is selected
-        if (selectedModes.size === 0) {
-            newErrors.transport = "At least one transport mode is required";
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
 
     const getAmadeusToken = async () => {
         try {
@@ -104,11 +56,19 @@ const BookingSection: React.FC = () => {
 
     const searchLocations = async (query: string, isOrigin: boolean) => {
         if (query.length < 2) {
-            isOrigin ? setOriginResults([]) : setDestResults([]);
+            if (isOrigin) {
+                setOriginResults([]);
+            } else {
+                setDestResults([]);
+            }
             return;
         }
 
-        isOrigin ? setIsLoadingOrigin(true) : setIsLoadingDest(true);
+        if (isOrigin) {
+            setIsLoadingOrigin(true);
+        } else {
+            setIsLoadingDest(true);
+        }
 
         try {
             const token = await getAmadeusToken();
@@ -131,7 +91,11 @@ const BookingSection: React.FC = () => {
             }
         } catch (error) {
             console.error('Error searching locations:', error);
-            isOrigin ? setIsLoadingOrigin(false) : setIsLoadingDest(false);
+            if (isOrigin) {
+                setIsLoadingOrigin(false);
+            } else {
+                setIsLoadingDest(false);
+            }
         }
     };
 
@@ -159,21 +123,6 @@ const BookingSection: React.FC = () => {
         if (newSelection === "all") return;
         if (newSelection.size > 0) {
             setSelectedModes(newSelection);
-            setErrors(prev => ({ ...prev, transport: undefined }));
-        }
-    };
-
-    const handleDepartureDateChange = (date: Date | null) => {
-        setDepartureDate(date);
-        if (date && returnDate && date <= returnDate) {
-            setErrors(prev => ({ ...prev, dates: undefined }));
-        }
-    };
-
-    const handleReturnDateChange = (date: Date | null) => {
-        setReturnDate(date);
-        if (date && departureDate && departureDate <= date) {
-            setErrors(prev => ({ ...prev, dates: undefined }));
         }
     };
 
@@ -185,18 +134,7 @@ const BookingSection: React.FC = () => {
                     placeholder="Origin city"
                     className="h-full mt-2"
                     onInputChange={(value) => setOriginQuery(value)}
-                    onSelectionChange={(value) => {
-                        setSelectedOrigin(value as string);
-                        setErrors(prev => ({ ...prev, origin: undefined }));
-                        // Check if new origin matches destiny
-                        if (value === selectedDestiny) {
-                            setErrors(prev => ({ ...prev, destiny: "Origin and destination cannot be the same" }));
-                        }
-                    }}
                     isLoading={isLoadingOrigin}
-                    isRequired
-                    errorMessage={errors.origin}
-                    isInvalid={!!errors.origin}
                 >
                     {originResults.map((location) => (
                         <AutocompleteItem
@@ -220,18 +158,7 @@ const BookingSection: React.FC = () => {
                     placeholder="Destiny city"
                     className="h-full mt-2"
                     onInputChange={(value) => setDestQuery(value)}
-                    onSelectionChange={(value) => {
-                        setSelectedDestiny(value as string);
-                        setErrors(prev => ({ ...prev, destiny: undefined }));
-                        // Check if new destiny matches origin
-                        if (value === selectedOrigin) {
-                            setErrors(prev => ({ ...prev, destiny: "Origin and destination cannot be the same" }));
-                        }
-                    }}
                     isLoading={isLoadingDest}
-                    isRequired
-                    errorMessage={errors.destiny}
-                    isInvalid={!!errors.destiny}
                 >
                     {destResults.map((location) => (
                         <AutocompleteItem
@@ -254,17 +181,11 @@ const BookingSection: React.FC = () => {
                     label="Departure"
                     isRequired
                     className="mt-2"
-                    onChange={handleDepartureDateChange}
-                    errorMessage={errors.dates}
-                    isInvalid={!!errors.dates}
                 />
                 <DatePicker
                     label="Return"
                     isRequired
                     className="mt-2"
-                    onChange={handleReturnDateChange}
-                    errorMessage={errors.dates}
-                    isInvalid={!!errors.dates}
                 />
             </div>
             <Card>
@@ -277,9 +198,6 @@ const BookingSection: React.FC = () => {
                         selectedKeys={selectedModes}
                         onSelectionChange={handleSelectionChange}
                         className="w-full"
-                        isRequired
-                        errorMessage={errors.transport}
-                        isInvalid={!!errors.transport}
                     >
                         {transportModes.map((mode) => (
                             <SelectItem key={mode.value} value={mode.value}>
