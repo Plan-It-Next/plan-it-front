@@ -3,7 +3,7 @@ import { NextUIProvider } from '@nextui-org/react';
 import { Card } from "@nextui-org/react";
 import { GetStaticProps } from 'next';
 import Header from '@/components/commons/HeaderComponent'
-import SearchCard from '@/components/SearchCardComponent';
+import SearchCard from '@/components/commons/search/SearchCardComponent';
 import HomeBackgroundCarousel from "@/components/commons/HomeBackgroundCarrousel";
 import dynamic from 'next/dynamic';
 import SynchronizedDestinationsComponent from "@/components/landingComponents/SynchronizedDestinationsComponent";
