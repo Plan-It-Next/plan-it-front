@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input, Card, CardBody, DatePicker } from "@nextui-org/react";
+import { Input, Card, CardBody } from "@nextui-org/react";
+import { DatePicker } from "@nextui-org/react";
 import { Icon } from '@iconify/react';
 
 const PlanATripSection: React.FC = () => {
@@ -53,7 +54,6 @@ const PlanATripSection: React.FC = () => {
                         label="Departure"
                         isRequired
                         labelPlacement="outside"
-                        placeholder="When do you want to start your journey?"
                         className="w-full"
                     />
 
@@ -61,7 +61,6 @@ const PlanATripSection: React.FC = () => {
                         label="Return"
                         isRequired
                         labelPlacement="outside"
-                        placeholder="When do you plan to return?"
                         className="w-full"
                     />
                 </CardBody>
