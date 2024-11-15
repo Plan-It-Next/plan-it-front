@@ -32,8 +32,8 @@ const PassengerSelector = () => {
     const totalPassengers = Object.values(counts).reduce((a, b) => a + b, 0);
 
     return (
-        <div className="max-w-xs">
-            <div className="flex flex-col gap-0.5">
+        <div className="w-full">
+            <div className="flex flex-col gap-0.5 w-full">
                 <label className="block text-sm font-medium text-foreground-500">Passengers</label>
                 <Popover placement="bottom">
                     <PopoverTrigger>
