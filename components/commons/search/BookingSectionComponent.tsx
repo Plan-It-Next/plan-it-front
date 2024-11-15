@@ -5,10 +5,13 @@ import PassengerSelector from "@/components/commons/TravelersSelectorComponent";
 
 interface Location {
     name: string;
-    iataCode: string;
     address: {
         countryName: string;
         cityName: string;
+    };
+    geoCode: {
+        latitude: string;
+        longitude: string;
     };
     subType: string;
 }
@@ -138,13 +141,13 @@ const BookingSection: React.FC = () => {
                 >
                     {originResults.map((location) => (
                         <AutocompleteItem
-                            key={location.iataCode}
-                            value={location.iataCode}
+                            key={`${location.geoCode.latitude};${location.geoCode.longitude}`}
+                            value={`${location.geoCode.latitude};${location.geoCode.longitude}`}
                             textValue={location.address.cityName}
                         >
                             <div className="flex flex-col">
                                 <span className="text-sm">
-                                    {location.address.cityName}
+                                    {`${location.geoCode.latitude};${location.geoCode.longitude}`}
                                 </span>
                                 <span className="text-xs text-gray-500">
                                     {location.address.countryName}
@@ -162,8 +165,8 @@ const BookingSection: React.FC = () => {
                 >
                     {destResults.map((location) => (
                         <AutocompleteItem
-                            key={location.iataCode}
-                            value={location.iataCode}
+                            key={`${location.geoCode.latitude};${location.geoCode.longitude}`}
+                            value={`${location.geoCode.latitude};${location.geoCode.longitude}`}
                             textValue={location.address.cityName}
                         >
                             <div className="flex flex-col">
