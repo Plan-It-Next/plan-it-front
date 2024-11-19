@@ -51,7 +51,7 @@ const Header: React.FC = () => {
         >
             <NavbarBrand>
                 <Link
-                    href="/public"
+                    href="/"
                     className={`font-bold text-inherit ${getTextColor()}`}
                 >
                     PlanIt

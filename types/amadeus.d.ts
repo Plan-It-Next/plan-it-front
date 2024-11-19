@@ -1,4 +1,4 @@
-declare module 'amadeus' {
+declare module '@/types/amadeus' {
     interface AmadeusOptions {
         clientId?: string | undefined;
         clientSecret?: string | undefined;
@@ -25,7 +25,15 @@ declare module 'amadeus' {
 
     class Shopping {
         flightOffersSearch: {
-            get(params: never): Promise<AmadeusResponse<never>>;
+            get(params: {
+                nonStop: boolean;
+                destinationLocationCode: string;
+                max: number;
+                adults: number;
+                originLocationCode: string;
+                departureDate: string;
+                travelClass: string
+            }): Promise<AmadeusResponse<never>>;
         };
     }
 
