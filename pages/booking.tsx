@@ -1,9 +1,15 @@
 // pages/booking.tsx
 import { useEffect, useState } from 'react';
 import Header from "@/components/commons/header/HeaderComponent";
-import {Button, Card, CardBody, CardFooter, CardHeader, Spinner} from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Spinner } from "@nextui-org/react";
 import BookingSection from "@/components/commons/search/BookingSectionComponent";
-import { amadeusFlightService } from '@/services/amadeus/AmadeusFlightService';
+import Amadeus from 'amadeus';
+
+// Initialize Amadeus client
+const amadeus = new Amadeus({
+    clientId: process.env.NEXT_PUBLIC_AMADEUS_ID,
+    clientSecret: process.env.NEXT_PUBLIC_AMADEUS_SECRET
+});
 
 interface Flight {
     type: string;
@@ -38,12 +44,13 @@ export default function BookingPage() {
     const searchFlights = async () => {
         setLoading(true);
         try {
-            const response = await amadeusFlightService.searchFlights({
+            const response = await amadeus.shopping.flightOffersSearch.get({
                 originLocationCode: 'MAD',
-                destinationLocationCode: 'CDG',
+                destinationLocationCode: 'HND',
                 departureDate: '2024-12-14',
                 adults: 1,
                 nonStop: false,
+                travelClass: 'ECONOMY',
                 max: 15
             });
 

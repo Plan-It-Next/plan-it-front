@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Autocomplete, AutocompleteItem, Select, SelectItem, Card, CardBody, DatePicker } from "@nextui-org/react";
 import { Selection } from "@nextui-org/react";
 import PassengerSelector from "@/components/commons/TravelersSelectorComponent";
+import Amadeus from 'amadeus';
+
+const amadeus = new Amadeus({
+    clientId: process.env.NEXT_PUBLIC_AMADEUS_ID || "",
+    clientSecret: process.env.NEXT_PUBLIC_AMADEUS_SECRET || ""
+});
 
 interface Location {
     name: string;
@@ -9,15 +15,12 @@ interface Location {
         countryName: string;
         cityName: string;
     };
+    iataCode: string;
     geoCode: {
         latitude: string;
         longitude: string;
     };
     subType: string;
-}
-
-interface AmadeusResponse {
-    data: Location[];
 }
 
 const transportModes = [
@@ -36,27 +39,6 @@ const BookingSection: React.FC = () => {
     const [isLoadingOrigin, setIsLoadingOrigin] = useState(false);
     const [isLoadingDest, setIsLoadingDest] = useState(false);
 
-    const getAmadeusToken = async () => {
-        try {
-            const response = await fetch('https://test.api.amadeus.com/v1/security/oauth2/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    grant_type: 'client_credentials',
-                    client_id: 'Rhe76PRIpCK2OhNBSd2IVScsQlwMlapu',
-                    client_secret: 'YU2G9r6p9994vSvx',
-                }),
-            });
-            const data = await response.json();
-            return data.access_token;
-        } catch (error) {
-            console.error('Error getting access token:', error);
-            return null;
-        }
-    };
-
     const searchLocations = async (query: string, isOrigin: boolean) => {
         if (query.length < 2) {
             if (isOrigin) {
@@ -74,22 +56,17 @@ const BookingSection: React.FC = () => {
         }
 
         try {
-            const token = await getAmadeusToken();
-            const response = await fetch(
-                `https://test.api.amadeus.com/v1/reference-data/locations?subType=CITY&keyword=${query}&page[limit]=10`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            const data: AmadeusResponse = await response.json();
+            const response = await amadeus.referenceData.locations.get({
+                keyword: query,
+                subType: 'CITY',
+                'page[limit]': 10
+            });
 
             if (isOrigin) {
-                setOriginResults(data.data);
+                setOriginResults(response.data);
                 setIsLoadingOrigin(false);
             } else {
-                setDestResults(data.data);
+                setDestResults(response.data);
                 setIsLoadingDest(false);
             }
         } catch (error) {
@@ -147,7 +124,7 @@ const BookingSection: React.FC = () => {
                         >
                             <div className="flex flex-col">
                                 <span className="text-sm">
-                                    {`${location.geoCode.latitude};${location.geoCode.longitude}`}
+                                    {location.address.cityName} | {location.iataCode}
                                 </span>
                                 <span className="text-xs text-gray-500">
                                     {location.address.countryName}
@@ -171,7 +148,7 @@ const BookingSection: React.FC = () => {
                         >
                             <div className="flex flex-col">
                                 <span className="text-sm">
-                                    {location.address.cityName}
+                                    {location.address.cityName} | {location.iataCode}
                                 </span>
                                 <span className="text-xs text-gray-500">
                                     {location.address.countryName}
