@@ -71,7 +71,7 @@ const Header: React.FC = () => {
                 <NavbarItem>
                     <Link
                         color="foreground"
-                        href="/book"
+                        href="/booking"
                         className={`font-bold text-inherit ${getTextColor()} items-center`}
                     >
                         <Icon icon="mingcute:ticket-fill" className="mr-1"/>
