@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Autocomplete, AutocompleteItem, Select, SelectItem, Card, CardBody, DatePicker } from "@nextui-org/react";
+import { Autocomplete, AutocompleteItem, Select, SelectItem, Card, CardBody, DatePicker, Button } from "@nextui-org/react";
 import { Selection } from "@nextui-org/react";
+import { Icon } from '@iconify/react';
 import PassengerSelector from "@/components/commons/TravelersSelectorComponent";
 import Amadeus from 'amadeus';
 
@@ -9,7 +10,7 @@ const amadeus = new Amadeus({
     clientSecret: process.env.NEXT_PUBLIC_AMADEUS_SECRET || ""
 });
 
-interface Location {
+interface LocationData {
     name: string;
     address: {
         countryName: string;
@@ -34,8 +35,8 @@ const BookingSection: React.FC = () => {
     const [selectedModes, setSelectedModes] = useState<Selection>(new Set(["plane", "train"]));
     const [originQuery, setOriginQuery] = useState("");
     const [destQuery, setDestQuery] = useState("");
-    const [originResults, setOriginResults] = useState<Location[]>([]);
-    const [destResults, setDestResults] = useState<Location[]>([]);
+    const [originResults, setOriginResults] = useState<LocationData[]>([]);
+    const [destResults, setDestResults] = useState<LocationData[]>([]);
     const [isLoadingOrigin, setIsLoadingOrigin] = useState(false);
     const [isLoadingDest, setIsLoadingDest] = useState(false);
 
@@ -106,87 +107,104 @@ const BookingSection: React.FC = () => {
         }
     };
 
+    const handleSearch = () => {
+        // Implement search functionality here
+        console.log("Search clicked");
+    };
+
     return (
-        <div className="grid grid-cols-3 gap-6">
-            <div className="grid grid-cols-2 gap-4 col-span-2">
-                <Autocomplete
-                    label="Origin"
-                    placeholder="Origin city"
-                    className="h-full mt-2"
-                    onInputChange={(value) => setOriginQuery(value)}
-                    isLoading={isLoadingOrigin}
-                >
-                    {originResults.map((location) => (
-                        <AutocompleteItem
-                            key={`${location.geoCode.latitude};${location.geoCode.longitude}`}
-                            value={`${location.geoCode.latitude};${location.geoCode.longitude}`}
-                            textValue={location.address.cityName}
-                        >
-                            <div className="flex flex-col">
-                                <span className="text-sm">
-                                    {location.address.cityName} | {location.iataCode}
-                                </span>
-                                <span className="text-xs text-gray-500">
-                                    {location.address.countryName}
-                                </span>
-                            </div>
-                        </AutocompleteItem>
-                    ))}
-                </Autocomplete>
-                <Autocomplete
-                    label="Destiny"
-                    placeholder="Destiny city"
-                    className="h-full mt-2"
-                    onInputChange={(value) => setDestQuery(value)}
-                    isLoading={isLoadingDest}
-                >
-                    {destResults.map((location) => (
-                        <AutocompleteItem
-                            key={`${location.geoCode.latitude};${location.geoCode.longitude}`}
-                            value={`${location.geoCode.latitude};${location.geoCode.longitude}`}
-                            textValue={location.address.cityName}
-                        >
-                            <div className="flex flex-col">
-                                <span className="text-sm">
-                                    {location.address.cityName} | {location.iataCode}
-                                </span>
-                                <span className="text-xs text-gray-500">
-                                    {location.address.countryName}
-                                </span>
-                            </div>
-                        </AutocompleteItem>
-                    ))}
-                </Autocomplete>
-                <DatePicker
-                    label="Departure"
-                    isRequired
-                    className="mt-2"
-                />
-                <DatePicker
-                    label="Return"
-                    isRequired
-                    className="mt-2"
-                />
-            </div>
-            <Card>
-                <CardBody className="flex flex-col gap-4">
-                    <PassengerSelector/>
-                    <Select
-                        label="Transport Modes"
-                        placeholder="Select transport modes"
-                        selectionMode="multiple"
-                        selectedKeys={selectedModes}
-                        onSelectionChange={handleSelectionChange}
-                        className="w-full"
+        <div className="flex flex-col gap-6">
+            <div className="grid grid-cols-3 gap-6">
+                <div className="grid grid-cols-2 gap-4 col-span-2">
+                    <Autocomplete
+                        label="Origin"
+                        placeholder="Origin city"
+                        className="h-full mt-2"
+                        onInputChange={(value) => setOriginQuery(value)}
+                        isLoading={isLoadingOrigin}
                     >
-                        {transportModes.map((mode) => (
-                            <SelectItem key={mode.value} value={mode.value}>
-                                {mode.label}
-                            </SelectItem>
+                        {originResults.map((location) => (
+                            <AutocompleteItem
+                                key={`${location.geoCode.latitude};${location.geoCode.longitude}`}
+                                value={`${location.geoCode.latitude};${location.geoCode.longitude}`}
+                                textValue={location.address.cityName}
+                            >
+                                <div className="flex flex-col">
+                                    <span className="text-sm">
+                                        {location.address.cityName} | {location.iataCode}
+                                    </span>
+                                    <span className="text-xs text-gray-500">
+                                        {location.address.countryName}
+                                    </span>
+                                </div>
+                            </AutocompleteItem>
                         ))}
-                    </Select>
-                </CardBody>
-            </Card>
+                    </Autocomplete>
+                    <Autocomplete
+                        label="Destiny"
+                        placeholder="Destiny city"
+                        className="h-full mt-2"
+                        onInputChange={(value) => setDestQuery(value)}
+                        isLoading={isLoadingDest}
+                    >
+                        {destResults.map((location) => (
+                            <AutocompleteItem
+                                key={`${location.geoCode.latitude};${location.geoCode.longitude}`}
+                                value={`${location.geoCode.latitude};${location.geoCode.longitude}`}
+                                textValue={location.address.cityName}
+                            >
+                                <div className="flex flex-col">
+                                    <span className="text-sm">
+                                        {location.address.cityName} | {location.iataCode}
+                                    </span>
+                                    <span className="text-xs text-gray-500">
+                                        {location.address.countryName}
+                                    </span>
+                                </div>
+                            </AutocompleteItem>
+                        ))}
+                    </Autocomplete>
+                    <DatePicker
+                        label="Departure"
+                        isRequired
+                        className="mt-2"
+                    />
+                    <DatePicker
+                        label="Return"
+                        isRequired
+                        className="mt-2"
+                    />
+                </div>
+                <Card>
+                    <CardBody className="flex flex-col gap-4">
+                        <PassengerSelector/>
+                        <Select
+                            label="Transport Modes"
+                            placeholder="Select transport modes"
+                            selectionMode="multiple"
+                            selectedKeys={selectedModes}
+                            onSelectionChange={handleSelectionChange}
+                            className="w-full"
+                        >
+                            {transportModes.map((mode) => (
+                                <SelectItem key={mode.value} value={mode.value}>
+                                    {mode.label}
+                                </SelectItem>
+                            ))}
+                        </Select>
+                    </CardBody>
+                </Card>
+            </div>
+            <div className="flex justify-end mt-4">
+                <Button
+                    color="primary"
+                    size="lg"
+                    onClick={handleSearch}
+                >
+                    <Icon icon="mdi:magnify" className="mr-1" />
+                    Search
+                </Button>
+            </div>
         </div>
     );
 };

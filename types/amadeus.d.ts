@@ -1,29 +1,29 @@
-declare module '@/types/amadeus' {
-    interface AmadeusOptions {
+declare module 'amadeus' {
+    export interface AmadeusOptions {
         clientId?: string | undefined;
         clientSecret?: string | undefined;
     }
 
-    interface Location {
+    export interface Location {
         keyword: string;
         subType: string;
         'page[limit]'?: number;
     }
 
-    interface AmadeusResponse<T> {
+    export interface AmadeusResponse<T> {
         data: T[];
         meta: never;
     }
 
-    class Locations {
+    export class Locations {
         get(params: Location): Promise<AmadeusResponse<never>>;
     }
 
-    class ReferenceData {
+    export class ReferenceData {
         locations: Locations;
     }
 
-    class Shopping {
+    export class Shopping {
         flightOffersSearch: {
             get(params: {
                 nonStop: boolean;
@@ -37,11 +37,9 @@ declare module '@/types/amadeus' {
         };
     }
 
-    class Amadeus {
+    export default class Amadeus {
         constructor(options: AmadeusOptions);
         shopping: Shopping;
         referenceData: ReferenceData;
     }
-
-    export default Amadeus;
 }

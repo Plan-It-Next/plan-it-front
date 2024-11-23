@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Header from "@/components/commons/header/HeaderComponent";
 import { Button, Card, CardBody, CardFooter, CardHeader, Spinner } from "@nextui-org/react";
 import BookingSection from "@/components/commons/search/BookingSectionComponent";
+// @ts-ignore
 import Amadeus from 'amadeus';
 
 // Initialize Amadeus client
