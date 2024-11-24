@@ -97,13 +97,16 @@ const PersonalizedTripCardComponent: React.FC = () => {
             <ImagePreloader images={imageData} />
 
             <Card
-                className="md:flex md:flex-row min-h-96 md:object-left p-8 overflow-visible"
-                style={{
-                    backgroundImage: 'url("https://pic.netbian.com/uploads/allimg/230409/235309-1681055589590d.jpg")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                }}
+                className="md:flex md:flex-row min-h-96 md:object-left overflow-visible"
+                radius="lg"
             >
+                <Image
+                    src="/images/lake-view-image.jpg"
+                    alt=""
+                    width={parent.innerWidth}
+                    height={parent.innerHeight}
+                    className="object-cover rounded-xl h-96"
+                />
                 <Card
                     className="absolute left-8 -top-24 w-1/3 p-4 bg-gray-200/30 backdrop-blur-sm justify-center items-center rounded-xl border-teal-200"
                 >
