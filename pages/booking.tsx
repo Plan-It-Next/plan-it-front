@@ -93,9 +93,6 @@ export default function BookingPage() {
                     <CardBody>
                         <BookingSection />
                     </CardBody>
-                    <CardFooter>
-                        <Button onClick={searchFlights}>Search</Button>
-                    </CardFooter>
                 </Card>
 
                 {loading && <Spinner className="mt-8" />}
