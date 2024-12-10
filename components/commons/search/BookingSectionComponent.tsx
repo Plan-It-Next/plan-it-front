@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
     Autocomplete,
     AutocompleteItem,
@@ -8,16 +8,16 @@ import {
     CardBody,
     DatePicker,
     Button,
-    Input
-} from "@nextui-org/react";
-import { Selection } from "@nextui-org/react";
+    Input,
+} from '@nextui-org/react';
+import { Selection } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 import Amadeus from 'amadeus';
-import {TravelSearchContext} from "@/context/TravelSearchContext";
+import { TravelSearchContext } from '@/context/TravelSearchContext';
 
 const amadeus = new Amadeus({
-    clientId: process.env.NEXT_PUBLIC_AMADEUS_ID || "",
-    clientSecret: process.env.NEXT_PUBLIC_AMADEUS_SECRET || ""
+    clientId: process.env.NEXT_PUBLIC_AMADEUS_ID || '',
+    clientSecret: process.env.NEXT_PUBLIC_AMADEUS_SECRET || '',
 });
 
 interface LocationData {
@@ -42,96 +42,81 @@ const transportModes = [
 ];
 
 const BookingSection: React.FC = () => {
-    // const [selectedModes, setSelectedModes] = useState<Selection>(new Set(["plane", "train"]));
-    // const [originQuery, setOriginQuery] = useState("");
-    // const [destQuery, setDestQuery] = useState("");
-    // const [originResults, setOriginResults] = useState<LocationData[]>([]);
-    // const [destResults, setDestResults] = useState<LocationData[]>([]);
-    // const [isLoadingOrigin, setIsLoadingOrigin] = useState(false);
-    // const [isLoadingDest, setIsLoadingDest] = useState(false);
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const {travelerSearchForm, setTravelerSearchForm} = useContext(TravelSearchContext)
+    const { travelerSearchForm, setTravelerSearchForm } = useContext(TravelSearchContext);
     const [formState, setFormState] = useState({
-        selectedModes: new Set(["plane", "train"]) as Selection,
-        originQuery: "",
-        destQuery: "",
+        selectedModes: new Set(['plane', 'train']) as Selection,
+        originQuery: '',
+        destQuery: '',
         originResults: [] as Array<LocationData>,
         destResults: [] as Array<LocationData>,
         isLoadingOrigin: false,
         isLoadingDest: false,
-    })
+        departureDate: '',
+        returnDate: '',
+        travelers: 1,
+    });
 
-    const {isLoadingOrigin, originResults, destResults, destQuery, isLoadingDest, originQuery, selectedModes} = formState
+    const {
+        isLoadingOrigin,
+        originResults,
+        destResults,
+        destQuery,
+        isLoadingDest,
+        originQuery,
+        selectedModes,
+        departureDate,
+        returnDate,
+        travelers,
+    } = formState;
 
     const searchLocations = async (query: string, isOrigin: boolean) => {
         if (query.length < 2) {
             if (isOrigin) {
-                // setOriginResults([]);
-                setFormState(
-                    (prevState) => ({...prevState, originResults: []})
-                )
+                setFormState((prevState) => ({ ...prevState, originResults: [] }));
             } else {
-                setFormState(
-                    (prevState) => ({...prevState, destResults: []})
-                )
-                // setDestResults([]);
+                setFormState((prevState) => ({ ...prevState, destResults: [] }));
             }
             return;
         }
 
         if (isOrigin) {
-            setFormState(
-                (prevState) => ({...prevState, isLoadingOrigin: true})
-            )
-            // setIsLoadingOrigin(true);
+            setFormState((prevState) => ({ ...prevState, isLoadingOrigin: true }));
         } else {
-            setFormState(
-                (prevState) => ({...prevState, isLoadingDest: true})
-            )
-            // setIsLoadingDest(true);
+            setFormState((prevState) => ({ ...prevState, isLoadingDest: true }));
         }
 
         try {
             const response = await amadeus.referenceData.locations.get({
                 keyword: query,
                 subType: 'CITY',
-                'page[limit]': 10
+                'page[limit]': 10,
             });
 
             if (isOrigin) {
-                setFormState(
-                    (prevState) => ({...prevState, originResults: response.data, isLoadingOrigin: false})
-                )
-                // setOriginResults();
-                // setIsLoadingOrigin(false);
+                setFormState((prevState) => ({
+                    ...prevState,
+                    originResults: response.data,
+                    isLoadingOrigin: false,
+                }));
             } else {
-                setFormState(
-                    (prevState) => ({...prevState, destResults: response.data, isLoadingDest: false})
-                )
-                // setDestResults(response.data);
-                // setIsLoadingDest(false);
+                setFormState((prevState) => ({
+                    ...prevState,
+                    destResults: response.data,
+                    isLoadingDest: false,
+                }));
             }
         } catch (error) {
             console.error('Error searching locations:', error);
             if (isOrigin) {
-                setFormState(
-                    (prevState) => ({...prevState, isLoadingOrigin: false})
-                )
-                // setIsLoadingOrigin(false);
+                setFormState((prevState) => ({ ...prevState, isLoadingOrigin: false }));
             } else {
-                setFormState(
-                    (prevState) => ({...prevState, isLoadingDest: false})
-                )
-                // setIsLoadingDest(false);
+                setFormState((prevState) => ({ ...prevState, isLoadingDest: false }));
             }
         }
     };
 
     useEffect(() => {
         searchLocations(originQuery, true);
-
     }, [originQuery]);
 
     useEffect(() => {
@@ -139,16 +124,42 @@ const BookingSection: React.FC = () => {
     }, [destQuery]);
 
     const handleSelectionChange = (newSelection: Selection) => {
-        if (newSelection === "all") return;
         if (newSelection.size > 0) {
-            // setSelectedModes(newSelection);
-            setFormState((prevState) => ({...prevState, selectedModes: newSelection}))
+            setFormState((prevState) => ({ ...prevState, selectedModes: newSelection }));
         }
     };
 
-    const handleSearch = () => {
-        console.log(travelerSearchForm)
-        setTravelerSearchForm(formState);
+    const handleSearch = async () => {
+        const requestData = {
+            origin: originQuery,
+            destination: destQuery,
+            departureDate,
+            returnDate,
+            travelers,
+            transportModes: Array.from(selectedModes),
+        };
+
+        console.log('Sending data to API:', requestData);
+
+        try {
+            const response = await fetch('/api/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch data from API');
+            }
+
+            const responseData = await response.json();
+            console.log('API response:', responseData);
+            // Aquí podrías manejar la respuesta y actualizar el estado global/contexto
+        } catch (error) {
+            console.error('Error during API request:', error);
+        }
     };
 
     return (
@@ -159,7 +170,9 @@ const BookingSection: React.FC = () => {
                         label="Origin"
                         placeholder="Origin city"
                         className="h-full mt-2"
-                        onInputChange={(value) => setFormState((prevState) => ({...prevState, originQuery: value})) /*setOriginQuery(value)*/}
+                        onInputChange={(value) =>
+                            setFormState((prevState) => ({ ...prevState, originQuery: value }))
+                        }
                         isLoading={isLoadingOrigin}
                     >
                         {originResults.map((location) => (
@@ -183,8 +196,9 @@ const BookingSection: React.FC = () => {
                         label="Destiny"
                         placeholder="Destiny city"
                         className="h-full mt-2"
-                        onInputChange={(value) => setFormState((prevState) => ({...prevState, destQuery: value}))}
-                        // onInputChange={(value) => setFormState((prevState) => ({...prevState, destQuery: value })}
+                        onInputChange={(value) =>
+                            setFormState((prevState) => ({ ...prevState, destQuery: value }))
+                        }
                         isLoading={isLoadingDest}
                     >
                         {destResults.map((location) => (
@@ -208,15 +222,31 @@ const BookingSection: React.FC = () => {
                         label="Departure"
                         isRequired
                         className="mt-2"
+                        onChange={(date) =>
+                            setFormState((prevState) => ({ ...prevState, departureDate: date }))
+                        }
                     />
                     <DatePicker
                         label="Return"
                         className="mt-2"
+                        onChange={(date) =>
+                            setFormState((prevState) => ({ ...prevState, returnDate: date }))
+                        }
                     />
                 </div>
                 <Card>
                     <CardBody className="flex flex-col gap-4">
-                        <Input type="number" label="Travelers"/>
+                        <Input
+                            type="number"
+                            label="Travelers"
+                            value={travelers}
+                            onChange={(e) =>
+                                setFormState((prevState) => ({
+                                    ...prevState,
+                                    travelers: Number(e.target.value),
+                                }))
+                            }
+                        />
                         <Select
                             label="Transport Modes"
                             placeholder="Select transport modes"
@@ -235,11 +265,7 @@ const BookingSection: React.FC = () => {
                 </Card>
             </div>
             <div className="flex justify-end mt-4">
-                <Button
-                    color="primary"
-                    size="lg"
-                    onClick={handleSearch}
-                >
+                <Button color="primary" size="lg" onClick={handleSearch}>
                     <Icon icon="mdi:magnify" className="mr-1" />
                     Search
                 </Button>
