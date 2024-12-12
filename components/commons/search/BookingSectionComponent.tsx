@@ -131,18 +131,20 @@ const BookingSection: React.FC = () => {
 
     const handleSearch = async () => {
         const requestData = {
-            origin: originQuery,
-            destination: destQuery,
-            departureDate,
-            returnDate,
-            travelers,
-            transportModes: Array.from(selectedModes),
+            ciudad_origen: originQuery,
+            ciudad_destino: destQuery,
+            pais: null,
+            tipo_ruta: Array.from(selectedModes),
+            fecha: departureDate,
+            precio_billete: null,
+            distancia: null,
+            duracion: null,
         };
 
         console.log('Sending data to API:', requestData);
 
         try {
-            const response = await fetch('/api/search', {
+            const response = await fetch('http://localhost:8000/trip/viaje_filtro', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
