@@ -1,0 +1,55 @@
+{
+  "content": {
+    "title": "Discover North America",
+    "titleIcon": "/images/continents-icons/america-icon.png",
+    "description": "North America offers stunning landscapes, vibrant cities, and rich cultural heritage. From the Grand Canyon and Niagara Falls to New York and Mexico’s ancient ruins, it’s a diverse destination with adventures, history, and cuisine for every traveler.",
+    "subtitle": "Explore the mix of historic charm and lively culture in North American cities.",
+    "buttonText": "Learn more about North America"
+  },
+  "locations": [
+    {
+      "name": "NEW YORK",
+      "location": "USA, North America",
+      "inhabitants": 8419600,
+      "tags": [
+        "Culture",
+        "Finance",
+        "Broadway"
+      ],
+      "image": "https://hips.hearstapps.com/hmg-prod/images/nueva-york-1521191396.jpg"
+    },
+    {
+      "name": "MEXICO CITY",
+      "location": "Mexico, North America",
+      "inhabitants": 8918653,
+      "tags": [
+        "History",
+        "Cuisine",
+        "Art"
+      ],
+      "image": "https://media.cntraveler.com/photos/640b605c63c7e54952eb4d22/4:3/w_1600%2Ch_1200%2Cc_limit/Mexico%2520City_GettyImages-638920569.jpg"
+    },
+    {
+      "name": "TORONTO",
+      "location": "Canada, North America",
+      "inhabitants": 2731571,
+      "tags": [
+        "Multicultural",
+        "Shopping",
+        "Skyscrapers"
+      ],
+      "image": "https://www.airtransat.com/getmedia/05512380-40c3-432e-8cb6-01b34c7f68c6/Toronto_Showbox_Mobile_800x1000_V3.jpg?width=720"
+    },
+    {
+      "name": "VANCOUVER",
+      "location": "Canada, North America",
+      "inhabitants": 631490,
+      "tags": [
+        "Nature",
+        "Outdoor Activities",
+        "Technology"
+      ],
+      "image": "https://content.r9cdn.net/rimg/dimg/75/66/ee80acca-city-6668-16682a32985.jpg?width=1366&height=768&xhint=2877&yhint=2104&crop=true"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "content": {
+    "title": "Discover South America",
+    "titleIcon": "/images/continents-icons/america-icon.png",
+    "description": "South America boasts stunning landscapes, vibrant cities, and rich cultural diversity. From the Amazon rainforest and Machu Picchu to Patagonia’s rugged beauty, it’s a continent filled with adventure, history, and unique cuisines.",
+    "subtitle": "Experience rich heritage, vibrant cultures, and historic landmarks across the continent.",
+    "buttonText": "Learn more about South America"
+  },
+  "locations": [
+    {
+      "name": "RIO DE JANEIRO",
+      "location": "Brazil, South America",
+      "inhabitants": 6748000,
+      "tags": [
+        "Beaches",
+        "Carnival",
+        "Mountains"
+      ],
+      "image": "https://media.licdn.com/dms/image/v2/D4D12AQGIM0bqmXqOSw/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1690450886964?e=2147483647&v=beta&t=eZxPyOQ9yy8c9MWZSqadEGCb0UVYo642BCA2Q1D07N8"
+    },
+    {
+      "name": "BUENOS AIRES",
+      "location": "Argentina, South America",
+      "inhabitants": 2890151,
+      "tags": [
+        "Tango",
+        "Cuisine",
+        "Architecture"
+      ],
+      "image": "https://vamospanish.com/wp-content/uploads/live-in-buenos-aires.jpg"
+    },
+    {
+      "name": "LIMA",
+      "location": "Peru, South America",
+      "inhabitants": 9674000,
+      "tags": [
+        "History",
+        "Cuisine",
+        "Coastline"
+      ],
+      "image": "https://www.enel.com/content/dam/enel-com/immagini/master-azienda_2400x1160/circolar-economy-news_2400x1160/lima_2400x1160.jpg"
+    },
+    {
+      "name": "SANTIAGO",
+      "location": "Chile, South America",
+      "inhabitants": 7150000,
+      "tags": [
+        "Mountains",
+        "Culture",
+        "Wine"
+      ],
+      "image": "https://www.civitatis.com/blog/wp-content/uploads/2024/09/panorama-santiago-de-chile.jpg"
+    },
+    {
+      "name": "BOGOTÁ",
+      "location": "Colombia, South America",
+      "inhabitants": 7692000,
+      "tags": [
+        "History",
+        "Art",
+        "Coffee"
+      ],
+      "image": "https://cdn.colombia.com/sdi/2023/02/27/10-lugares-turisticos-en-bogota-que-tienes-que-conocer-1122438.jpg"
+    }
+  ]
+}

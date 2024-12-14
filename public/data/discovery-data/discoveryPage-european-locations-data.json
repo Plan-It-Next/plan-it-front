@@ -1,0 +1,66 @@
+{
+  "content": {
+    "title": "Discover Europe",
+    "titleIcon": "/images/continents-icons/europe-icon.png",
+    "description": "Europe is a vibrant blend of history, culture, and stunning landscapes. From iconic landmarks and charming cities to diverse cuisines and hidden gems, it promises unforgettable adventures for every traveler.",
+    "subtitle": "Experience the rich history and modern vibrancy of European cities.",
+    "buttonText": "Learn more about Europe"
+  },
+  "locations": [
+    {
+      "name": "PARIS",
+      "location": "France, Europe",
+      "inhabitants": 2161000,
+      "tags": [
+        "Culture",
+        "Architecture",
+        "Gastronomy"
+      ],
+      "image": "https://img.static-kl.com/images/media/71BBFEDE-473D-4F4E-82522A2197279310"
+    },
+    {
+      "name": "ROME",
+      "location": "Italy, Europe",
+      "inhabitants": 2873000,
+      "tags": [
+        "History",
+        "Art",
+        "Cuisine"
+      ],
+      "image": "https://media.gq-magazine.co.uk/photos/5d13a3a9b6fee91a87c9f87f/16:9/w_2560%2Cc_limit/Rome-hp-GQ-24May16_istock_b.jpg"
+    },
+    {
+      "name": "BERLIN",
+      "location": "Germany, Europe",
+      "inhabitants": 3769000,
+      "tags": [
+        "Modernity",
+        "Nightlife",
+        "Museums"
+      ],
+      "image": "https://img.freepik.com/fotos-premium/berlin-alemania-junio-vista-aerea-horizonte-berlin-centro-ciudad_662214-313370.jpg"
+    },
+    {
+      "name": "MADRID",
+      "location": "Spain, Europe",
+      "inhabitants": 3266000,
+      "tags": [
+        "Art",
+        "Football",
+        "Flamenco"
+      ],
+      "image": "https://media.cntraveler.com/photos/6717c243f1348ea41c7b6319/4:3/w_1884,h_1413,c_limit/madrid-GettyImages-1837573680.jpg"
+    },
+    {
+      "name": "AMSTERDAM",
+      "location": "Netherlands, Europe",
+      "inhabitants": 872700,
+      "tags": [
+        "Canals",
+        "Cycling",
+        "Art"
+      ],
+      "image": "https://dam.ngenespanol.com/wp-content/uploads/2021/08/GettyImages-1074635276.jpg"
+    }
+  ]
+}

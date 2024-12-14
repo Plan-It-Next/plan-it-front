@@ -1,0 +1,32 @@
+{
+  "destinations": [
+    {
+      "name": "SPLIT",
+      "state": "Dalmatia",
+      "country": "Croatia",
+      "description": "Experience the perfect blend of ancient history and modern life in this stunning coastal city.",
+      "image": "https://homerent.agency/storage/app/uploads/public/640/c1f/48a/640c1f48a3efc462458354.jpg"
+    },
+    {
+      "name": "NAXOS",
+      "state": "Ciclada",
+      "country": "Greece",
+      "description": "An island where ancient history, stunning beaches, and charming villages come together.",
+      "image": "https://di262mgurvkjm.cloudfront.net/d3337a14-7345-4874-afed-c5beac102f87/R39361-FR-01_uxga.jpg"
+    },
+    {
+      "name": "BUDAPEST",
+      "state": "Pest",
+      "country": "Hungary",
+      "description": "Home to stunning architecture, thermal baths, and rich history, a must-visit in Central Europe.",
+      "image": "https://media.traveler.es/photos/6137750b70e3cff8b85f93d7/master/w_1600%2Cc_limit/113886.jpg"
+    },
+    {
+      "name": "GRANADA",
+      "state": "Andalucia",
+      "country": "Spain",
+      "description": "A city full of history, a blend of snow-capped mountains, historic charm, and festive atmosphere.",
+      "image": "https://visit-andalucia.com/article_images/granadainwinter/visiting-granada-in-winter.webp"
+    }
+  ]
+}
