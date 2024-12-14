@@ -1,0 +1,65 @@
+{
+  "content": {
+    "title": "Discover Asia",
+    "description": "Asia offers diverse landscapes, bustling cities, and rich cultural heritage. From the Great Wall of China and the temples of Kyoto to the bustling streets of Bangkok and the serene beauty of Bali, it’s a continent of endless discovery, history, and unique flavors.",
+    "subtitle": "Experience ancient traditions, diverse cultures, and historic landmarks across Asia.",
+    "buttonText": "Learn more about Asia"
+  },
+  "locations": [
+    {
+      "name": "TOKYO",
+      "location": "Japan, Asia",
+      "inhabitants": 13929286,
+      "tags": [
+        "Technology",
+        "Culture",
+        "Fashion"
+      ],
+      "image": "https://media.cntraveler.com/photos/60341fbad7bd3b27823c9db2/16:9/w_2560%2Cc_limit/Tokyo-2021-GettyImages-1208124099.jpg"
+    },
+    {
+      "name": "BEIJING",
+      "location": "China, Asia",
+      "inhabitants": 21540000,
+      "tags": [
+        "History",
+        "Culture",
+        "Architecture"
+      ],
+      "image": "https://www.agoda.com/wp-content/uploads/2024/09/Featured-image-Beijing-China-1244x700.jpg"
+    },
+    {
+      "name": "HO CHI MINH CITY",
+      "location": "Vietnam, Asia",
+      "inhabitants": 8900000,
+      "tags": [
+        "History",
+        "Cuisine",
+        "Markets"
+      ],
+      "image": "https://jet-p-001-delivery.sitecorecontenthub.cloud/api/public/content/8dfrl94jsuif-p1fnxkxwg-4x5?v=6f43c5c4"
+    },
+    {
+      "name": "BANGKOK",
+      "location": "Thailand, Asia",
+      "inhabitants": 10539000,
+      "tags": [
+        "Temples",
+        "Nightlife",
+        "Cuisine"
+      ],
+      "image": "https://www.fivestars-thailand.com/images/article/display/a_1709046883.jpg"
+    },
+    {
+      "name": "SEOUL",
+      "location": "South Korea, Asia",
+      "inhabitants": 9776000,
+      "tags": [
+        "Technology",
+        "Culture",
+        "Shopping"
+      ],
+      "image": "https://cdn.britannica.com/57/75757-050-122EC2ED/Changgyong-Palace-background-Seoul.jpg"
+    }
+  ]
+}

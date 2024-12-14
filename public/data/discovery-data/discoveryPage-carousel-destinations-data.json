@@ -1,0 +1,38 @@
+[
+  {
+    "name": "COLOGNE",
+    "state": "NORTH RHINE-WESTPHALIA",
+    "country": "GERMANY",
+    "quote": "The cathedral is a must-see. Truly a magnificent gem in the heart of Cologne.",
+    "description": "Experience the charm of Cologne with its majestic cathedral, lively Rhine promenade, and cozy old town. A perfect blend of history and vibrant culture awaits!",
+    "tags": [
+      "Historic",
+      "Traditional food",
+      "Architecture",
+      "Arts and museum",
+      "Christmas market"
+    ],
+    "season": "Winter",
+    "recommendedDuration": "4 days",
+    "price": "65",
+    "image": "https://4kwallpapers.com/images/wallpapers/cologne-cathedral-3440x1440-13552.jpg"
+  },
+  {
+    "name": "LA VALETA",
+    "state": "MALTA",
+    "country": "MALTA",
+    "quote": "Stroll through a blend of history, charm, and breathtaking views in the heart of Malta.",
+    "description": "Discover the magic of Malta, where ancient history meets crystal-clear seas. Explore its timeless cities, breathtaking coastlines, and vibrant culture—a Mediterranean paradise awaits!",
+    "tags": [
+      "Mild weather",
+      "Historic sites",
+      "Mediterranean",
+      "Local cuisine",
+      "UNESCO Heritage"
+    ],
+    "season": "Winter / Spring",
+    "recommendedDuration": "4 days",
+    "price": "137",
+    "image": "https://www.civitatis.com/blog/wp-content/uploads/2024/07/shutterstock_2436798831-scaled.jpg"
+  }
+]
