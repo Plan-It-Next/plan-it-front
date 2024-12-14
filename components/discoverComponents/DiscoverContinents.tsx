@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Button, Card, CardBody, CardHeader, CardFooter, Chip, Image } from '@nextui-org/react';
+import { Button, Card, CardBody, Chip, Image } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 
 interface Location {
@@ -21,16 +21,16 @@ interface DiscoverContinentsProps {
     locations: Location[];
 }
 
-const DiscoverContinents = ({
-                                title,
-                                titleIcon,
-                                description,
-                                subtitle,
-                                buttonText,
-                                direction = 'ltr',
-                                onButtonClick,
-                                locations
-                            }: DiscoverContinentsProps) => {
+const DiscoverContinents: React.FC<DiscoverContinentsProps> = ({
+                                                                   title,
+                                                                   titleIcon,
+                                                                   description,
+                                                                   subtitle,
+                                                                   buttonText,
+                                                                   direction = 'ltr',
+                                                                   onButtonClick,
+                                                                   locations
+                                                               }) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -43,12 +43,12 @@ const DiscoverContinents = ({
         }
     }, [direction]);
 
-    const handleScroll = (direction: 'left' | 'right') => {
+    const handleScroll = (scrollDirection: 'left' | 'right') => {
         const container = scrollContainerRef.current;
         if (container) {
             const scrollAmount = 400;
             const currentScroll = container.scrollLeft;
-            const targetScroll = currentScroll + (direction === 'left' ? -scrollAmount : scrollAmount);
+            const targetScroll = currentScroll + (scrollDirection === 'left' ? -scrollAmount : scrollAmount);
 
             container.scrollTo({
                 left: targetScroll,
@@ -59,33 +59,32 @@ const DiscoverContinents = ({
 
     const TextContent = () => (
         <div className="lg:w-1/3 flex flex-col gap-6 mr-8 self-center">
-
-                {direction == 'ltr' ? (
-                    <div className="flex flex-row items-center gap-2">
-                        <img src={titleIcon} alt="title icon" className="w-16 h-16"/>
-                        <h1 className={`text-5xl font-bold ${direction == 'rtl' ? 'mr-4 text-right' : 'ml-4'}`}>
-                            {title}
-                        </h1>
-                    </div>
-                    ) : (
-                    <div className={"flex flex-row items-center gap-2"}>
-                        <h1 className="text-5xl font-bold ml-auto text-right">
-                            {title}
-                        </h1>
-                        <img src={titleIcon} alt="title icon" className="w-16 h-16"/>
-                    </div>
-                )}
-            <p className={`text-xl ${direction == 'rtl' ? 'mr-12 text-right' : 'ml-12'}`}>
+            {direction === 'ltr' ? (
+                <div className="flex flex-row items-center gap-2">
+                    <img src={titleIcon} alt="title icon" className="w-16 h-16"/>
+                    <h1 className={`text-5xl font-bold ${direction === 'ltr' ? 'ml-4' : 'mr-4 text-right'}`}>
+                        {title}
+                    </h1>
+                </div>
+            ) : (
+                <div className="flex flex-row items-center gap-2">
+                    <h1 className="text-5xl font-bold ml-auto text-right">
+                        {title}
+                    </h1>
+                    <img src={titleIcon} alt="title icon" className="w-16 h-16"/>
+                </div>
+            )}
+            <p className={`text-xl ${direction === 'ltr' ? 'ml-12' : 'mr-12 text-right'}`}>
                 {description}
             </p>
 
-            <p className={`text-xl ${direction == 'rtl' ? 'mr-4 text-right' : 'ml-4'} italic`}>
+            <p className={`text-xl ${direction === 'ltr' ? 'ml-4' : 'mr-4 text-right'} italic`}>
                 - {subtitle}
             </p>
 
             <Button
                 variant="bordered"
-                className={`max-w-fit px-6 py-2 ${direction == 'rtl' ? 'ml-auto' : ''}`}
+                className={`max-w-fit px-6 py-2 ${direction === 'rtl' ? 'ml-auto' : ''}`}
                 onClick={onButtonClick}
                 radius="full"
             >
@@ -100,7 +99,7 @@ const DiscoverContinents = ({
             <Button
                 isIconOnly
                 onClick={() => handleScroll('left')}
-                className="opacity-0 group-hover:bg-opacity-60 absolute left-0 top-0 bottom-0 z-10 h-full rounded-none min-w-16 flex items-center justify-center transition-opacity duration-300 bg-gradient-to-r from-black/50 to-transparent"
+                className="opacity-0 group-hover:opacity-100 group-hover:bg-opacity-60 absolute left-0 top-0 bottom-0 z-10 h-full rounded-none min-w-16 flex items-center justify-center transition-opacity duration-300 bg-gradient-to-r from-black/50 to-transparent"
                 aria-label="Scroll left"
             >
                 <Icon icon="lucide:chevron-left" className="w-8 h-8 text-white" />
@@ -110,7 +109,7 @@ const DiscoverContinents = ({
             <Button
                 isIconOnly
                 onClick={() => handleScroll('right')}
-                className="opacity-0 group-hover:bg-opacity-60 absolute right-0 top-0 bottom-0 z-10 h-full rounded-none min-w-16 flex items-center justify-center transition-opacity duration-300 bg-gradient-to-l from-black/50 to-transparent"
+                className="opacity-0 group-hover:opacity-100 group-hover:bg-opacity-60 absolute right-0 top-0 bottom-0 z-10 h-full rounded-none min-w-16 flex items-center justify-center transition-opacity duration-300 bg-gradient-to-l from-black/50 to-transparent"
                 aria-label="Scroll right"
             >
                 <Icon icon="lucide:chevron-right" className="w-8 h-8 text-white" />
