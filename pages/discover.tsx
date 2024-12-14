@@ -38,6 +38,7 @@ interface PopularDestinationsData {
 
 interface ContinentContent {
     title: string;
+    titleIcon: string;
     description: string;
     subtitle: string;
     buttonText: string;
@@ -68,6 +69,7 @@ const readJsonFile = (filePath: string) => {
 const defaultContinentData: ContinentData = {
     content: {
         title: "",
+        titleIcon : "",
         description: "",
         subtitle: "",
         buttonText: "Learn more"
@@ -152,6 +154,7 @@ export default function Discover({
                 <DiscoverContinents
                     direction="ltr"
                     title={europeanData.content.title}
+                    titleIcon={europeanData.content.titleIcon}
                     description={europeanData.content.description}
                     subtitle={europeanData.content.subtitle}
                     buttonText={europeanData.content.buttonText}
@@ -163,6 +166,7 @@ export default function Discover({
                 <DiscoverContinents
                     direction="rtl"
                     title={northAmericanData.content.title}
+                    titleIcon={northAmericanData.content.titleIcon}
                     description={northAmericanData.content.description}
                     subtitle={northAmericanData.content.subtitle}
                     buttonText={northAmericanData.content.buttonText}
@@ -174,6 +178,7 @@ export default function Discover({
                 <DiscoverContinents
                     direction="ltr"
                     title={southAmericanData.content.title}
+                    titleIcon={southAmericanData.content.titleIcon}
                     description={southAmericanData.content.description}
                     subtitle={southAmericanData.content.subtitle}
                     buttonText={southAmericanData.content.buttonText}
@@ -185,6 +190,7 @@ export default function Discover({
                 <DiscoverContinents
                     direction="rtl"
                     title={asianData.content.title}
+                    titleIcon={asianData.content.titleIcon}
                     description={asianData.content.description}
                     subtitle={asianData.content.subtitle}
                     buttonText={asianData.content.buttonText}

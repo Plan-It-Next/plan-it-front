@@ -12,6 +12,7 @@ interface Location {
 
 interface DiscoverContinentsProps {
     title: string;
+    titleIcon: string;
     description: string;
     subtitle: string;
     buttonText: string;
@@ -22,6 +23,7 @@ interface DiscoverContinentsProps {
 
 const DiscoverContinents = ({
                                 title,
+                                titleIcon,
                                 description,
                                 subtitle,
                                 buttonText,
@@ -56,11 +58,23 @@ const DiscoverContinents = ({
     };
 
     const TextContent = () => (
-        <div className={`lg:w-1/3 flex flex-col gap-6 ${direction == 'rtl' ? 'mr-8' : 'ml-8'} self-center`}>
-            <h1 className={`text-5xl font-bold ${direction == 'rtl' ? 'mr-4 text-right' : 'ml-4'}`}>
-                {title}
-            </h1>
+        <div className="lg:w-1/3 flex flex-col gap-6 mr-8 self-center">
 
+                {direction == 'ltr' ? (
+                    <div className="flex flex-row items-center gap-2">
+                        <img src={titleIcon} alt="title icon" className="w-16 h-16"/>
+                        <h1 className={`text-5xl font-bold ${direction == 'rtl' ? 'mr-4 text-right' : 'ml-4'}`}>
+                            {title}
+                        </h1>
+                    </div>
+                    ) : (
+                    <div className={"flex flex-row items-center gap-2"}>
+                        <h1 className="text-5xl font-bold ml-auto text-right">
+                            {title}
+                        </h1>
+                        <img src={titleIcon} alt="title icon" className="w-16 h-16"/>
+                    </div>
+                )}
             <p className={`text-xl ${direction == 'rtl' ? 'mr-12 text-right' : 'ml-12'}`}>
                 {description}
             </p>
