@@ -6,6 +6,7 @@ import Footer from "@/components/commons/FooterComponent";
 import DiscoverContinents from "@/components/discoverComponents/DiscoverContinents";
 import fs from 'fs';
 import path from 'path';
+import UnescoHeritageComponent from "@/components/discoverComponents/UnescoHeritageComponent";
 
 // Type definitions
 interface Location {
@@ -144,66 +145,76 @@ export default function Discover({
                 </div>
             </section>
             <section>
-                <img
-                    src="https://img.freepik.com/free-vector/paper-airplane-send-with-dotted-lines-flat-style_78370-2884.jpg"
-                    alt="title image"
-                    className="w-64 mt-32 ml-12"
-                />
+                <section>
+                    <img
+                        src="https://img.freepik.com/free-vector/paper-airplane-send-with-dotted-lines-flat-style_78370-2884.jpg"
+                        alt="title image"
+                        className="w-64 mt-32 ml-12"
+                    />
+                </section>
+                <section className="ml-48 border-t-3 border-b-3 border-l-3 rounded-l-3xl mb-32">
+                    <DiscoverContinents
+                        direction="ltr"
+                        title={europeanData.content.title}
+                        titleIcon={europeanData.content.titleIcon}
+                        description={europeanData.content.description}
+                        subtitle={europeanData.content.subtitle}
+                        buttonText={europeanData.content.buttonText}
+                        onButtonClick={() => console.log("Button clicked")}
+                        locations={europeanData.locations}
+                    />
+                </section>
+                <section className="mr-48 border-t-3 border-b-3 border-r-3 rounded-r-3xl mt-32 mb-32">
+                    <DiscoverContinents
+                        direction="rtl"
+                        title={northAmericanData.content.title}
+                        titleIcon={northAmericanData.content.titleIcon}
+                        description={northAmericanData.content.description}
+                        subtitle={northAmericanData.content.subtitle}
+                        buttonText={northAmericanData.content.buttonText}
+                        onButtonClick={() => console.log("Button clicked")}
+                        locations={northAmericanData.locations}
+                    />
+                </section>
+                <section className="ml-48 border-t-3 border-b-3 border-l-3 rounded-l-3xl mt-32 mb-32">
+                    <DiscoverContinents
+                        direction="ltr"
+                        title={southAmericanData.content.title}
+                        titleIcon={southAmericanData.content.titleIcon}
+                        description={southAmericanData.content.description}
+                        subtitle={southAmericanData.content.subtitle}
+                        buttonText={southAmericanData.content.buttonText}
+                        onButtonClick={() => console.log("Button clicked")}
+                        locations={southAmericanData.locations}
+                    />
+                </section>
+                <section className="mr-48 border-t-3 border-b-3 border-r-3 rounded-r-3xl mt-32">
+                    <DiscoverContinents
+                        direction="rtl"
+                        title={asianData.content.title}
+                        titleIcon={asianData.content.titleIcon}
+                        description={asianData.content.description}
+                        subtitle={asianData.content.subtitle}
+                        buttonText={asianData.content.buttonText}
+                        onButtonClick={() => console.log("Button clicked")}
+                        locations={asianData.locations}
+                    />
+                </section>
+                <section>
+                    <img
+                        src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSOLEh8MYSC_igJvSuL41RFvQC4mk7hlPbeY7S-vDsXRrL26DwH"
+                        alt="title image"
+                        className="w-96 mt-24 ml-auto mr-12"
+                    />
+                </section>
             </section>
-            <section className="ml-48 border-t-3 border-b-3 border-l-3 rounded-l-3xl mb-32">
-                <DiscoverContinents
-                    direction="ltr"
-                    title={europeanData.content.title}
-                    titleIcon={europeanData.content.titleIcon}
-                    description={europeanData.content.description}
-                    subtitle={europeanData.content.subtitle}
-                    buttonText={europeanData.content.buttonText}
-                    onButtonClick={() => console.log("Button clicked")}
-                    locations={europeanData.locations}
-                />
-            </section>
-            <section className="mr-48 border-t-3 border-b-3 border-r-3 rounded-r-3xl mt-32 mb-32">
-                <DiscoverContinents
-                    direction="rtl"
-                    title={northAmericanData.content.title}
-                    titleIcon={northAmericanData.content.titleIcon}
-                    description={northAmericanData.content.description}
-                    subtitle={northAmericanData.content.subtitle}
-                    buttonText={northAmericanData.content.buttonText}
-                    onButtonClick={() => console.log("Button clicked")}
-                    locations={northAmericanData.locations}
-                />
-            </section>
-            <section className="ml-48 border-t-3 border-b-3 border-l-3 rounded-l-3xl mt-32 mb-32">
-                <DiscoverContinents
-                    direction="ltr"
-                    title={southAmericanData.content.title}
-                    titleIcon={southAmericanData.content.titleIcon}
-                    description={southAmericanData.content.description}
-                    subtitle={southAmericanData.content.subtitle}
-                    buttonText={southAmericanData.content.buttonText}
-                    onButtonClick={() => console.log("Button clicked")}
-                    locations={southAmericanData.locations}
-                />
-            </section>
-            <section className="mr-48 border-t-3 border-b-3 border-r-3 rounded-r-3xl mt-32">
-                <DiscoverContinents
-                    direction="rtl"
-                    title={asianData.content.title}
-                    titleIcon={asianData.content.titleIcon}
-                    description={asianData.content.description}
-                    subtitle={asianData.content.subtitle}
-                    buttonText={asianData.content.buttonText}
-                    onButtonClick={() => console.log("Button clicked")}
-                    locations={asianData.locations}
-                />
-            </section>
-            <section>
-                <img
-                    src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSOLEh8MYSC_igJvSuL41RFvQC4mk7hlPbeY7S-vDsXRrL26DwH"
-                    alt="title image"
-                    className="w-96 mt-24 ml-auto mr-12"
-                />
+            <section
+                className="my-24"
+                style={{
+                    backgroundColor: '#e2d7f7'
+                }}
+            >
+                <UnescoHeritageComponent/>
             </section>
             <Footer/>
         </div>
