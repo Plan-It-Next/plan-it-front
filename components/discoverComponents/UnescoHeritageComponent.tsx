@@ -46,9 +46,9 @@ const UnescoHeritageComponent: React.FC = () => {
                 >
                     <div>
                         <h1 className="md:text-6xl font-bold">UNESCO Heritage</h1>
-                        <p className="text-2xl italic m-12">Step into the world's most extraordinary landmarks, where
+                        <p className="text-2xl italic m-12">Step into the world&apos;s most extraordinary landmarks, where
                             breathtaking landscapes and ancient wonders offer unforgettable experiences and a deep
-                            connection to humanity's history and natural beauty.</p>
+                            connection to humanity&apos;s history and natural beauty.</p>
                         <p className="mr-2">With over 1,100 sites and countless intangible treasures, the journey is as diverse as
                             humanity itself. From ancient ruins and natural wonders to living traditions and
                             cultural practices, every experience tells a story worth discovering.</p>
