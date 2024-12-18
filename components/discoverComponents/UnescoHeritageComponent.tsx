@@ -1,12 +1,12 @@
 import React from 'react';
-import {Card, CardBody, Image} from "@nextui-org/react";
+import {Button} from "@nextui-org/react";
 
 const UnescoHeritageComponent: React.FC = () => {
     return (
-        <div>
-            <div className="grid grid-cols-3 grid-rows-3 gap-2 w-3/5 bg-white">
+        <div className="w-full h-full flex flex-row items-center">
+            <div className="grid grid-cols-3 grid-rows-3 gap-2 w-1/2 h-full bg-white">
                 <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2xFhcXXye18Ov4PL0o9zDZTf68pGOABX3LA&s"
+                    src="https://images.squarespace-cdn.com/content/v1/62feb7a69c66ec0672f20461/1660861691627-RTPKY7WOS51JLDTXF72L/Arequipa-Sunset.jpg"
                     alt="UNESCO Heritage Arequipa Peru"
                     className="object-cover w-full h-full"
                 />
@@ -36,8 +36,41 @@ const UnescoHeritageComponent: React.FC = () => {
                     className="object-cover col-span-2 row-start-3 w-full h-full"
                 />
             </div>
-            <div className="w-2/5">
+            <div className="w-1/2 flex flex-row h-full">
+                {/* Text content and button container */}
+                <div
+                    className="p-16 h-[95%] flex flex-col justify-between w-3/4 mt-4 self-center"
+                    style={{
+                        backgroundColor: '#e2d7f7'
+                    }}
+                >
+                    <div>
+                        <h1 className="md:text-6xl font-bold">UNESCO Heritage</h1>
+                        <p className="text-2xl italic m-12">Step into the world&apos;s most extraordinary landmarks, where
+                            breathtaking landscapes and ancient wonders offer unforgettable experiences and a deep
+                            connection to humanity&apos;s history and natural beauty.</p>
+                        <p className="mr-2">With over 1,100 sites and countless intangible treasures, the journey is as diverse as
+                            humanity itself. From ancient ruins and natural wonders to living traditions and
+                            cultural practices, every experience tells a story worth discovering.</p>
+                    </div>
 
+                    <Button
+                        variant="bordered"
+                        className="max-w-fit px-6 py-2 bg-white mt-8"
+                        radius="full"
+                    >
+                        Learn more about UNESCO Heritage
+                    </Button>
+                </div>
+
+                {/* Right side image */}
+                <div className="w-1/4 h-full flex items-center justify-center">
+                    <img
+                        src="/images/caryatid.png"
+                        alt="UNESCO decoration"
+                        className="object-cover h-full"
+                    />
+                </div>
             </div>
         </div>
     )
