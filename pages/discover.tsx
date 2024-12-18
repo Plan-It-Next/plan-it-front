@@ -209,7 +209,7 @@ export default function Discover({
                 </section>
             </section>
             <section
-                className="my-24"
+                className="mb-24 mt-8"
             >
                 <h1 className="relative text-[10rem] font-extrabold top-24 -z-10 ml-24">EXPLORE</h1>
                 <div
@@ -219,6 +219,9 @@ export default function Discover({
                 }}>
                     <UnescoHeritageComponent/>
                 </div>
+            </section>
+            <section>
+
             </section>
             <Footer/>
         </div>
