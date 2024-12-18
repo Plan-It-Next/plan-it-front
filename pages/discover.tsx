@@ -210,11 +210,15 @@ export default function Discover({
             </section>
             <section
                 className="my-24"
-                style={{
-                    backgroundColor: '#e2d7f7'
-                }}
             >
-                <UnescoHeritageComponent/>
+                <h1 className="relative text-[10rem] font-extrabold top-24 -z-10 ml-24">EXPLORE</h1>
+                <div
+                    className="z-20"
+                    style={{
+                        height: '80vh'
+                }}>
+                    <UnescoHeritageComponent/>
+                </div>
             </section>
             <Footer/>
         </div>
