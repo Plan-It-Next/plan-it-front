@@ -58,6 +58,9 @@ const UnescoHeritageComponent: React.FC = () => {
                         variant="bordered"
                         className="max-w-fit px-6 py-2 bg-white mt-8"
                         radius="full"
+                        onClick={() => {
+                            window.open('https://whc.unesco.org/en/list/')
+                        }}
                     >
                         Learn more about UNESCO Heritage
                     </Button>
@@ -69,6 +72,9 @@ const UnescoHeritageComponent: React.FC = () => {
                         src="/images/caryatid.png"
                         alt="UNESCO decoration"
                         className="object-cover h-full"
+                        style={{
+                            backgroundColor: '#e2d7f7'
+                        }}
                     />
                 </div>
             </div>
