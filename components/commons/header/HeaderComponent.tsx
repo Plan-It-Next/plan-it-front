@@ -98,6 +98,16 @@ const Header: React.FC = () => {
                         Privilege Club
                     </Link>
                 </NavbarItem>
+                <NavbarItem>
+                    <Link
+                        color="foreground"
+                        href="/group"
+                        className={`font-bold text-inherit ${getTextColor()} items-center`}
+                    >
+                        <Icon icon="mdi:account-group-outline" className="mr-1"/>
+                        Group
+                    </Link>
+                </NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem>
