@@ -15,6 +15,13 @@ import { Icon } from '@iconify/react';
 import Amadeus from 'amadeus';
 import { TravelSearchContext } from '@/context/TravelSearchContext';
 
+function toPascalCase(str) {
+  return str
+    .toLowerCase() // Convierte toda la cadena a minúsculas
+    .replace(/(?:^|\s|_|-)(\w)/g, (match, p1) => p1.toUpperCase()) // Convierte la primera letra de cada palabra a mayúsculas
+    .replace(/[\s_-]/g, ''); // Elimina espacios, guiones bajos y guiones
+}
+
 const amadeus = new Amadeus({
     clientId: process.env.NEXT_PUBLIC_AMADEUS_ID || '',
     clientSecret: process.env.NEXT_PUBLIC_AMADEUS_SECRET || '',
@@ -35,8 +42,8 @@ interface LocationData {
 }
 
 const transportModes = [
-    { value: 'plane', label: 'Plane' },
-    { value: 'train', label: 'Train' },
+    { value: 'avion', label: 'Plane' },
+    { value: 'tren', label: 'Train' },
     { value: 'bus', label: 'Bus' },
     { value: 'ferry', label: 'Ferry' },
 ];
@@ -131,18 +138,20 @@ const BookingSection: React.FC = () => {
 
     const handleSearch = async () => {
         const requestData = {
-            origin: originQuery,
-            destination: destQuery,
-            departureDate,
-            returnDate,
-            travelers,
-            transportModes: Array.from(selectedModes),
+            ciudad_origen: toPascalCase(originQuery),
+            ciudad_destino: toPascalCase(destQuery),
+            pais: "",
+            tipo_ruta: String(Array.from(selectedModes).pop()),
+            fecha: departureDate.toString(),
+            precio_billete: null,
+            distancia: null,
+            duracion: null,
         };
 
         console.log('Sending data to API:', requestData);
 
         try {
-            const response = await fetch('/api/search', {
+            const response = await fetch('http://localhost:8000/trip/viaje_filtro', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

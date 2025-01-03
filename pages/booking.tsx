@@ -46,6 +46,20 @@ export default function BookingPage() {
     const searchFlights = async () => {
         setLoading(true);
         try {
+      // const response = await fetch('http://localhost:8000/trip/viaje_filtro', {
+      //           method: 'POST',
+      //           headers: {
+      //               'Content-Type': 'application/json',
+      //           },
+      //           body: JSON.stringify(requestData),
+      //       });
+      //
+      //       if (!response.ok) {
+      //           throw new Error('Failed to fetch data from API');
+      //       }
+      //
+      //       const responseData = await response.json();
+      //
             const response = await amadeus.shopping.flightOffersSearch.get({
                 originLocationCode: 'MAD',
                 destinationLocationCode: 'HND',
