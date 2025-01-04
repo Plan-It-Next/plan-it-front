@@ -1,134 +1,129 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Modal, Input, Card, CardBody, CardHeader, CardFooter } from "@nextui-org/react";
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Icon } from '@iconify/react';
 
-export default function LugaresGuardados() {
-  const [lugares, setLugares] = useState([
-    { ciudad: "Tokio, Japón" },
-    { ciudad: "Cuenca, España" },
-    { ciudad: "Múnich, Alemania" },
-  ]);
+// Modal Component
+const Modal = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
+  return createPortal(
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded shadow-lg relative w-[90%] max-w-lg">
+              <button
+                  onClick={onClose}
+                  className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              >
+                  &#10005;
+              </button>
+              {children}
+          </div>
+      </div>,
+      document.body
+  );
+};
+
+const LugaresGuardados = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [pais, setPais] = useState("");
-  const [ciudad, setCiudad] = useState("");
-  const [error, setError] = useState("");
+  const [newPlace, setNewPlace] = useState({ city: '', country: '' });
+  const [places, setPlaces] = useState([
+      { city: 'Tokio', country: 'Japón' },
+      { city: 'Cuenca', country: 'España' },
+      { city: 'Múnich', country: 'Alemania' },
+  ]);
 
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.classList.add("modal-open");
-    } else {
-      document.body.classList.remove("modal-open");
-    }
-
-    // Cleanup on component unmount
-    return () => document.body.classList.remove("modal-open");
-  }, [isModalOpen]);
-
-  const handleCreateVotacion = () => {
-    if (!pais && !ciudad) {
-      setError("Por favor, proporciona al menos un País o una Ciudad.");
-      return;
-    }
-
-    const nuevaVotacion = { ciudad: `${ciudad || ""}, ${pais || ""}`.trim() };
-    setLugares([...lugares, nuevaVotacion]);
-    setPais("");
-    setCiudad("");
-    setError("");
-    setIsModalOpen(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => {
+      setIsModalOpen(false);
+      setNewPlace({ city: '', country: '' });
   };
 
-  const handleVote = (tipo, lugar) => {
-    alert(`API no disponible. Intentaste votar: ${tipo} en ${lugar.ciudad}`);
+  const handleAddPlace = () => {
+      if (newPlace.city.trim() === '' && newPlace.country.trim() === '') {
+          alert('Por favor, introduce al menos una ciudad o un país.');
+          return;
+      }
+      setPlaces([...places, newPlace]);
+      closeModal();
+  };
+
+  const handleVote = (type, place) => {
+      // Aquí puedes implementar la lógica para enviar la votación a la API
+      alert(`API no disponible. Intentaste votar: ${type} en ${place.city}, ${place.country}`);
   };
 
   return (
-    <div className="bg-white shadow-md rounded-md p-6">
-      <h2 className="text-xl font-semibold mb-4">Lugares Guardados</h2>
-      <ul>
-        {lugares.map((lugar, index) => (
-          <li key={index} className="flex justify-between items-center border-b py-2">
-            <span>{lugar.ciudad}</span>
-            <div className="flex space-x-2">
-              <Button
-                size="sm"
-                color="error"
-                className="p-2"
-                onClick={() => handleVote("heart", lugar)}
-                aria-label={`Votar con corazón por ${lugar.ciudad}`}
-              >
-                <Icon icon="mdi:heart" className="text-lg" />
-              </Button>
-              <Button
-                size="sm"
-                color="primary"
-                className="p-2"
-                onClick={() => handleVote("circle", lugar)}
-                aria-label={`Votar con círculo por ${lugar.ciudad}`}
-              >
-                <Icon icon="mdi:circle-outline" className="text-lg" />
-              </Button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-6">
-        <Button
-          size="md"
-          color="secondary"
-          onClick={() => setIsModalOpen(true)}
-          aria-label="Abrir modal para crear votación"
-        >
-          Crear Votación
-        </Button>
-      </div>
+      <div className="p-4 bg-white rounded shadow">
+          <h2 className="text-lg font-semibold">Lugares Guardados</h2>
+          <ul>
+              {places.map((place, index) => (
+                  <li
+                      key={index}
+                      className="flex justify-between items-center py-2 border-b"
+                  >
+                      <span>
+                          {place.city}, {place.country}
+                      </span>
+                      <div className="flex space-x-2">
+                          <button
+                              onClick={() => handleVote('heart', place)}
+                              className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
+                              aria-label={`Votar con corazón por ${place.city}, ${place.country}`}
+                          >
+                              <Icon icon="mdi:heart" className="text-lg" />
+                          </button>
+                          <button
+                              onClick={() => handleVote('circle', place)}
+                              className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                              aria-label={`Votar con círculo por ${place.city}, ${place.country}`}
+                          >
+                              <Icon icon="mdi:circle-outline" className="text-lg" />
+                          </button>
+                      </div>
+                  </li>
+              ))}
+          </ul>
+          <button
+              onClick={openModal}
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+              Crear Votación
+          </button>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        aria-labelledby="modal-title"
-      >
-        <Card>
-          <CardHeader>
-            <h2 className="text-lg font-bold" id="modal-title">Crear Nueva Votación</h2>
-          </CardHeader>
-          <CardBody className="gap-4">
-            <Input
-              clearable
-              label="País"
-              placeholder="Introduce el país"
-              value={pais}
-              onChange={(e) => {
-                setPais(e.target.value);
-                setError("");
-              }}
-              aria-label="Campo para introducir el país"
-            />
-            <Input
-              clearable
-              label="Ciudad"
-              placeholder="Introduce la ciudad"
-              value={ciudad}
-              onChange={(e) => {
-                setCiudad(e.target.value);
-                setError("");
-              }}
-              aria-label="Campo para introducir la ciudad"
-            />
-            {error && (
-              <div className="text-sm text-red-500">{error}</div>
-            )}
-          </CardBody>
-          <CardFooter className="flex justify-end gap-2">
-            <Button flat color="error" onClick={() => setIsModalOpen(false)} aria-label="Cancelar creación de votación">
-              Cancelar
-            </Button>
-            <Button onClick={handleCreateVotacion} aria-label="Crear votación">
-              Crear
-            </Button>
-          </CardFooter>
-        </Card>
-      </Modal>
-    </div>
+          <Modal isOpen={isModalOpen} onClose={closeModal}>
+              <h3 className="text-xl font-semibold">Crear Nueva Votación</h3>
+              <div className="mt-4">
+                  <input
+                      type="text"
+                      placeholder="Ciudad"
+                      value={newPlace.city}
+                      onChange={(e) => setNewPlace({ ...newPlace, city: e.target.value })}
+                      className="w-full border border-gray-300 rounded p-2 mb-2"
+                  />
+                  <input
+                      type="text"
+                      placeholder="País"
+                      value={newPlace.country}
+                      onChange={(e) => setNewPlace({ ...newPlace, country: e.target.value })}
+                      className="w-full border border-gray-300 rounded p-2"
+                  />
+              </div>
+              <div className="mt-4 flex justify-end space-x-2">
+                  <button
+                      onClick={closeModal}
+                      className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                  >
+                      Cancelar
+                  </button>
+                  <button
+                      onClick={handleAddPlace}
+                      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                  >
+                      Guardar
+                  </button>
+              </div>
+          </Modal>
+      </div>
   );
-}
+};
+
+export default LugaresGuardados;
