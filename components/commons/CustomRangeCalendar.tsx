@@ -3,15 +3,18 @@ import { RangeCalendar } from "@nextui-org/react";
 import { today, getLocalTimeZone } from "@internationalized/date";
 
 export default function CustomRangeCalendar() {
-  const [selectedDates, setSelectedDates] = useState<{ start: Date; end: Date } | null>(null);
+  const [selectedDates, setSelectedDates] = useState<Date[] | null>(null);
   const [message, setMessage] = useState<{ type: "error" | "success"; text: string } | null>(null);
 
   const handleSave = async () => {
-    if (!selectedDates || !selectedDates.start || !selectedDates.end) {
+    if (!selectedDates || selectedDates.length === 0) {
+      console.log("Error: No se seleccionaron fechas para enviar a la API.");
       setMessage({ type: "error", text: "No se seleccionaron fechas para enviar a la API." });
       setTimeout(() => setMessage(null), 6000);
       return;
     }
+
+    console.log("Intentando enviar las fechas seleccionadas a la API:", selectedDates);
 
     try {
       // Simulación de envío a la API
@@ -19,10 +22,9 @@ export default function CustomRangeCalendar() {
       // await sendDatesToAPI(selectedDates); // Descomenta cuando tengas la API conectada
       setMessage({ type: "success", text: "Guardado correctamente." });
     } catch (error) {
-      const formattedDates = `${selectedDates.start.toLocaleDateString("es-ES")} - ${selectedDates.end.toLocaleDateString("es-ES")}`;
       setMessage({
         type: "error",
-        text: `No se pudo enviar la/s fecha/s seleccionada/s (${formattedDates}) a la API.`,
+        text: `No se pudo enviar la/s fecha/s seleccionada/s a la API.`,
       });
     }
 
@@ -37,7 +39,7 @@ export default function CustomRangeCalendar() {
         minValue={today(getLocalTimeZone())} // Restringe las fechas anteriores a hoy
         value={selectedDates || undefined}
         onChange={(dates) => {
-          setSelectedDates(dates);
+          setSelectedDates(dates || null);
         }}
       />
       <button
