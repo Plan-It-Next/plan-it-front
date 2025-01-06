@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Icon } from "@iconify/react";
+import { Icon } from '@iconify/react';
 import {
     Navbar,
     NavbarBrand,
     NavbarContent,
     NavbarItem,
-    Link,
-} from "@nextui-org/react";
+} from '@nextui-org/react';
 import { useRouter } from 'next/router';
-import HeaderSigninComponent from "./HeaderSigninComponent";
+import HeaderSigninComponent from './HeaderSigninComponent';
+import Link from 'next/link';
 
 const Header: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -62,9 +62,9 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/discover"
-                        className={`font-bold text-inherit ${getTextColor()} items-center`}
+                        className={`font-bold text-inherit ${getTextColor()} items-center flex flex-row`}
                     >
-                        <Icon icon="mdi:compass-outline" className="mr-1"/>
+                        <Icon icon="mdi:compass-outline" className="mr-1" />
                         Discover
                     </Link>
                 </NavbarItem>
@@ -72,9 +72,9 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/booking"
-                        className={`font-bold text-inherit ${getTextColor()} items-center`}
+                        className={`font-bold text-inherit ${getTextColor()} items-center flex flex-row`}
                     >
-                        <Icon icon="mingcute:ticket-fill" className="mr-1"/>
+                        <Icon icon="mingcute:ticket-fill" className="mr-1" />
                         Book
                     </Link>
                 </NavbarItem>
@@ -82,9 +82,9 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/travel"
-                        className={`font-bold text-inherit ${getTextColor()} items-center`}
+                        className={`font-bold text-inherit ${getTextColor()} items-center flex flex-row`}
                     >
-                        <Icon icon="gis:map-edit" className="mr-1"/>
+                        <Icon icon="gis:map-edit" className="mr-1" />
                         Plan
                     </Link>
                 </NavbarItem>
@@ -92,9 +92,12 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/privilege-club"
-                        className={`font-bold text-inherit ${getTextColor()} items-center`}
+                        className={`font-bold text-inherit ${getTextColor()} items-center flex flex-row`}
                     >
-                        <Icon icon="mdi:star-four-points-circle-outline" className="mr-1"/>
+                        <Icon
+                            icon="mdi:star-four-points-circle-outline"
+                            className="mr-1"
+                        />
                         Privilege Club
                     </Link>
                 </NavbarItem>
@@ -102,9 +105,12 @@ const Header: React.FC = () => {
                     <Link
                         color="foreground"
                         href="/group"
-                        className={`font-bold text-inherit ${getTextColor()} items-center`}
+                        className={`font-bold text-inherit ${getTextColor()} items-center flex flex-row`}
                     >
-                        <Icon icon="mdi:account-group-outline" className="mr-1"/>
+                        <Icon
+                            icon="mdi:account-group-outline"
+                            className="mr-1"
+                        />
                         Group
                     </Link>
                 </NavbarItem>
@@ -119,3 +125,4 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+

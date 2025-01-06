@@ -1,16 +1,15 @@
 // pages/booking.tsx
 import { useEffect, useState } from 'react';
-import Header from "@/components/commons/header/HeaderComponent";
-import { Button, Card, CardBody, CardFooter, CardHeader, Spinner } from "@nextui-org/react";
-import BookingSection from "@/components/commons/search/BookingSectionComponent";
-import StickySidebar from "@/components/commons/FilterSctickyColumn";
+import { Card, CardBody, CardHeader, Spinner } from '@nextui-org/react';
+import BookingSection from '@/components/commons/search/BookingSectionComponent';
+import StickySidebar from '@/components/commons/FilterSctickyColumn';
 // @ts-ignore
 import Amadeus from 'amadeus';
 
 // Initialize Amadeus client
 const amadeus = new Amadeus({
     clientId: process.env.NEXT_PUBLIC_AMADEUS_ID,
-    clientSecret: process.env.NEXT_PUBLIC_AMADEUS_SECRET
+    clientSecret: process.env.NEXT_PUBLIC_AMADEUS_SECRET,
 });
 
 interface Flight {
@@ -46,20 +45,20 @@ export default function BookingPage() {
     const searchFlights = async () => {
         setLoading(true);
         try {
-      // const response = await fetch('http://localhost:8000/trip/viaje_filtro', {
-      //           method: 'POST',
-      //           headers: {
-      //               'Content-Type': 'application/json',
-      //           },
-      //           body: JSON.stringify(requestData),
-      //       });
-      //
-      //       if (!response.ok) {
-      //           throw new Error('Failed to fetch data from API');
-      //       }
-      //
-      //       const responseData = await response.json();
-      //
+            // const response = await fetch('http://localhost:8000/trip/viaje_filtro', {
+            //           method: 'POST',
+            //           headers: {
+            //               'Content-Type': 'application/json',
+            //           },
+            //           body: JSON.stringify(requestData),
+            //       });
+            //
+            //       if (!response.ok) {
+            //           throw new Error('Failed to fetch data from API');
+            //       }
+            //
+            //       const responseData = await response.json();
+            //
             const response = await amadeus.shopping.flightOffersSearch.get({
                 originLocationCode: 'MAD',
                 destinationLocationCode: 'HND',
@@ -67,7 +66,7 @@ export default function BookingPage() {
                 adults: 1,
                 nonStop: false,
                 travelClass: 'ECONOMY',
-                max: 15
+                max: 15,
             });
 
             if (response.data) {
@@ -102,7 +101,6 @@ export default function BookingPage() {
 
     return (
         <div className="container mx-auto p-4">
-            <Header />
             <div className="px-24 mt-8 flex relative">
                 {/* Columna izquierda */}
                 <div className="flex-1 ml-[320px]">
@@ -111,10 +109,10 @@ export default function BookingPage() {
                             <BookingSection />
                         </CardBody>
                     </Card>
-    
+
                     {loading && <Spinner className="mt-8" />}
                     {error && <div className="mt-8 text-red-500">{error}</div>}
-    
+
                     {flights.length > 0 && (
                         <div className="mt-8 grid gap-4">
                             {flights.map((flight) => (
@@ -124,39 +122,73 @@ export default function BookingPage() {
                                             Flight {flight.id}
                                         </div>
                                         <div className="text-lg font-bold text-primary">
-                                            {flight.price.currency} {flight.price.total}
+                                            {flight.price.currency}{' '}
+                                            {flight.price.total}
                                         </div>
                                     </CardHeader>
                                     <CardBody>
-                                        {flight.itineraries[0].segments.map((segment, index) => (
-                                            <div key={index} className="mb-4 border-b last:border-b-0 pb-4">
-                                                <div className="flex justify-between">
-                                                    <div>
-                                                        <div className="text-lg font-semibold">
-                                                            {segment.departure.iataCode} → {segment.arrival.iataCode}
+                                        {flight.itineraries[0].segments.map(
+                                            (segment, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="mb-4 border-b last:border-b-0 pb-4"
+                                                >
+                                                    <div className="flex justify-between">
+                                                        <div>
+                                                            <div className="text-lg font-semibold">
+                                                                {
+                                                                    segment
+                                                                        .departure
+                                                                        .iataCode
+                                                                }{' '}
+                                                                →{' '}
+                                                                {
+                                                                    segment
+                                                                        .arrival
+                                                                        .iataCode
+                                                                }
+                                                            </div>
+                                                            <div className="text-sm text-gray-600">
+                                                                {formatDateTime(
+                                                                    segment
+                                                                        .departure
+                                                                        .at,
+                                                                )}{' '}
+                                                                →{' '}
+                                                                {formatDateTime(
+                                                                    segment
+                                                                        .arrival
+                                                                        .at,
+                                                                )}
+                                                            </div>
                                                         </div>
-                                                        <div className="text-sm text-gray-600">
-                                                            {formatDateTime(segment.departure.at)} → {formatDateTime(segment.arrival.at)}
-                                                        </div>
-                                                    </div>
-                                                    <div className="text-right">
-                                                        <div className="text-sm">
-                                                            Flight {segment.carrierCode} {segment.number}
-                                                        </div>
-                                                        <div className="text-sm text-gray-600">
-                                                            {formatDuration(flight.itineraries[0].duration)}
+                                                        <div className="text-right">
+                                                            <div className="text-sm">
+                                                                Flight{' '}
+                                                                {
+                                                                    segment.carrierCode
+                                                                }{' '}
+                                                                {segment.number}
+                                                            </div>
+                                                            <div className="text-sm text-gray-600">
+                                                                {formatDuration(
+                                                                    flight
+                                                                        .itineraries[0]
+                                                                        .duration,
+                                                                )}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            ),
+                                        )}
                                     </CardBody>
                                 </Card>
                             ))}
                         </div>
                     )}
                 </div>
-    
+
                 {/* Columna derecha */}
                 <div className="fixed top-0 left-0 w-[300px] h-full">
                     <StickySidebar />
@@ -164,6 +196,4 @@ export default function BookingPage() {
             </div>
         </div>
     );
-    
-    
 }

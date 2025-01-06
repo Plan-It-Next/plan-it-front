@@ -1,27 +1,38 @@
-'use client'
+'use client';
 
-import {createContext, ReactElement, useState} from "react";
-import {travelSearchForm} from "travelSearchForm";
+import { Selection } from '@nextui-org/react';
+import { createContext, ReactElement, useState } from 'react';
+import { LocationData, travelSearchForm } from 'travelSearchForm';
 
 const defaultTravelerSearchForm: travelSearchForm = {
-    origin: [],
-    destiny: [],
-    passengers: 1,
-    departureDate: null,
-    returnDate: null,
-    transportMode: ""
+    selectedModes: new Set(['plane', 'train']) as Selection,
+    originQuery: '',
+    destQuery: '',
+    originResults: [] as Array<LocationData>,
+    destResults: [] as Array<LocationData>,
+    isLoadingOrigin: false,
+    isLoadingDest: false,
+    departureDate: '',
+    returnDate: '',
+    travelers: 1,
 };
 
 export const TravelSearchContext = createContext({});
 
-export interface travelSearchProps {children: ReactElement}
+export interface travelSearchProps {
+    children: React.ReactNode;
+}
 
-export const TravelSearchProvider = ({children}: travelSearchProps) => {
-    const [travelerSearchForm, setTravelerSearchForm] = useState(defaultTravelerSearchForm);
+export const TravelSearchProvider = ({ children }: travelSearchProps) => {
+    const [travelerSearchForm, setTravelerSearchForm] = useState(
+        defaultTravelerSearchForm,
+    );
 
     return (
-        <TravelSearchContext.Provider value={{travelerSearchForm, setTravelerSearchForm}}>
+        <TravelSearchContext.Provider
+            value={{ travelerSearchForm, setTravelerSearchForm }}
+        >
             {children}
         </TravelSearchContext.Provider>
     );
-}
+};
