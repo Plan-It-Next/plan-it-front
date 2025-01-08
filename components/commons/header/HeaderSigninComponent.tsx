@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Popover,
     PopoverTrigger,
@@ -55,6 +55,19 @@ const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolle
 
     // Password visibility variables
     const [isVisible, setIsVisible] = React.useState(false);
+
+    const API_URL = "http://localhost:8000/api/auth/login"; // Cambia a tu URL real
+
+    // Verificar token al cargar el componente
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        const storedUser = localStorage.getItem("user");
+        if (token && storedUser) {
+            setIsSignedIn(true);
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
+
     const toggleVisibility = () => setIsVisible(!isVisible);
 
     // Email checking regex
@@ -93,22 +106,27 @@ const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolle
         // Simulate API call
         setIsLoading(true);
         try {
-            // Simulate API delay
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
 
-            // For demo purposes, only allow specific credentials
-            if (email === "test@example.com" && password === "password123") {
-                setIsSignedIn(true);
-                setUser({
-                    name: "Sofia PS",
-                    email: email,
-                    avatar: "https://static.wikia.nocookie.net/546b011b-c00e-45aa-8281-8b9c01d2f9d9/scale-to-width/755"
-                });
-            } else {
-                setErrors(prev => ({ ...prev, general: "Incorrect email or password, please try again." }));
+            if (!response.ok) {
+                throw new Error("Invalid credentials");
             }
-        } catch {
-            setErrors(prev => ({ ...prev, general: "login failed" }));
+
+            const data = await response.json();
+            localStorage.setItem("token", data.access_token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            setUser(data.user);
+            setIsSignedIn(true);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                setErrors((prev) => ({ ...prev, general: "You are not registered" }));
+            } else {
+                setErrors((prev) => ({ ...prev, general: "An unknown error occurred." }));
+            }
         } finally {
             setIsLoading(false);
         }
@@ -120,6 +138,8 @@ const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolle
         setEmail("");
         setPassword("");
         setErrors({ email: "", password: "", general: "" });
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
     };
 
     if (isSignedIn && user) {
