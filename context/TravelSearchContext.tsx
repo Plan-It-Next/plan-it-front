@@ -1,36 +1,43 @@
-'use client';
+import { useTravelForm } from '@/hooks/useTravelForm';
+import { travelSearchForm } from '@/types/travelSearchForm';
+import React, { createContext, useState } from 'react';
 
-import { Selection } from '@nextui-org/react';
-import { createContext, ReactElement, useState } from 'react';
-import { LocationData, travelSearchForm } from 'travelSearchForm';
-
-const defaultTravelerSearchForm: travelSearchForm = {
-    selectedModes: new Set(['plane', 'train']) as Selection,
-    originQuery: '',
-    destQuery: '',
-    originResults: [] as Array<LocationData>,
-    destResults: [] as Array<LocationData>,
-    isLoadingOrigin: false,
-    isLoadingDest: false,
-    departureDate: '',
-    returnDate: '',
-    travelers: 1,
-};
-
-export const TravelSearchContext = createContext({});
+export const TravelSearchContext = createContext({} as travelSearchForm & ReturnType<typeof useState<travelSearchForm>>[1]);
 
 export interface travelSearchProps {
     children: React.ReactNode;
 }
 
 export const TravelSearchProvider = ({ children }: travelSearchProps) => {
-    const [travelerSearchForm, setTravelerSearchForm] = useState(
-        defaultTravelerSearchForm,
-    );
+    const {
+        selectedModes,
+        travelers,
+        returnDate,
+        departureDate,
+        isLoadingDest,
+        isLoadingOrigin,
+        destResults,
+        originResults,
+        destQuery,
+        originQuery,
+        setFormState,
+    } = useTravelForm();
 
     return (
         <TravelSearchContext.Provider
-            value={{ travelerSearchForm, setTravelerSearchForm }}
+            value={{
+                selectedModes,
+                travelers,
+                returnDate,
+                departureDate,
+                isLoadingDest,
+                isLoadingOrigin,
+                destResults,
+                originResults,
+                destQuery,
+                originQuery,
+                setFormState,
+            }}
         >
             {children}
         </TravelSearchContext.Provider>

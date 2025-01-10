@@ -1,6 +1,6 @@
 import { Selection } from "@nextui-org/react";
 
-export type travelSearchForm = {
+export interface travelSearchForm {
     selectedModes: Selection;
     originQuery: '';
     destQuery: '';

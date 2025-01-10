@@ -49,32 +49,30 @@ const transportModes = [
 ];
 
 const BookingSection: React.FC = () => {
-    const { travelerSearchForm, setTravelerSearchForm } = useContext(TravelSearchContext);
-    const [formState, setFormState] = useState({
-        selectedModes: new Set(['plane', 'train']) as Selection,
-        originQuery: '',
-        destQuery: '',
-        originResults: [] as Array<LocationData>,
-        destResults: [] as Array<LocationData>,
-        isLoadingOrigin: false,
-        isLoadingDest: false,
-        departureDate: '',
-        returnDate: '',
-        travelers: 1,
-    });
-
-    const {
-        isLoadingOrigin,
-        originResults,
-        destResults,
-        destQuery,
-        isLoadingDest,
-        originQuery,
-        selectedModes,
-        departureDate,
-        returnDate,
-        travelers,
-    } = formState;
+    const { selectedModes,
+                travelers,
+                returnDate,
+                departureDate,
+                isLoadingDest,
+                isLoadingOrigin,
+                destResults,
+                originResults,
+                destQuery,
+                originQuery,
+                setFormState,
+ } = useContext(TravelSearchContext);
+    // const [formState, setFormState] = useState({
+    //     selectedModes: new Set(['plane', 'train']) as Selection,
+    //     originQuery: '',
+    //     destQuery: '',
+    //     originResults: [] as Array<LocationData>,
+    //     destResults: [] as Array<LocationData>,
+    //     isLoadingOrigin: false,
+    //     isLoadingDest: false,
+    //     departureDate: '',
+    //     returnDate: '',
+    //     travelers: 1,
+    // });
 
     const searchLocations = async (query: string, isOrigin: boolean) => {
         if (query.length < 2) {
