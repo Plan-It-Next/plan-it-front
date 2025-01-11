@@ -56,11 +56,12 @@ const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolle
     // Password visibility variables
     const [isVisible, setIsVisible] = React.useState(false);
 
-    const API_URL = "http://localhost:8000/api/auth/login"; // Cambia a tu URL real
+    const API_URL = "http://localhost:8000/login/"+encodeURIComponent(email)+"/"+ encodeURIComponent(password) // Cambia a tu URL real
 
     // Verificar token al cargar el componente
     useEffect(() => {
         const token = localStorage.getItem("token");
+        console.log("El token es :"+token)
         const storedUser = localStorage.getItem("user");
         if (token && storedUser) {
             setIsSignedIn(true);
@@ -105,18 +106,24 @@ const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolle
 
         // Simulate API call
         setIsLoading(true);
+
         try {
+            console.log("TEST: Attempting login with:", { email, password });
             const response = await fetch(API_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email, password }), // If your API expects JSON body
             });
 
+            console.log("TEST: Response status:", response.status);
             if (!response.ok) {
+                const errorData = await response.json();
+                console.error("TEST: Error response data:", errorData);
                 throw new Error("Invalid credentials");
             }
 
             const data = await response.json();
+            console.log("TEST: Response data:", data);
             localStorage.setItem("token", data.access_token);
             localStorage.setItem("user", JSON.stringify(data.user));
             setUser(data.user);
