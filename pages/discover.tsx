@@ -7,6 +7,7 @@ import DiscoverContinents from "@/components/discoverComponents/DiscoverContinen
 import fs from 'fs';
 import path from 'path';
 import UnescoHeritageComponent from "@/components/discoverComponents/UnescoHeritageComponent";
+import DiscoverDestinationQueryComponent from '@/components/discoverComponents/DiscoverDestinationQueryComponent';
 
 // Type definitions
 interface Location {
@@ -78,6 +79,30 @@ const defaultContinentData: ContinentData = {
     locations: []
 };
 
+const handleSendQuery = async (texto: string) => {
+    try {
+        const response = await fetch('http://localhost:8000/api/activities', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ texto }), // Envía el texto en el cuerpo de la solicitud
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || 'Error al comunicarse con el servidor');
+        }
+
+        const data = await response.json();
+        return data.planning; // Devuelve la planificación del backend
+    } catch (error: any) {
+        console.error('Error fetching activities:', error);
+        return 'Error fetching activities. Please try again later.'; // Mensaje de error si algo falla
+    }
+};
+
+
 export const getStaticProps: GetStaticProps<DiscoverPageProps> = async () => {
     try {
         // Read and parse all JSON files
@@ -143,6 +168,10 @@ export default function Discover({
                     </div>
                     <div className="text-3xl text-center mt-8">- - -</div>
                 </div>
+            </section>
+            {/* Discover Destination Query Component */}
+            <section style={{ backgroundColor: '#F0F4F8', padding: '2rem 0' }}>
+                <DiscoverDestinationQueryComponent onSendQuery={handleSendQuery}/>
             </section>
             <section>
                 <section>
