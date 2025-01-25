@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import {
     Autocomplete,
     AutocompleteItem,
@@ -9,37 +9,23 @@ import {
     DatePicker,
     Button,
     Input,
+    Selection,
 } from '@nextui-org/react';
-import { Selection } from '@nextui-org/react';
 import { Icon } from '@iconify/react';
 import Amadeus from 'amadeus';
 import { TravelSearchContext } from '@/context/TravelSearchContext';
 
-function toPascalCase(str) {
-  return str
-    .toLowerCase() // Convierte toda la cadena a minúsculas
-    .replace(/(?:^|\s|_|-)(\w)/g, (match, p1) => p1.toUpperCase()) // Convierte la primera letra de cada palabra a mayúsculas
-    .replace(/[\s_-]/g, ''); // Elimina espacios, guiones bajos y guiones
+function toPascalCase(str: string) {
+    return str
+        .toLowerCase() // Convierte toda la cadena a minúsculas
+        .replace(/(?:^|\s|_|-)(\w)/g, (_match, p1) => p1.toUpperCase()) // Convierte la primera letra de cada palabra a mayúsculas
+        .replace(/[\s_-]/g, ''); // Elimina espacios, guiones bajos y guiones
 }
 
 const amadeus = new Amadeus({
     clientId: process.env.NEXT_PUBLIC_AMADEUS_ID || '',
     clientSecret: process.env.NEXT_PUBLIC_AMADEUS_SECRET || '',
 });
-
-interface LocationData {
-    name: string;
-    address: {
-        countryName: string;
-        cityName: string;
-    };
-    iataCode: string;
-    geoCode: {
-        latitude: string;
-        longitude: string;
-    };
-    subType: string;
-}
 
 const transportModes = [
     { value: 'avion', label: 'Plane' },
@@ -49,45 +35,46 @@ const transportModes = [
 ];
 
 const BookingSection: React.FC = () => {
-    const { selectedModes,
-                travelers,
-                returnDate,
-                departureDate,
-                isLoadingDest,
-                isLoadingOrigin,
-                destResults,
-                originResults,
-                destQuery,
-                originQuery,
-                setFormState,
- } = useContext(TravelSearchContext);
-    // const [formState, setFormState] = useState({
-    //     selectedModes: new Set(['plane', 'train']) as Selection,
-    //     originQuery: '',
-    //     destQuery: '',
-    //     originResults: [] as Array<LocationData>,
-    //     destResults: [] as Array<LocationData>,
-    //     isLoadingOrigin: false,
-    //     isLoadingDest: false,
-    //     departureDate: '',
-    //     returnDate: '',
-    //     travelers: 1,
-    // });
+    const {
+        selectedModes,
+        travelers,
+        returnDate,
+        departureDate,
+        isLoadingDest,
+        isLoadingOrigin,
+        destResults,
+        originResults,
+        destQuery,
+        originQuery,
+        setFormState,
+    } = useContext(TravelSearchContext);
 
     const searchLocations = async (query: string, isOrigin: boolean) => {
         if (query.length < 2) {
             if (isOrigin) {
-                setFormState((prevState) => ({ ...prevState, originResults: [] }));
+                setFormState((prevState) => ({
+                    ...prevState,
+                    originResults: [],
+                }));
             } else {
-                setFormState((prevState) => ({ ...prevState, destResults: [] }));
+                setFormState((prevState) => ({
+                    ...prevState,
+                    destResults: [],
+                }));
             }
             return;
         }
 
         if (isOrigin) {
-            setFormState((prevState) => ({ ...prevState, isLoadingOrigin: true }));
+            setFormState((prevState) => ({
+                ...prevState,
+                isLoadingOrigin: true,
+            }));
         } else {
-            setFormState((prevState) => ({ ...prevState, isLoadingDest: true }));
+            setFormState((prevState) => ({
+                ...prevState,
+                isLoadingDest: true,
+            }));
         }
 
         try {
@@ -113,9 +100,15 @@ const BookingSection: React.FC = () => {
         } catch (error) {
             console.error('Error searching locations:', error);
             if (isOrigin) {
-                setFormState((prevState) => ({ ...prevState, isLoadingOrigin: false }));
+                setFormState((prevState) => ({
+                    ...prevState,
+                    isLoadingOrigin: false,
+                }));
             } else {
-                setFormState((prevState) => ({ ...prevState, isLoadingDest: false }));
+                setFormState((prevState) => ({
+                    ...prevState,
+                    isLoadingDest: false,
+                }));
             }
         }
     };
@@ -129,18 +122,21 @@ const BookingSection: React.FC = () => {
     }, [destQuery]);
 
     const handleSelectionChange = (newSelection: Selection) => {
-        if (newSelection.size > 0) {
-            setFormState((prevState) => ({ ...prevState, selectedModes: newSelection }));
+        if (newSelection === 'all' || newSelection.size > 0) {
+            setFormState((prevState) => ({
+                ...prevState,
+                selectedModes: newSelection,
+            }));
         }
     };
 
     const handleSearch = async () => {
         const requestData = {
-            ciudad_origen: toPascalCase(originQuery),
-            ciudad_destino: toPascalCase(destQuery),
-            pais: "",
+            ciudad_origen: toPascalCase(originResults[0].name),
+            ciudad_destino: toPascalCase(destResults[0].name),
+            pais: '',
             tipo_ruta: String(Array.from(selectedModes).pop()),
-            fecha: departureDate.toString(),
+            fecha: departureDate?.toString(),
             precio_billete: null,
             distancia: null,
             duracion: null,
@@ -149,13 +145,16 @@ const BookingSection: React.FC = () => {
         console.log('Sending data to API:', requestData);
 
         try {
-            const response = await fetch('http://localhost:8000/trip/viaje_filtro', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
+            const response = await fetch(
+                'http://localhost:8000/trip/viaje_filtro',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData),
                 },
-                body: JSON.stringify(requestData),
-            });
+            );
 
             if (!response.ok) {
                 throw new Error('Failed to fetch data from API');
@@ -178,11 +177,16 @@ const BookingSection: React.FC = () => {
                         placeholder="Origin city"
                         className="h-full mt-2"
                         onInputChange={(value) =>
-                            setFormState((prevState) => ({ ...prevState, originQuery: value }))
+                            setFormState((prevState) => ({
+                                ...prevState,
+                                originQuery: value,
+                            }))
                         }
                         isLoading={isLoadingOrigin}
+                        items={originResults}
+                        inputValue={originResults[0]?.name}
                     >
-                        {originResults.map((location) => (
+                        {(location) => (
                             <AutocompleteItem
                                 key={`${location.geoCode.latitude};${location.geoCode.longitude}`}
                                 value={`${location.geoCode.latitude};${location.geoCode.longitude}`}
@@ -190,23 +194,28 @@ const BookingSection: React.FC = () => {
                             >
                                 <div className="flex flex-col">
                                     <span className="text-sm">
-                                        {location.address.cityName} | {location.iataCode}
+                                        {location.address.cityName} |{' '}
+                                        {location.iataCode}
                                     </span>
                                     <span className="text-xs text-gray-500">
                                         {location.address.countryName}
                                     </span>
                                 </div>
                             </AutocompleteItem>
-                        ))}
+                        )}
                     </Autocomplete>
                     <Autocomplete
                         label="Destiny"
                         placeholder="Destiny city"
                         className="h-full mt-2"
                         onInputChange={(value) =>
-                            setFormState((prevState) => ({ ...prevState, destQuery: value }))
+                            setFormState((prevState) => ({
+                                ...prevState,
+                                destQuery: value,
+                            }))
                         }
                         isLoading={isLoadingDest}
+                        inputValue={destResults[0]?.name}
                     >
                         {destResults.map((location) => (
                             <AutocompleteItem
@@ -216,7 +225,8 @@ const BookingSection: React.FC = () => {
                             >
                                 <div className="flex flex-col">
                                     <span className="text-sm">
-                                        {location.address.cityName} | {location.iataCode}
+                                        {location.address.cityName} |{' '}
+                                        {location.iataCode}
                                     </span>
                                     <span className="text-xs text-gray-500">
                                         {location.address.countryName}
@@ -230,15 +240,23 @@ const BookingSection: React.FC = () => {
                         isRequired
                         className="mt-2"
                         onChange={(date) =>
-                            setFormState((prevState) => ({ ...prevState, departureDate: date }))
+                            setFormState((prevState) => ({
+                                ...prevState,
+                                departureDate: date,
+                            }))
                         }
+                        value={departureDate}
                     />
                     <DatePicker
                         label="Return"
                         className="mt-2"
                         onChange={(date) =>
-                            setFormState((prevState) => ({ ...prevState, returnDate: date }))
+                            setFormState((prevState) => ({
+                                ...prevState,
+                                returnDate: date,
+                            }))
                         }
+                        value={returnDate}
                     />
                 </div>
                 <Card>
@@ -246,7 +264,7 @@ const BookingSection: React.FC = () => {
                         <Input
                             type="number"
                             label="Travelers"
-                            value={travelers}
+                            value={travelers + ''}
                             onChange={(e) =>
                                 setFormState((prevState) => ({
                                     ...prevState,
@@ -258,7 +276,7 @@ const BookingSection: React.FC = () => {
                             label="Transport Modes"
                             placeholder="Select transport modes"
                             selectionMode="multiple"
-                            selectedKeys={selectedModes}
+                            selectedKeys={['tren']}
                             onSelectionChange={handleSelectionChange}
                             className="w-full"
                         >

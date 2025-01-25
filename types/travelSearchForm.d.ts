@@ -1,28 +1,28 @@
-import { Selection } from "@nextui-org/react";
+import { DateValue, Selection } from '@nextui-org/react';
 
 export interface travelSearchForm {
     selectedModes: Selection;
-    originQuery: '';
-    destQuery: '';
+    originQuery: string;
+    destQuery: string;
     originResults: Array<LocationData>;
     destResults: Array<LocationData>;
-    isLoadingOrigin: false;
-    isLoadingDest: false;
-    departureDate: '';
-    returnDate: '';
-    travelers: 1;
+    isLoadingOrigin: boolean;
+    isLoadingDest: boolean;
+    departureDate: DateValue | null;
+    returnDate: DateValue | null;
+    travelers: number;
 }
 
 export interface LocationData {
-  name: string;
-  address: {
-    countryName: string;
-    cityName: string;
-  };
-  iataCode: string;
-  geoCode: {
-    latitude: string;
-    longitude: string;
-  };
-  subType: string;
+    name: string;
+    address: {
+        countryName: string;
+        cityName: string;
+    };
+    iataCode: string;
+    geoCode: {
+        latitude: string;
+        longitude: string;
+    };
+    subType: string;
 }

@@ -1,18 +1,20 @@
 import { LocationData, travelSearchForm } from '@/types/travelSearchForm';
 import { useState } from 'react';
 
-export const useTravelForm = (props: travelSearchForm = {
-    selectedModes: 'all',
-    originQuery: '',
-    destQuery: '',
-    originResults: [] as LocationData[],
-    destResults: [] as LocationData[],
-    isLoadingOrigin: false,
-    isLoadingDest: false,
-    departureDate: '',
-    returnDate: '',
-    travelers: 1,
-}) => {
+export const useTravelForm = (
+    props: travelSearchForm = {
+        selectedModes: new Set(['tren']),
+        originQuery: '',
+        destQuery: '',
+        originResults: [] as LocationData[],
+        destResults: [] as LocationData[],
+        isLoadingOrigin: false,
+        isLoadingDest: false,
+        departureDate: null,
+        returnDate: null,
+        travelers: 1,
+    },
+) => {
     const {
         destResults,
         isLoadingOrigin,

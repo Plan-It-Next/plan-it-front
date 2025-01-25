@@ -1,8 +1,12 @@
 import { useTravelForm } from '@/hooks/useTravelForm';
 import { travelSearchForm } from '@/types/travelSearchForm';
-import React, { createContext, useState } from 'react';
+import React, { createContext } from 'react';
 
-export const TravelSearchContext = createContext({} as travelSearchForm & ReturnType<typeof useState<travelSearchForm>>[1]);
+export const TravelSearchContext = createContext(
+    {} as travelSearchForm & {
+        setFormState: React.Dispatch<React.SetStateAction<travelSearchForm>>;
+    },
+);
 
 export interface travelSearchProps {
     children: React.ReactNode;

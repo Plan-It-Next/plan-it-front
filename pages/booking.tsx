@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { Card, CardBody, CardHeader, Spinner } from '@nextui-org/react';
 import BookingSection from '@/components/commons/search/BookingSectionComponent';
 import StickySidebar from '@/components/commons/FilterSctickyColumn';
-// @ts-ignore
 import Amadeus from 'amadeus';
 
 // Initialize Amadeus client
@@ -38,6 +37,7 @@ interface Flight {
 }
 
 export default function BookingPage() {
+    // Recuperar vuelos del contexto que los rellenará el BookingSectionComponent
     const [flights, setFlights] = useState<Flight[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
