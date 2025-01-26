@@ -24,6 +24,7 @@ export const TravelSearchProvider = ({ children }: travelSearchProps) => {
         originResults,
         destQuery,
         originQuery,
+        tripResults,
         setFormState,
     } = useTravelForm();
 
@@ -40,6 +41,7 @@ export const TravelSearchProvider = ({ children }: travelSearchProps) => {
                 originResults,
                 destQuery,
                 originQuery,
+                tripResults,
                 setFormState,
             }}
         >

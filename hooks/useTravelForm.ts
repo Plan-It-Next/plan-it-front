@@ -13,6 +13,7 @@ export const useTravelForm = (
         departureDate: null,
         returnDate: null,
         travelers: 1,
+        tripResults: [],
     },
 ) => {
     const {
@@ -26,9 +27,10 @@ export const useTravelForm = (
         originQuery,
         originResults,
         selectedModes,
+        tripResults,
     } = props;
 
-    const [formState, setFormState] = useState({
+    const [formState, setFormState] = useState<travelSearchForm>({
         selectedModes: selectedModes,
         originQuery: originQuery,
         destQuery: destQuery,
@@ -39,6 +41,7 @@ export const useTravelForm = (
         departureDate: departureDate,
         returnDate: returnDate,
         travelers: travelers,
+        tripResults: tripResults,
     });
 
     return {

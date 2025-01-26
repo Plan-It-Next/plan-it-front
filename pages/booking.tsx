@@ -1,9 +1,10 @@
 // pages/booking.tsx
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Card, CardBody, CardHeader, Spinner } from '@nextui-org/react';
 import BookingSection from '@/components/commons/search/BookingSectionComponent';
 import StickySidebar from '@/components/commons/FilterSctickyColumn';
 import Amadeus from 'amadeus';
+import { TravelSearchContext } from '@/context/TravelSearchContext';
 
 // Initialize Amadeus client
 const amadeus = new Amadeus({
@@ -41,6 +42,10 @@ export default function BookingPage() {
     const [flights, setFlights] = useState<Flight[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const { tripResults } = useContext(TravelSearchContext);
+    const [firstTrip] = tripResults;
+    const { nodo1: origin, relacion: route, nodo2: destination } = firstTrip;
 
     const searchFlights = async () => {
         setLoading(true);

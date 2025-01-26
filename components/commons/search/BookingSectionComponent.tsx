@@ -14,12 +14,28 @@ import {
 import { Icon } from '@iconify/react';
 import Amadeus from 'amadeus';
 import { TravelSearchContext } from '@/context/TravelSearchContext';
+import { TripResult } from '@/types/travelSearchForm';
 
 function toPascalCase(str: string) {
     return str
         .toLowerCase() // Convierte toda la cadena a minúsculas
         .replace(/(?:^|\s|_|-)(\w)/g, (_match, p1) => p1.toUpperCase()) // Convierte la primera letra de cada palabra a mayúsculas
         .replace(/[\s_-]/g, ''); // Elimina espacios, guiones bajos y guiones
+}
+
+function clearData(data: unknown[]): TripResult[] {
+    return data.map((entry) => {
+        const cleanedEntry: Record<string, unknown> = {};
+        for (const [key, value] of Object.entries(
+            entry as Record<string, string>,
+        )) {
+            // Eliminar "::vertex" o "::edge" y parsear el JSON
+            const cleanValue = value.split('::')[0];
+            cleanedEntry[key] = JSON.parse(cleanValue);
+        }
+
+        return cleanedEntry as unknown as TripResult;
+    });
 }
 
 const amadeus = new Amadeus({
@@ -132,8 +148,8 @@ const BookingSection: React.FC = () => {
 
     const handleSearch = async () => {
         const requestData = {
-            ciudad_origen: toPascalCase(originResults[0].name),
-            ciudad_destino: toPascalCase(destResults[0].name),
+            ciudad_origen: toPascalCase(originResults[0]?.name),
+            ciudad_destino: toPascalCase(destResults[0]?.name),
             pais: '',
             tipo_ruta: String(Array.from(selectedModes).pop()),
             fecha: departureDate?.toString(),
@@ -141,8 +157,6 @@ const BookingSection: React.FC = () => {
             distancia: null,
             duracion: null,
         };
-
-        console.log('Sending data to API:', requestData);
 
         try {
             const response = await fetch(
@@ -161,8 +175,8 @@ const BookingSection: React.FC = () => {
             }
 
             const responseData = await response.json();
-            console.log('API response:', responseData);
-            // Aquí podrías manejar la respuesta y actualizar el estado global/contexto
+            const cleanResponse = clearData(responseData);
+            setFormState((prev) => ({ ...prev, tripResults: cleanResponse }));
         } catch (error) {
             console.error('Error during API request:', error);
         }
