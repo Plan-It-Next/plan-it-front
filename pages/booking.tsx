@@ -44,17 +44,19 @@ export default function BookingPage() {
           {isLoading && <Spinner className="mt-8" />}
           {error && <div className="mt-8 text-red-500">{error}</div>}
 
-          <TravelCard
-            key={trip.nodo1.id}
-            travelType={TravelType.TREN}
-            companyName={'Renfe'}
-            departureCity={trip.nodo1.properties.ciudad}
-            // arrivalCity={trip.nodo2.properties.ciudad}
-            // departureTime={trip.relacion.properties.fecha_hora_salida}
-            arrivalTime={trip.relacion.properties.fecha_hora_llegada}
-            price={`${trip.relacion.properties.precio_billete}€`}
-            duration={trip.relacion.properties.duracion}
-          />
+          {trip && (
+            <TravelCard
+              key={trip.nodo1.id}
+              travelType={TravelType.TREN}
+              companyName={'Renfe'}
+              departureCity={trip.nodo1.properties.ciudad}
+              // arrivalCity={trip.nodo2.properties.ciudad}
+              // departureTime={trip.relacion.properties.fecha_hora_salida}
+              arrivalTime={trip.relacion.properties.fecha_hora_llegada}
+              price={`${trip.relacion.properties.precio_billete}€`}
+              duration={trip.relacion.properties.duracion}
+            />
+          )}
         </div>
 
         {/* Columna derecha */}
