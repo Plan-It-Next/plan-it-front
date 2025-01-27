@@ -71,7 +71,7 @@ const Header: React.FC = () => {
                 <NavbarItem>
                     <Link
                         color="foreground"
-                        href="/book"
+                        href="/booking"
                         className={`font-bold text-inherit ${getTextColor()} items-center`}
                     >
                         <Icon icon="mingcute:ticket-fill" className="mr-1"/>
@@ -96,6 +96,16 @@ const Header: React.FC = () => {
                     >
                         <Icon icon="mdi:star-four-points-circle-outline" className="mr-1"/>
                         Privilege Club
+                    </Link>
+                </NavbarItem>
+                <NavbarItem>
+                    <Link
+                        color="foreground"
+                        href="/group"
+                        className={`font-bold text-inherit ${getTextColor()} items-center`}
+                    >
+                        <Icon icon="mdi:account-group-outline" className="mr-1"/>
+                        Group
                     </Link>
                 </NavbarItem>
             </NavbarContent>
