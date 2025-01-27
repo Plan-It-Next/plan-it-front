@@ -25,33 +25,34 @@ export interface TravelCardProps {
   companyName?: string;
   departureCity?: string;
   arrivalCity?: string;
-  departureTime?: string;
-  arrivalTime?: string;
-  date?: string;
+  departureTime?: Date;
+  arrivalTime?: Date;
   seatClass?: string;
   price?: string;
+  duration?: number;
 }
 
 export const TravelCard: React.FC<TravelCardProps> = ({
   travelType = TravelType.TREN,
   companyName = 'Ferrovías',
-  departureCity = 'Madrid',
-  arrivalCity = 'Barcelona',
-  departureTime = '08:00',
-  arrivalTime = '12:15',
-  date = '01/02/2025',
+  departureCity = 'Valencia',
+  arrivalCity = 'Madrid',
+  departureTime = new Date(2025, 0, 27, 17, 20),
+  arrivalTime = new Date(2025, 0, 31, 11, 43),
   seatClass = 'Turista',
   price = '75€',
+  duration = 5,
 }) => {
-  // Calcular duración del viaje
-  const getDuration = (start: string, end: string) => {
-    const [startHour, startMin] = start.split(':').map(Number);
-    const [endHour, endMin] = end.split(':').map(Number);
-    const durationMin = endHour * 60 + endMin - (startHour * 60 + startMin);
-    const hours = Math.floor(durationMin / 60);
-    const minutes = durationMin % 60;
-    return `${hours}h ${minutes}min`;
-  };
+  const formatoHora = Intl.DateTimeFormat('es', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const formatoDia = new Intl.DateTimeFormat('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
 
   return (
     <Card className="hover:shadow-lg transition-all duration-300 mb-4">
@@ -63,7 +64,9 @@ export const TravelCard: React.FC<TravelCardProps> = ({
               {companyName}
             </span>
           </div>
-          <span className="text-sm text-gray-500">📅 {date}</span>
+          <span className="text-sm text-gray-500">
+            📅 {`${formatoDia.format(departureTime)}`}
+          </span>
         </div>
         <Chip color="primary" variant="flat" className="capitalize">
           {seatClass}
@@ -77,16 +80,14 @@ export const TravelCard: React.FC<TravelCardProps> = ({
           {/* Columna de Salida */}
           <div className="flex flex-col items-start px-6">
             <span className="text-sm text-gray-500">Salida</span>
-            <span className="text-xl font-bold">{departureTime}</span>
+            <span className="text-xl font-bold">{`${formatoHora.format(departureTime)}`}</span>
             <span className="text-base font-medium">{departureCity}</span>
           </div>
 
           {/* Columna Central - Duración */}
           <div className="flex flex-col items-center px-4">
             <span className="text-sm text-gray-500">Duración</span>
-            <span className="text-sm font-medium">
-              {getDuration(departureTime, arrivalTime)}
-            </span>
+            <span className="text-sm font-medium">{`${duration}h`}</span>
             <div className="flex items-center mt-2">
               <div className="w-2 h-2 rounded-full bg-primary"></div>
               <div className="w-[600px] h-0.5 bg-primary"></div>
@@ -97,7 +98,7 @@ export const TravelCard: React.FC<TravelCardProps> = ({
           {/* Columna de Llegada */}
           <div className="flex flex-col items-end px-6">
             <span className="text-sm text-gray-500">Llegada</span>
-            <span className="text-xl font-bold">{arrivalTime}</span>
+            <span className="text-xl font-bold">{`${formatoHora.format(arrivalTime)}`}</span>
             <span className="text-base font-medium">{arrivalCity}</span>
           </div>
         </div>
