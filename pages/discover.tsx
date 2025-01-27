@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next';
-import Header from '../components/commons/header/HeaderComponent';
 import DiscoverDestinationInfoCardComponent from "@/components/commons/DiscoverDestinationInfoCardComponent";
 import DiscoverHeadCarrousel from "@/components/discoverComponents/DiscoverHeadCarrousel";
 import Footer from "@/components/commons/FooterComponent";
@@ -149,7 +148,6 @@ export default function Discover({
                                  }: DiscoverPageProps) {
     return (
         <div>
-            <Header/>
             <section>
                 <DiscoverHeadCarrousel destinations={carouselDestinations}/>
             </section>

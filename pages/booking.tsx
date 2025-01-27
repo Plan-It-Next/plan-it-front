@@ -44,8 +44,8 @@ export default function BookingPage() {
     const [error, setError] = useState<string | null>(null);
 
     const { tripResults } = useContext(TravelSearchContext);
-    const [firstTrip] = tripResults;
-    const { nodo1: origin, relacion: route, nodo2: destination } = firstTrip;
+    // const [firstTrip] = tripResults;
+    // const { nodo1: origin, relacion: route, nodo2: destination } = firstTrip;
 
     const searchFlights = async () => {
         setLoading(true);
