@@ -1,27 +1,51 @@
-'use client'
+import { useTravelForm } from '@/hooks/useTravelForm';
+import { travelSearchForm } from '@/types/travelSearchForm';
+import React, { createContext } from 'react';
 
-import {createContext, ReactElement, useState} from "react";
-import {travelSearchForm} from "travelSearchForm";
+export const TravelSearchContext = createContext(
+    {} as travelSearchForm & {
+        setFormState: React.Dispatch<React.SetStateAction<travelSearchForm>>;
+    },
+);
 
-const defaultTravelerSearchForm: travelSearchForm = {
-    origin: [],
-    destiny: [],
-    passengers: 1,
-    departureDate: null,
-    returnDate: null,
-    transportMode: ""
-};
+export interface travelSearchProps {
+    children: React.ReactNode;
+}
 
-export const TravelSearchContext = createContext({});
-
-export interface travelSearchProps {children: ReactElement}
-
-export const TravelSearchProvider = ({children}: travelSearchProps) => {
-    const [travelerSearchForm, setTravelerSearchForm] = useState(defaultTravelerSearchForm);
+export const TravelSearchProvider = ({ children }: travelSearchProps) => {
+    const {
+        selectedModes,
+        travelers,
+        returnDate,
+        departureDate,
+        isLoadingDest,
+        isLoadingOrigin,
+        destResults,
+        originResults,
+        destQuery,
+        originQuery,
+        tripResults,
+        setFormState,
+    } = useTravelForm();
 
     return (
-        <TravelSearchContext.Provider value={{travelerSearchForm, setTravelerSearchForm}}>
+        <TravelSearchContext.Provider
+            value={{
+                selectedModes,
+                travelers,
+                returnDate,
+                departureDate,
+                isLoadingDest,
+                isLoadingOrigin,
+                destResults,
+                originResults,
+                destQuery,
+                originQuery,
+                tripResults,
+                setFormState,
+            }}
+        >
             {children}
         </TravelSearchContext.Provider>
     );
-}
+};

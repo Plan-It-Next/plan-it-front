@@ -7,7 +7,7 @@ const HomeBackgroundCarousel = () => {
     const images = [
         '/images/landing-background-carousel-images/ferry-home-image.jpg',
         '/images/landing-background-carousel-images/home-travel-image.jpg',
-        '/images/landing-background-carousel-images/red-train-home-image.jpg'
+        '/images/landing-background-carousel-images/red-train-home-image.jpg',
     ];
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const HomeBackgroundCarousel = () => {
                         index === currentIndex ? 'opacity-100' : 'opacity-0'
                     }`}
                     style={{
-                        transitionDuration: '2000ms' // 2 second fade transition
+                        transitionDuration: '2000ms', // 2 second fade transition
                     }}
                 >
                     <Image
@@ -43,3 +43,4 @@ const HomeBackgroundCarousel = () => {
 };
 
 export default HomeBackgroundCarousel;
+
