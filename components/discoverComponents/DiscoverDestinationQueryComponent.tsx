@@ -26,7 +26,7 @@ const DiscoverDestinationQueryComponent: React.FC<DiscoverDestinationQueryProps>
 
     return (
         <div className="p-8 bg-gray-100 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold mb-4">¿Dónde quieres viajar?</h2>
+            <h2 className="text-2xl font-bold mb-4">Enter a destination to discover things to do!</h2>
             <div className="flex flex-col gap-4">
                 {/* Input and Button Section */}
                 <div className="flex flex-row gap-4 items-center">
@@ -34,7 +34,7 @@ const DiscoverDestinationQueryComponent: React.FC<DiscoverDestinationQueryProps>
                         type="text"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        placeholder="Introduce un destino..."
+                        placeholder="Enter destination..."
                         className="flex-grow px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <button
@@ -42,7 +42,7 @@ const DiscoverDestinationQueryComponent: React.FC<DiscoverDestinationQueryProps>
                         className="px-6 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition"
                         disabled={loading}
                     >
-                        {loading ? 'Enviando...' : 'Enviar'}
+                        {loading ? 'Sending...' : 'Send'}
                     </button>
                 </div>
 
