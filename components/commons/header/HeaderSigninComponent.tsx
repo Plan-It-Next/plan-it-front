@@ -15,12 +15,7 @@ import {
 import { EyeFilledIcon } from "@nextui-org/shared-icons";
 import { EyeSlashFilledIcon } from "@nextui-org/shared-icons";
 import HeaderAvatarComponent from "./HeaderAvatarComponent";
-
-interface User {
-    name: string;
-    email: string;
-    avatar: string;
-}
+import {useAuth} from "@/context/AuthContext";
 
 interface ErrorState {
     email: string;
@@ -33,11 +28,12 @@ interface HeaderSigninComponentProps {
 }
 
 const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolled = false }) => {
+    // User setter
+    const { setUser } = useAuth();
+
     // User signed in state
     const [isSignedIn, setIsSignedIn] = useState(false);
 
-    // User setter
-    const [user, setUser] = useState<User | null>(null);
 
     // Email setter
     const [email, setEmail] = useState("");
@@ -128,6 +124,7 @@ const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolle
             localStorage.setItem("user", JSON.stringify(data.user));
             setUser(data.user);
             setIsSignedIn(true);
+
         } catch (error: unknown) {
             if (error instanceof Error) {
                 setErrors((prev) => ({ ...prev, general: "You are not registered" }));
@@ -148,9 +145,10 @@ const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolle
         localStorage.removeItem("token");
         localStorage.removeItem("user");
     };
-
-    if (isSignedIn && user) {
-        return <HeaderAvatarComponent user={user} onSignOut={handleSignOut} />;
+    const { user } = useAuth();
+    if (isSignedIn) {
+        let headerAvatarComponent = <HeaderAvatarComponent user={user} onSignOut={handleSignOut}/>;
+        return headerAvatarComponent;
     }
 
     return (
