@@ -4,9 +4,18 @@ import { Icon } from '@iconify/react';
 import {useAuth} from "@/context/AuthContext";
 
 
+interface Poll {
+  poll_id: number;
+  poll_name: string;
+}
 
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
 // Modal Component
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return createPortal(
@@ -28,31 +37,37 @@ const Modal = ({ isOpen, onClose, children }) => {
 const LugaresGuardados = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newPlace, setNewPlace] = useState({ city: '', country: '' });
-  const [polls, setPolls] = useState([]);
+  const [polls, setPolls] = useState<Poll[]>([]);
   const [errorMensaje, setErrorMensaje] = useState(""); // Estado para el mensaje de error
-  const { group, loading, error } = useAuth();
+  const { currentGroup} = useAuth();
 
-  const groupId = localStorage.getItem("group_id");
+  //const groupId = localStorage.getItem("group_id");
 
   useEffect(() => {
-    if (groupId) {
-      fetch(`/polls/${groupId}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Error al obtener las encuestas');
+    const fetchPolls = async () => {
+      if (!currentGroup) return;
+
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch("http://localhost:8000/polls/"+ encodeURIComponent(currentGroup.group_id), {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
           }
-          return response.json();
-        })
-        .then(data => {
-          // Se asume que la respuesta tiene una propiedad "polls"
-          setPolls(data.polls);
-        })
-        .catch(error => {
-          setErrorMensaje("Error fetching polls");
-          console.error("Error:", error);
         });
-    }
-  }, [groupId]);
+        if (!response.ok) {
+          throw new Error('Error al obtener las encuestas');
+        }
+        const data = await response.json();
+        setPolls(data.polls as Poll[]);
+
+      } catch (error) {
+        setErrorMensaje("Error fetching polls");
+        console.error("Error:", error);
+      }
+    };
+    fetchPolls();
+  }, [currentGroup]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -61,48 +76,63 @@ const LugaresGuardados = () => {
   };
 
   const handleAddPlace = async () => {
+    if (!currentGroup) {
+      setErrorMensaje("No group selected");
+      return;
+    }
+
     if (newPlace.city.trim() === '' && newPlace.country.trim() === '') {
       alert('Por favor, introduce al menos una ciudad o un país.');
       return;
     }
     const pollName = `${newPlace.city}, ${newPlace.country}`;
+
     try {
-      const response = await fetch('/polls/create', {
+      const token = localStorage.getItem('token');
+      const response = await fetch("http://localhost:8000/polls/create", {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
-          group_id: groupId,
-          name: pollName,
+          group_id: currentGroup.group_id,
+          poll_name: pollName
         }),
       });
       if (!response.ok) {
         throw new Error('Error creating poll');
       }
-      // Se asume que la API devuelve la encuesta creada
+
       const newPoll = await response.json();
       // Se añade la nueva encuesta al estado
-      setPolls([polls, newPoll]);
+      setPolls(prevPolls => prevPolls.concat(newPoll as Poll));
       closeModal();
     } catch (error) {
       setErrorMensaje(`Error creating poll: ${error}`);
       setTimeout(() => setErrorMensaje(""), 6000);
     }
   };
-  const handleVote = async (voteType, poll) => {
+  const handleVote = async (voteType: string, poll: Poll) => {
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch('/polls/vote', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
-          poll_id: poll.id,    // se asume que cada encuesta tiene un id
-          vote_type: voteType, // puede ser 'heart' o 'circle'
+          poll_id: poll.poll_id,
+          group_id: currentGroup?.group_id,
+          vote_type: voteType
         }),
       });
       if (!response.ok) {
         throw new Error('Error voting');
       }
     } catch (error) {
-      setErrorMensaje(`API no disponible para votar: ${poll.name}, ${error}`);
+      setErrorMensaje(`API no disponible para votar: ${poll.poll_name}, ${error}`);
       setTimeout(() => setErrorMensaje(""), 6000);
     }
   };
@@ -111,35 +141,40 @@ const LugaresGuardados = () => {
     <div className="p-4 bg-white rounded shadow">
       <h2 className="text-lg font-semibold">Lugares Guardados</h2>
       <ul>
-        {polls.map((place, index) => (
-          <li
-            key={index}
-            className="flex justify-between items-center py-2 border-b"
-          >
-            <span>
-              {place.name}
-            </span>
-            <div className="flex space-x-2">
-              <button
-                onClick={() => handleVote('heart', place)}
-                className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
-                aria-label={`Votar con corazón por ${place.name}`}
-              >
-                <Icon icon="mdi:heart" className="text-lg" />
-              </button>
-              <button
-                onClick={() => handleVote('circle', place)}
-                className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                aria-label={`Votar con círculo por ${place.name}`}
-              >
-                <Icon icon="mdi:circle-outline" className="text-lg" />
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <button
-        onClick={openModal}
+        {polls && polls.length > 0 ? (
+              polls.map((place) => (
+                  <li
+                      key={place.poll_id}
+                      className="flex justify-between items-center py-2 border-b"
+                  >
+              <span>
+                {place.poll_name}
+              </span>
+                    <div className="flex space-x-2">
+                      <button
+                          onClick={() => handleVote('heart', place)}
+                          className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
+                          aria-label={`Votar con corazón por ${place}`}
+                      >
+                        <Icon icon="mdi:heart" className="text-lg"/>
+                      </button>
+                      <button
+                          onClick={() => handleVote('circle', place)}
+                          className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                          aria-label={`Votar con círculo por ${place}`}
+                      >
+                        <Icon icon="mdi:circle-outline" className="text-lg"/>
+                      </button>
+                    </div>
+                  </li>
+              ))
+            ) : (
+              <li>No hay lugares guardados</li>
+            )}
+          </ul>
+
+          <button
+          onClick={openModal}
         className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         Crear Votación

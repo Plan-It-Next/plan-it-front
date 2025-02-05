@@ -147,7 +147,7 @@ const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolle
     };
     const { user } = useAuth();
     if (isSignedIn) {
-        let headerAvatarComponent = <HeaderAvatarComponent user={user} onSignOut={handleSignOut}/>;
+        const headerAvatarComponent = <HeaderAvatarComponent user={user} onSignOut={handleSignOut}/>;
         return headerAvatarComponent;
     }
 

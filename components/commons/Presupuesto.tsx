@@ -1,18 +1,42 @@
 import React, { useState } from 'react';
 import { Slider } from "@nextui-org/react";
+import {useAuth} from "@/context/AuthContext";
 
 export default function Presupuesto() {
   const [presupuesto, setPresupuesto] = useState(75);
   const [mensaje, setMensaje] = useState(""); // Para mostrar mensajes de éxito o error
+  const { currentGroup} = useAuth();
 
   const guardarPresupuesto = async () => {
-    try {
-      // Simulación de la llamada a la API
-      await new Promise((resolve, reject) => setTimeout(() => reject(new Error("API no disponible")), 1000));
-      setMensaje("Presupuesto guardado con éxito");
-    } catch (error) {
-      setMensaje("API no disponible en este momento.");
+    if (!currentGroup || !currentGroup.group_id) {
+      setMensaje("No perteneces a un grupo");
+      setTimeout(() => setMensaje(""), 6000);
+      return;
     }
+    try {
+      const token = localStorage.getItem('token');
+    const response = await fetch("http://localhost:8000/user_group/budget", {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        group_id: currentGroup.group_id,
+        budget: presupuesto
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message ||'Error updating budget');
+    }
+
+    setMensaje("Presupuesto guardado con éxito");
+  } catch (error) {
+    setMensaje("API no disponible en este momento."+ error);
+  }
+
 
     // Mostrar el mensaje durante 6 segundos
     setTimeout(() => setMensaje(""), 6000);
@@ -26,7 +50,7 @@ export default function Presupuesto() {
         <Slider
           className="w-full mt-4"
           defaultValue={presupuesto}
-          onChange={(value) => setPresupuesto(value)}
+          onChange={(value) => setPresupuesto(Array.isArray(value) ? value[0] : value)}
           minValue={35}
           maxValue={2000}
           step={5}

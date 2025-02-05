@@ -2,13 +2,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
-    id: string;
+    user_id: string;
     name: string;
     email: string;
     password: string;
 }
 interface Group {
-    id: string;
+    group_id: string;
     name: string;
 }
 
@@ -47,7 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setGroupError(null);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8000/groups/${user.id}`, {
+            const response = await fetch(`http://localhost:8000/groups/${user.user_id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',

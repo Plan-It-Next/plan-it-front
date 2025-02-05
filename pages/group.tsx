@@ -1,7 +1,7 @@
 import LugaresGuardados from '@/components/commons/LugaresGuardados';
 import Presupuesto from '@/components/commons/Presupuesto';
 import CustomRangeCalendar from '@/components/commons/CustomRangeCalendar';
-import React, {useEffect} from "react";
+import React from "react";
 import {useAuth} from "@/context/AuthContext";
 
 
