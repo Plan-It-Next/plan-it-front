@@ -7,7 +7,9 @@ import {useAuth} from "@/context/AuthContext";
 interface Poll {
   poll_id: number;
   poll_name: string;
+  userVote?: boolean;
 }
+
 
 interface ModalProps {
   isOpen: boolean;
@@ -39,7 +41,7 @@ const LugaresGuardados = () => {
   const [newPlace, setNewPlace] = useState({ city: '', country: '' });
   const [polls, setPolls] = useState<Poll[]>([]);
   const [errorMensaje, setErrorMensaje] = useState(""); // Estado para el mensaje de error
-  const { currentGroup} = useAuth();
+  const {user, currentGroup} = useAuth();
 
   //const groupId = localStorage.getItem("group_id");
 
@@ -59,7 +61,7 @@ const LugaresGuardados = () => {
           throw new Error('Error al obtener las encuestas');
         }
         const data = await response.json();
-        setPolls(data.polls as Poll[]);
+        setPolls(data as Poll[]);
 
       } catch (error) {
         setErrorMensaje("Error fetching polls");
@@ -115,8 +117,9 @@ const LugaresGuardados = () => {
   };
   const handleVote = async (voteType: string, poll: Poll) => {
     try {
+      const mappedVote = voteType === 'heart';
       const token = localStorage.getItem('token');
-      const response = await fetch('/polls/vote', {
+      const response = await fetch("http://localhost:8000/polls/vote", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -124,15 +127,23 @@ const LugaresGuardados = () => {
         },
         body: JSON.stringify({
           poll_id: poll.poll_id,
+          user_id: user?.user_id,
           group_id: currentGroup?.group_id,
-          vote_type: voteType
+          vote: mappedVote
         }),
       });
       if (!response.ok) {
         throw new Error('Error voting');
       }
+
+      setPolls(prevPolls =>
+      prevPolls.map(p =>
+        p.poll_id === poll.poll_id ? { ...p, userVote: mappedVote } : p
+      )
+    );
+
     } catch (error) {
-      setErrorMensaje(`API no disponible para votar: ${poll.poll_name}, ${error}`);
+      setErrorMensaje(`API no disponible para votar: ${error}`);
       setTimeout(() => setErrorMensaje(""), 6000);
     }
   };
@@ -142,15 +153,20 @@ const LugaresGuardados = () => {
       <h2 className="text-lg font-semibold">Lugares Guardados</h2>
       <ul>
         {polls && polls.length > 0 ? (
-              polls.map((place) => (
+              polls.map(place => (
                   <li
                       key={place.poll_id}
                       className="flex justify-between items-center py-2 border-b"
                   >
-              <span>
-                {place.poll_name}
-              </span>
+                  <span>
+                    {place.poll_name}
+                  </span>
                     <div className="flex space-x-2">
+                      {place.userVote !== undefined ? (
+                        // Mostrar un mensaje o cambiar el estilo si ya se votó
+                        <span className="text-green-600 font-bold">Votado</span>
+                      ) : (
+                        <>
                       <button
                           onClick={() => handleVote('heart', place)}
                           className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
@@ -165,6 +181,8 @@ const LugaresGuardados = () => {
                       >
                         <Icon icon="mdi:circle-outline" className="text-lg"/>
                       </button>
+                        </>
+                      )}
                     </div>
                   </li>
               ))

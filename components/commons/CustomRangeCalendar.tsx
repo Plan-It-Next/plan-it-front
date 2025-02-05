@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import {DateValue, RangeCalendar} from "@nextui-org/react";
 import { today, getLocalTimeZone } from "@internationalized/date";
+import {useAuth} from "@/context/AuthContext";
 
 export default function CustomRangeCalendar() {
   const [selectedDates, setSelectedDates] = useState<{ start: DateValue; end: DateValue } | null>(null);
   const [message, setMessage] = useState<{ type: "error" | "success"; text: string } | null>(null);
+  const {user, currentGroup} = useAuth();
 
   const handleSave = async () => {
     if (!selectedDates) {
@@ -13,6 +15,19 @@ export default function CustomRangeCalendar() {
       setTimeout(() => setMessage(null), 6000);
       return;
     }
+
+    const start = new Date(selectedDates.start.toString());
+    const end = new Date(selectedDates.end.toString());
+
+    const dayInMillis = 24 * 60 * 60 * 1000;
+    const daysArray = [];
+    for (let d = start; d <= end; d = new Date(d.getTime() + dayInMillis)) {
+      daysArray.push({
+        user_id: user?.user_id,
+        group_id: currentGroup?.group_id,
+        available_day: d.toISOString().split("T")[0], // o el formato que espera tu DB
+    });
+  }
 
     console.log("Intentando enviar las fechas seleccionadas a la API:", selectedDates);
 
@@ -24,10 +39,7 @@ export default function CustomRangeCalendar() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({
-        start_date: selectedDates.start.toString(),
-        end_date: selectedDates.end.toString()
-      }),
+      body: JSON.stringify(daysArray),
     });
 
     if (!response.ok) {

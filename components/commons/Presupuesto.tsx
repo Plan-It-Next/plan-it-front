@@ -5,7 +5,7 @@ import {useAuth} from "@/context/AuthContext";
 export default function Presupuesto() {
   const [presupuesto, setPresupuesto] = useState(75);
   const [mensaje, setMensaje] = useState(""); // Para mostrar mensajes de éxito o error
-  const { currentGroup} = useAuth();
+  const {user, currentGroup} = useAuth();
 
   const guardarPresupuesto = async () => {
     if (!currentGroup || !currentGroup.group_id) {
@@ -22,6 +22,7 @@ export default function Presupuesto() {
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
+        user_id: user?.user_id,
         group_id: currentGroup.group_id,
         budget: presupuesto
       }),
