@@ -33,7 +33,7 @@ export default function CustomRangeCalendar() {
 
     try {
     const token = localStorage.getItem('token');
-    const response = await fetch("http://localhost:8000/calendar/add_day", {
+    const response = await fetch("http://34.41.98.73/calendar/add_day", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -80,7 +80,7 @@ const defaultContinentData: ContinentData = {
 
 const handleSendQuery = async (texto: string) => {
     try {
-        const response = await fetch('http://localhost:8000/api/activities', {
+        const response = await fetch('http://34.41.98.73/api/activities', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

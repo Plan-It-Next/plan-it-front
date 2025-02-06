@@ -47,7 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setGroupError(null);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8000/groups/${user.user_id}`, {
+            const response = await fetch(`http://34.41.98.73/groups/${user.user_id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',

@@ -51,7 +51,7 @@ const LugaresGuardados = () => {
 
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch("http://localhost:8000/polls/"+ encodeURIComponent(currentGroup.group_id), {
+        const response = await fetch("http://34.41.98.73/polls/"+ encodeURIComponent(currentGroup.group_id), {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const LugaresGuardados = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch("http://localhost:8000/polls/create", {
+      const response = await fetch("http://34.41.98.73/polls/create", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ const LugaresGuardados = () => {
     try {
       const mappedVote = voteType === 'heart';
       const token = localStorage.getItem('token');
-      const response = await fetch("http://localhost:8000/polls/vote", {
+      const response = await fetch("http://34.41.98.73/polls/vote", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

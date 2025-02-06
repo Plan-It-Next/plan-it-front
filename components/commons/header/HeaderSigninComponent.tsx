@@ -52,7 +52,7 @@ const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolle
     // Password visibility variables
     const [isVisible, setIsVisible] = React.useState(false);
 
-    const API_URL = "http://localhost:8000/login/"+encodeURIComponent(email)+"/"+ encodeURIComponent(password) // Cambia a tu URL real
+    const API_URL = "http://34.41.98.73/login/"+encodeURIComponent(email)+"/"+ encodeURIComponent(password) // Cambia a tu URL real
 
     // Verificar token al cargar el componente
     useEffect(() => {

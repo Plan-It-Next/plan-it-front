@@ -15,7 +15,7 @@ export default function Presupuesto() {
     }
     try {
       const token = localStorage.getItem('token');
-    const response = await fetch("http://localhost:8000/user_group/budget", {
+    const response = await fetch("http://34.41.98.73/user_group/budget", {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
