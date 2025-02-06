@@ -87,7 +87,7 @@ export const useTravelForm = (
     };
 
     try {
-      const response = await fetch('http://34.41.98.73/trip/viaje_filtro', {
+      const response = await fetch('http://localhost:8000/trip/viaje_filtro', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
