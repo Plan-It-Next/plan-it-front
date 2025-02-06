@@ -7,9 +7,9 @@ import { useState } from 'react';
 
 function toPascalCase(str: string) {
   return str
-    .toLowerCase() // Convierte toda la cadena a minúsculas
-    .replace(/(?:^|\s|_|-)(\w)/g, (_match, p1) => p1.toUpperCase()) // Convierte la primera letra de cada palabra a mayúsculas
-    .replace(/[\s_-]/g, ''); // Elimina espacios, guiones bajos y guiones
+    ?.toLowerCase() // Convierte toda la cadena a minúsculas
+    ?.replace(/(?:^|\s|_|-)(\w)/g, (_match, p1) => p1.toUpperCase()) // Convierte la primera letra de cada palabra a mayúsculas
+    ?.replace(/[\s_-]/g, ''); // Elimina espacios, guiones bajos y guiones
 }
 
 function clearData(data: unknown[]): TripResult[] {
@@ -29,7 +29,7 @@ function clearData(data: unknown[]): TripResult[] {
 
 export const useTravelForm = (
   props: travelSearchForm = {
-    selectedModes: new Set(['tren']),
+    selectedModes: new Set(['avion']),
     originQuery: '',
     destQuery: '',
     originResults: [] as LocationData[],

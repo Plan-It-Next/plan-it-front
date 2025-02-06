@@ -117,12 +117,12 @@ const BookingSection: React.FC = () => {
   }, [destQuery]);
 
   const handleSelectionChange = (newSelection: Selection) => {
-    if (newSelection === 'all' || newSelection.size > 0) {
-      setFormState((prevState) => ({
-        ...prevState,
-        selectedModes: newSelection,
-      }));
-    }
+    // if (newSelection === 'all' || newSelection.size > 0) {
+    setFormState((prevState) => ({
+      ...prevState,
+      selectedModes: newSelection,
+    }));
+    // }
   };
 
   return (
@@ -161,8 +161,8 @@ const BookingSection: React.FC = () => {
             )}
           </Autocomplete>
           <Autocomplete
-            label="Destiny"
-            placeholder="Destiny city"
+            label="Destination"
+            placeholder="Destination city"
             className="h-full mt-2"
             onInputChange={(value) =>
               setFormState((prevState) => ({
@@ -231,7 +231,7 @@ const BookingSection: React.FC = () => {
               label="Transport Modes"
               placeholder="Select transport modes"
               selectionMode="multiple"
-              selectedKeys={['tren']}
+              // selectedKeys={['tren']}
               onSelectionChange={handleSelectionChange}
               className="w-full"
             >

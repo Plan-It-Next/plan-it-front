@@ -1,14 +1,15 @@
 // pages/booking.tsx
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import { Card, CardBody, Spinner } from '@nextui-org/react';
 import BookingSection from '@/components/commons/search/BookingSectionComponent';
 import StickySidebar from '@/components/commons/FilterSctickyColumn';
 import { TravelSearchContext } from '@/context/TravelSearchContext';
 import { TravelCard, TravelType } from '@/components/commons/search/TravelCard';
 
-export default function BookingPage() {
+export default memo(function BookingPage() {
   const { tripResults, isLoading, error } = useContext(TravelSearchContext);
   // const trip = tripResults[0];
+  console.table(tripResults);
   return (
     <div className="container mx-auto p-4">
       <div className="px-24 mt-8 flex relative">
@@ -23,11 +24,17 @@ export default function BookingPage() {
           {isLoading && <Spinner className="mt-8" />}
           {error && <div className="mt-8 text-red-500">{error}</div>}
 
-          {tripResults.map(trip => (
+          {tripResults.map((trip) => (
             <TravelCard
-              key={trip.nodo1.id}
-              travelType={TravelType.TREN}
-              companyName={'Renfe'}
+              key={trip.relacion.id}
+              travelType={
+                trip.relacion.properties.tipo === "avion"
+                  ? TravelType.AVION
+                  : TravelType.TREN
+              }
+              companyName={
+                trip.relacion.properties.tipo === 'tren' ? 'RENFE' : 'IBERIA'
+              }
               departureCity={trip.nodo1.properties.ciudad}
               arrivalCity={trip.nodo2.properties.ciudad}
               departureTime={trip.relacion.properties.fecha_hora_salida}
@@ -45,4 +52,4 @@ export default function BookingPage() {
       </div>
     </div>
   );
-}
+});

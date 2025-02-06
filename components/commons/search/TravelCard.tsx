@@ -14,7 +14,7 @@ import {
  */
 export enum TravelType {
   TREN = 'Tren',
-  AVION = 'Avión',
+  AVION = 'Avion',
 }
 
 /**
@@ -33,8 +33,8 @@ export interface TravelCardProps {
 }
 
 const getFormatDate = (dateStr: string): string => {
-  let date = new Date(dateStr)
-  if (date < new Date()) date = new Date()
+  let date = new Date(dateStr);
+  if (date < new Date()) date = new Date();
 
   // Extract the day, month, and year
   const day = String(date.getDate()).padStart(2, '0'); // Returns day as 2 digits
@@ -47,7 +47,7 @@ const getFormatDate = (dateStr: string): string => {
 };
 
 const getFormatTime = (dateStr: string): string => {
-  const date = new Date(dateStr)
+  const date = new Date(dateStr);
   // Get hours and minutes, and pad them with a leading zero if necessary
   const hours = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -61,8 +61,8 @@ export const TravelCard: React.FC<TravelCardProps> = ({
   companyName = 'Ferrovías',
   departureCity = 'Valencia',
   arrivalCity = 'Madrid',
-  departureTime = "2025-01-06T16:20:00.000Z",
-  arrivalTime = "2025-01-11T08:30:00.000Z",
+  departureTime = '2025-01-06T16:20:00.000Z',
+  arrivalTime = '2025-01-11T08:30:00.000Z',
   seatClass = 'Turista',
   price = '75€',
   duration = 5,
@@ -73,7 +73,7 @@ export const TravelCard: React.FC<TravelCardProps> = ({
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <span className="text-lg font-bold">
-              {travelType === TravelType.AVION ? '✈️' : '🚂'}
+              {travelType === ('avion' as TravelType) ? '✈️' : '🚂'}
               {companyName}
             </span>
           </div>
