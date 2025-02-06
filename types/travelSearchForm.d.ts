@@ -64,6 +64,6 @@ export interface RelacionProperties {
     duracion: number;
     distancia?: number;
     precio_billete: number;
-    fecha_hora_salida: Date;
-    fecha_hora_llegada: Date;
+    fecha_hora_salida: string;
+    fecha_hora_llegada: string;
 }

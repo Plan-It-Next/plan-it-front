@@ -25,35 +25,48 @@ export interface TravelCardProps {
   companyName?: string;
   departureCity?: string;
   arrivalCity?: string;
-  departureTime?: Date;
-  arrivalTime?: Date;
+  departureTime?: string;
+  arrivalTime?: string;
   seatClass?: string;
   price?: string;
   duration?: number;
 }
+
+const getFormatDate = (dateStr: string): string => {
+  let date = new Date(dateStr)
+  if (date < new Date()) date = new Date()
+
+  // Extract the day, month, and year
+  const day = String(date.getDate()).padStart(2, '0'); // Returns day as 2 digits
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // getMonth() returns 0-indexed month so add 1
+  const year = date.getFullYear();
+
+  // Format as DD/MM/YYYY
+  const formattedDate = `${day}/${month}/${year}`;
+  return formattedDate;
+};
+
+const getFormatTime = (dateStr: string): string => {
+  const date = new Date(dateStr)
+  // Get hours and minutes, and pad them with a leading zero if necessary
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  const formattedTime = `${hours}:${minutes}`;
+  return formattedTime;
+};
 
 export const TravelCard: React.FC<TravelCardProps> = ({
   travelType = TravelType.TREN,
   companyName = 'Ferrovías',
   departureCity = 'Valencia',
   arrivalCity = 'Madrid',
-  departureTime = new Date(2025, 0, 27, 17, 20),
-  arrivalTime = new Date(2025, 0, 31, 11, 43),
+  departureTime = "2025-01-06T16:20:00.000Z",
+  arrivalTime = "2025-01-11T08:30:00.000Z",
   seatClass = 'Turista',
   price = '75€',
   duration = 5,
 }) => {
-  const formatoHora = Intl.DateTimeFormat('es', {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-
-  const formatoDia = new Intl.DateTimeFormat('es-ES', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  });
-
   return (
     <Card className="hover:shadow-lg transition-all duration-300 mb-4">
       <CardHeader className="flex justify-between items-center pb-2">
@@ -65,7 +78,7 @@ export const TravelCard: React.FC<TravelCardProps> = ({
             </span>
           </div>
           <span className="text-sm text-gray-500">
-            📅 {`${formatoDia.format(departureTime)}`}
+            📅 {`${getFormatDate(departureTime)}`}
           </span>
         </div>
         <Chip color="primary" variant="flat" className="capitalize">
@@ -80,7 +93,7 @@ export const TravelCard: React.FC<TravelCardProps> = ({
           {/* Columna de Salida */}
           <div className="flex flex-col items-start px-6">
             <span className="text-sm text-gray-500">Salida</span>
-            <span className="text-xl font-bold">{`${formatoHora.format(departureTime)}`}</span>
+            <span className="text-xl font-bold">{`${getFormatTime(departureTime)}`}</span>
             <span className="text-base font-medium">{departureCity}</span>
           </div>
 
@@ -98,7 +111,7 @@ export const TravelCard: React.FC<TravelCardProps> = ({
           {/* Columna de Llegada */}
           <div className="flex flex-col items-end px-6">
             <span className="text-sm text-gray-500">Llegada</span>
-            <span className="text-xl font-bold">{`${formatoHora.format(arrivalTime)}`}</span>
+            <span className="text-xl font-bold">{`${getFormatTime(arrivalTime)}`}</span>
             <span className="text-base font-medium">{arrivalCity}</span>
           </div>
         </div>

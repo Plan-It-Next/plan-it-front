@@ -101,14 +101,6 @@ export const useTravelForm = (
 
       const responseData = await response.json();
       const cleanResponse = clearData(responseData);
-      cleanResponse.map((res) => {
-        res.relacion.properties.fecha_hora_llegada = new Date(
-          res.relacion.properties.fecha_hora_llegada,
-        );
-        res.relacion.properties.fecha_hora_salida = new Date(
-          res.relacion.properties.fecha_hora_salida,
-        );
-      });
       setFormState((prev) => ({ ...prev, tripResults: cleanResponse }));
     } catch (error) {
       setError(`Error during API request: ${error}`);
