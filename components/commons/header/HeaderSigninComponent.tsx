@@ -146,8 +146,13 @@ const HeaderSigninComponent: React.FC<HeaderSigninComponentProps> = ({ isScrolle
         localStorage.removeItem("user");
     };
     const { user } = useAuth();
-    if (isSignedIn) {
-        const headerAvatarComponent = <HeaderAvatarComponent user={user} onSignOut={handleSignOut}/>;
+    if (isSignedIn && user) {
+        const avatarUser = {
+            name: user.name,
+            email: user.email,
+            avatar: "" // Default empty avatar since it's not in the AuthContext User type
+        };
+        const headerAvatarComponent = <HeaderAvatarComponent user={avatarUser} onSignOut={handleSignOut}/>;
         return headerAvatarComponent;
     }
 

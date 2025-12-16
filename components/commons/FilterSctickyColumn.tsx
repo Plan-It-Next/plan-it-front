@@ -41,23 +41,35 @@ const StickySidebar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSelectAll = (group, setGroupChecks, value) => {
-    const updatedChecks = {};
+  const handleSelectAll = <T extends Record<string, boolean>>(
+    group: T, 
+    setGroupChecks: React.Dispatch<React.SetStateAction<T>>, 
+    value: boolean
+  ) => {
+    const updatedChecks = {} as T;
     Object.keys(group).forEach((key) => {
-      updatedChecks[key] = value;
+      (updatedChecks as any)[key] = value;
     });
     setGroupChecks(updatedChecks);
   };
 
-  const formatTime = (value) => {
+  const formatTime = (value: number): string => {
     const hours = Math.floor(value);
     const minutes = (value % 1) * 60;
     return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
   };
 
-  const handleTimeRangeChange = (values) => setTimeRange(values);
+  const handleTimeRangeChange = (values: number | number[]) => {
+    if (Array.isArray(values)) {
+      setTimeRange(values);
+    }
+  };
 
-  const handleDurationRangeChange = (values) => setDurationRange(values);
+  const handleDurationRangeChange = (values: number | number[]) => {
+    if (Array.isArray(values)) {
+      setDurationRange(values);
+    }
+  };
 
   return (
     <div
@@ -135,11 +147,11 @@ const StickySidebar = () => {
                       <input
                         type="checkbox"
                         id={key}
-                        checked={busChecks[key]}
+                        checked={busChecks[key as keyof typeof busChecks]}
                         onChange={() =>
                           setBusChecks((prev) => ({
                             ...prev,
-                            [key]: !prev[key],
+                            [key]: !prev[key as keyof typeof prev],
                           }))
                         }
                       />{" "}
@@ -171,11 +183,11 @@ const StickySidebar = () => {
                       <input
                         type="checkbox"
                         id={key}
-                        checked={trainChecks[key]}
+                        checked={trainChecks[key as keyof typeof trainChecks]}
                         onChange={() =>
                           setTrainChecks((prev) => ({
                             ...prev,
-                            [key]: !prev[key],
+                            [key]: !prev[key as keyof typeof prev],
                           }))
                         }
                       />{" "}
@@ -207,11 +219,11 @@ const StickySidebar = () => {
                       <input
                         type="checkbox"
                         id={key}
-                        checked={planeChecks[key]}
+                        checked={planeChecks[key as keyof typeof planeChecks]}
                         onChange={() =>
                           setPlaneChecks((prev) => ({
                             ...prev,
-                            [key]: !prev[key],
+                            [key]: !prev[key as keyof typeof prev],
                           }))
                         }
                       />{" "}
