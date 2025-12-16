@@ -28,13 +28,11 @@ interface Props {
 }
 
 const fadeInTransition = {
-    duration: 2,
-    ease: [0.4, 0, 0.2, 1]
+    duration: 2
 };
 
 const fadeOutTransition = {
-    duration: 1,
-    ease: [0.4, 1, 0.8, 1]
+    duration: 1
 };
 
 const DestinationCarousel: React.FC<Props> = ({ currentIndex, setCurrentIndex }) => {
@@ -55,14 +53,9 @@ const DestinationCarousel: React.FC<Props> = ({ currentIndex, setCurrentIndex })
                     <motion.div
                         key={currentIndex}
                         initial={{ opacity: 0 }}
-                        animate={{
-                            opacity: 1,
-                            transition: fadeInTransition
-                        }}
-                        exit={{
-                            opacity: 0,
-                            transition: fadeOutTransition
-                        }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={fadeInTransition}
                     >
                         <DestinationInfoCardComponent {...destinations[currentIndex]} />
                     </motion.div>
